@@ -22,11 +22,37 @@ class PersonList extends StatelessWidget {
       body: ListView(
         children: persons.map((person) => PersonCard(person: person)).toList(),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pushNamed(context, '/learn', arguments: persons);
-        },
-        child: Icon(Icons.book),
+      floatingActionButton: Stack(
+        children: <Widget>[
+          Positioned(
+            bottom: 80.0,
+            right: 10.0,
+            child: FloatingActionButton(
+              heroTag: 'learn',
+              onPressed: () {
+                Navigator.pushNamed(context, '/learn', arguments: persons);
+              },
+              child: Icon(Icons.book),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(5.0),
+              ),
+            ),
+          ),
+          Positioned(
+            bottom: 10.0,
+            right: 10.0,
+            child: FloatingActionButton(
+              heroTag: 'game',
+              onPressed: () {
+                Navigator.pushNamed(context, '/game', arguments: persons);
+              },
+              child: Icon(Icons.play_arrow),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(5.0),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gmoria/Home.dart';
 import 'package:gmoria/ListOfPersons.dart';
+import 'package:gmoria/PersonGameCard.dart';
 import 'package:gmoria/PersonLearnCard.dart';
+import 'package:gmoria/ScorePage.dart';
 
 void main() {
   runApp(MyApp());
@@ -24,6 +26,15 @@ class MyApp extends StatelessWidget {
         },
         PersonLearnCard.routeName: (context) {
           return PersonLearnCard();
+        },
+        PersonGameCard.routeName: (context) {
+          return PersonGameCard();
+        },
+        ScorePage.routeName: (context) {
+          return ScorePage();
+        },
+        Home.routeName: (context) {
+          return Home();
         }
       },
     );

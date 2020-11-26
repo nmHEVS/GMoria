@@ -8,7 +8,7 @@ import './datas/dataList.dart' as dataList;
 class Home extends StatefulWidget {
   final List<ListApp> lists = dataList.list;
   final String appTitle = 'GMORIA';
-  static String routeName = 'listContent';
+  static String routeName = '/home';
 
   @override
   _HomeState createState() => _HomeState();
