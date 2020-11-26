@@ -12,9 +12,10 @@ class PersonList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String listName = ModalRoute.of(context).settings.arguments;
     return Scaffold(
       appBar: AppBar(
-        title: Text(appTitle),
+        title: Text(listName),
       ),
       drawer: DrawerApp(
         appTitle: appTitle,
@@ -25,7 +26,7 @@ class PersonList extends StatelessWidget {
       floatingActionButton: Stack(
         children: <Widget>[
           Positioned(
-            bottom: 80.0,
+            top: 115.0,
             right: 10.0,
             child: FloatingActionButton(
               heroTag: 'learn',
@@ -39,7 +40,7 @@ class PersonList extends StatelessWidget {
             ),
           ),
           Positioned(
-            bottom: 10.0,
+            top: 190.0,
             right: 10.0,
             child: FloatingActionButton(
               heroTag: 'game',

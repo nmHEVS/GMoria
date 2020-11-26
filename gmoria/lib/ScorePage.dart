@@ -25,7 +25,10 @@ class _ScorePageState extends State<ScorePage> {
         child: Column(
           children: [
             Container(
-              child: Text('SCORE : $score'),
+              child: Text(
+                'SCORE : $score',
+                style: TextStyle(fontSize: 50),
+              ),
             ),
             IconButton(
               icon: Icon(Icons.home),

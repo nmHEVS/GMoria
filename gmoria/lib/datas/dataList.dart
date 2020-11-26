@@ -5,25 +5,25 @@ import '../datas/data.dart' as dataPersons;
 List<ListApp> list = [
   ListApp(
     id: 1,
-    name: 'list 1',
+    name: 'Silicon Valais',
     persons: dataPersons.personsList,
     score: 0,
   ),
   ListApp(
     id: 1,
-    name: 'list 2',
+    name: 'Club de ping-pong',
     persons: dataPersons.personsList,
     score: 0,
   ),
   ListApp(
     id: 1,
-    name: 'list 3',
+    name: 'Famille',
     persons: dataPersons.personsList,
     score: 0,
   ),
   ListApp(
     id: 1,
-    name: 'list 4',
+    name: 'Soirées échangistes',
     persons: dataPersons.personsList,
     score: 0,
   ),

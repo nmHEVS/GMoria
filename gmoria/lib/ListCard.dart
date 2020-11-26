@@ -13,12 +13,13 @@ class ListCard extends StatefulWidget {
 class _ListCardState extends State<ListCard> {
   @override
   Widget build(BuildContext context) {
+    String listName = widget.listApp.name;
     return Card(
       child: ListTile(
         title: Text(widget.listApp.name),
         subtitle: Text(widget.listApp.score.toString() + "%"),
         onTap: () {
-          Navigator.pushNamed(context, '/listContent');
+          Navigator.pushNamed(context, '/listContent', arguments: listName);
         },
       ),
     );
