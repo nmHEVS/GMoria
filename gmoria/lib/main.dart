@@ -5,6 +5,9 @@ import 'package:gmoria/PersonGameCard.dart';
 import 'package:gmoria/PersonLearnCard.dart';
 import 'package:gmoria/ScorePage.dart';
 
+import 'About.dart';
+import 'PersonInfo.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -35,6 +38,12 @@ class MyApp extends StatelessWidget {
         },
         Home.routeName: (context) {
           return Home();
+        },
+        PersonInfo.routeName: (context) {
+          return PersonInfo();
+        },
+        About.routeName: (context) {
+          return About();
         }
       },
     );
