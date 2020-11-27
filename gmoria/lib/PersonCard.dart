@@ -13,15 +13,15 @@ class PersonCard extends StatefulWidget {
 class _PersonCardState extends State<PersonCard> {
   @override
   Widget build(BuildContext context) {
-    String name = widget.person.name + ' ' + widget.person.firstname;
+    Person person = widget.person;
     return Card(
       child: ListTile(
         leading: CircleAvatar(
           backgroundImage: AssetImage(widget.person.image),
         ),
-        title: Text(name),
+        title: Text(person.name + ' ' + person.firstname),
         onTap: () {
-          Navigator.pushNamed(context, '/personInfo', arguments: name);
+          Navigator.pushNamed(context, '/personInfo', arguments: person);
         },
       ),
     );

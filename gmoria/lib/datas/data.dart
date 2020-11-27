@@ -3,9 +3,9 @@ import 'package:gmoria/models/PersonModel.dart';
 List<Person> personsList = [
   Person(
     image: 'assets/images/person1.PNG',
-    name: 'Darbellay',
-    firstname: 'Richard',
-    notes: '',
+    name: 'Tutu',
+    firstname: 'Toto',
+    notes: 'PDG of Totos and Totos',
     id: 1,
   ),
   Person(

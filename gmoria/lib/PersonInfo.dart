@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gmoria/DrawerApp.dart';
 
+import 'models/PersonModel.dart';
+
 class PersonInfo extends StatefulWidget {
   static String routeName = '/personInfo';
   final String appTitle = 'GMORIA';
@@ -12,7 +14,7 @@ class PersonInfo extends StatefulWidget {
 class _PersonInfoState extends State<PersonInfo> {
   @override
   Widget build(BuildContext context) {
-    final String name = ModalRoute.of(context).settings.arguments;
+    final Person person = ModalRoute.of(context).settings.arguments;
 
     return Scaffold(
       appBar: AppBar(
@@ -24,10 +26,18 @@ class _PersonInfoState extends State<PersonInfo> {
       body: Center(
         child: Column(
           children: [
+            CircleAvatar(
+              backgroundImage: AssetImage(person.image),
+              radius: 50,
+            ),
             Container(
-              child: Text(
-                'Name : $name',
-              ),
+              child: Text('Name : ' + person.name),
+            ),
+            Container(
+              child: Text('Firstame : ' + person.firstname),
+            ),
+            Container(
+              child: Text('Notes : ' + person.notes),
             ),
             IconButton(
               icon: Icon(Icons.arrow_back),
