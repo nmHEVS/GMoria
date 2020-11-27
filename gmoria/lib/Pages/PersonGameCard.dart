@@ -44,21 +44,22 @@ class _PersonGameCardState extends State<PersonGameCard> {
       drawer: DrawerApp(
         appTitle: widget.appTitle,
       ),
+      resizeToAvoidBottomInset: false,
       body: Center(
         child: Container(
           width: double.infinity,
           child: Card(
             child: Column(
               children: [
-                CircleAvatar(
-                  backgroundImage: AssetImage(persons.elementAt(_i).image),
-                  radius: 180,
+                TextField(
+                  controller: _controller,
                 ),
                 SizedBox(
                   height: 30,
                 ),
-                TextField(
-                  controller: _controller,
+                CircleAvatar(
+                  backgroundImage: AssetImage(persons.elementAt(_i).image),
+                  radius: 180,
                 ),
                 SizedBox(
                   height: 30,
