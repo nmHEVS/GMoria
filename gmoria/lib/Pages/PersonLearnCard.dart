@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:gmoria/DrawerApp.dart';
 import 'package:gmoria/models/PersonModel.dart';
 
 class PersonLearnCard extends StatefulWidget {
@@ -43,11 +42,12 @@ class _PersonLearnCardState extends State<PersonLearnCard> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.appTitle),
-      ),
-      drawer: DrawerApp(
-        appTitle: widget.appTitle,
-      ),
+          title: Text("List"),
+          automaticallyImplyLeading: true,
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () => Navigator.pop(context, false),
+          )),
       body: Center(
         child: Container(
           width: double.infinity,

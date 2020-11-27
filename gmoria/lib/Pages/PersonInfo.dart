@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gmoria/DrawerApp.dart';
 
-import 'models/PersonModel.dart';
+import '../models/PersonModel.dart';
 
 class PersonInfo extends StatefulWidget {
   static String routeName = '/personInfo';
@@ -18,8 +18,12 @@ class _PersonInfoState extends State<PersonInfo> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.appTitle),
-      ),
+          title: Text(widget.appTitle),
+          automaticallyImplyLeading: true,
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () => Navigator.pop(context, false),
+          )),
       drawer: DrawerApp(
         appTitle: widget.appTitle,
       ),

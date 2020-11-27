@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:gmoria/Home.dart';
-import 'package:gmoria/ListOfPersons.dart';
-import 'package:gmoria/PersonGameCard.dart';
-import 'package:gmoria/PersonLearnCard.dart';
-import 'package:gmoria/ScorePage.dart';
-
-import 'About.dart';
-import 'PersonInfo.dart';
+import 'Pages/About.dart';
+import 'Pages/Home.dart';
+import 'Pages/ListOfPersons.dart';
+import 'Pages/PersonGameCard.dart';
+import 'Pages/PersonInfo.dart';
+import 'Pages/PersonLearnCard.dart';
+import 'Pages/ScorePage.dart';
 
 void main() {
   runApp(MyApp());

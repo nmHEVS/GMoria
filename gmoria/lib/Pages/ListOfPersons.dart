@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:gmoria/DrawerApp.dart';
 import 'package:gmoria/PersonCard.dart';
 import 'package:gmoria/models/PersonModel.dart';
 
-import './datas/data.dart' as list;
+import '../datas/data.dart' as list;
 
 class PersonList extends StatelessWidget {
   final String appTitle = 'GMORIA';
   final List<Person> persons = list.personsList;
+
   static String routeName = '/listContent';
 
   @override
@@ -15,11 +15,12 @@ class PersonList extends StatelessWidget {
     String listName = ModalRoute.of(context).settings.arguments;
     return Scaffold(
       appBar: AppBar(
-        title: Text(listName),
-      ),
-      drawer: DrawerApp(
-        appTitle: appTitle,
-      ),
+          title: Text(listName),
+          automaticallyImplyLeading: true,
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () => Navigator.pop(context, false),
+          )),
       body: ListView(
         children: persons.map((person) => PersonCard(person: person)).toList(),
       ),

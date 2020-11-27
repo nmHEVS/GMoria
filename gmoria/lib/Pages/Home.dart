@@ -3,7 +3,7 @@ import 'package:gmoria/DrawerApp.dart';
 import 'package:gmoria/ListOfLists.dart';
 import 'package:gmoria/models/ListModel.dart';
 
-import './datas/dataList.dart' as dataList;
+import '../datas/dataList.dart' as dataList;
 
 class Home extends StatefulWidget {
   final List<ListApp> lists = dataList.list;
