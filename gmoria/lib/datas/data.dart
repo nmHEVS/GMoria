@@ -12,35 +12,35 @@ List<Person> personsList = [
     image: 'assets/images/person2.PNG',
     name: 'Evéquoz',
     firstname: 'André',
-    notes: '',
+    notes: 'Employé chez Totos and Totos',
     id: 2,
   ),
   Person(
     image: 'assets/images/person3.PNG',
     name: 'Hubert',
     firstname: 'Alice',
-    notes: '',
+    notes: 'RH chez Totos and Totoss',
     id: 3,
   ),
   Person(
     image: 'assets/images/person3.PNG',
     name: 'Gerber',
     firstname: 'Roberte',
-    notes: '',
+    notes: 'Employé chez Totos and Totos',
     id: 4,
   ),
   Person(
     image: 'assets/images/person4.PNG',
     name: 'Rochat',
     firstname: 'Yvan',
-    notes: '',
+    notes: 'Employé chez Totos and Totos',
     id: 5,
   ),
   Person(
     image: 'assets/images/person5.PNG',
     name: 'Favre',
     firstname: 'Marie',
-    notes: '',
+    notes: 'Employé chez Totos and Totos',
     id: 6,
   ),
   Person(
@@ -54,7 +54,7 @@ List<Person> personsList = [
     image: 'assets/images/person2.PNG',
     name: 'Aubry',
     firstname: 'Yvonne',
-    notes: '',
+    notes: 'Employé chez Totos and Totos',
     id: 8,
   ),
   Person(
@@ -68,7 +68,7 @@ List<Person> personsList = [
     image: 'assets/images/person4.PNG',
     name: 'Morand',
     firstname: 'Josette',
-    notes: '',
+    notes: 'Employé chez Totos and Totos',
     id: 10,
   ),
   Person(
@@ -82,7 +82,7 @@ List<Person> personsList = [
     image: 'assets/images/person2.PNG',
     name: 'Hubert',
     firstname: 'André',
-    notes: '',
+    notes: 'Employé chez Totos and Totos',
     id: 12,
   ),
   Person(
@@ -96,7 +96,7 @@ List<Person> personsList = [
     image: 'assets/images/person3.PNG',
     name: 'Gerber',
     firstname: 'Roberte',
-    notes: '',
+    notes: 'Employé chez Totos and Totos',
     id: 14,
   ),
   Person(
@@ -110,7 +110,7 @@ List<Person> personsList = [
     image: 'assets/images/person5.PNG',
     name: 'Gerber',
     firstname: 'Yvan',
-    notes: '',
+    notes: 'Employé chez Totos and Totos',
     id: 16,
   ),
   Person(
@@ -124,7 +124,7 @@ List<Person> personsList = [
     image: 'assets/images/person2.PNG',
     name: 'Aubry',
     firstname: 'Yvonne',
-    notes: '',
+    notes: 'Employé chez Totos and Totos',
     id: 18,
   ),
   Person(
@@ -138,7 +138,7 @@ List<Person> personsList = [
     image: 'assets/images/person4.PNG',
     name: 'Rochat',
     firstname: 'Josette',
-    notes: '',
+    notes: 'Employé chez Totos and Totos',
     id: 20,
   ),
 ];
