@@ -1,9 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:gmoria/Pages/Home.dart';
+
+import 'auth/Auth.dart';
+import 'auth/AuthProvider.dart';
 
 class DrawerApp extends StatelessWidget {
   final String appTitle;
+  final VoidCallback onSignedOut;
 
-  DrawerApp({this.appTitle});
+  DrawerApp({this.appTitle, this.onSignedOut});
+
+  Future<void> _signOut(BuildContext context) async {
+    try {
+      final BaseAuth auth = AuthProvider.of(context).auth;
+      await auth.signOut();
+      onSignedOut();
+    } catch (e) {
+      print(e);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +57,11 @@ class DrawerApp extends StatelessWidget {
             onTap: () {
               Navigator.pushNamed(context, '/about');
             },
+          ),
+          ListTile(
+            leading: Icon(Icons.info),
+            title: Text('Logout'),
+            onTap: () => _signOut(context),
           ),
         ],
       ),

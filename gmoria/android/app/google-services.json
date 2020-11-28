@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "760436827487",
+    "firebase_url": "https://gmoria-2ae4b.firebaseio.com",
+    "project_id": "gmoria-2ae4b",
+    "storage_bucket": "gmoria-2ae4b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:760436827487:android:2954960887a337ecf742ea",
+        "android_client_info": {
+          "package_name": "com.example.gmoria"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "760436827487-n3as87mmigqf9r0ng8cvq56jt7bi4u1e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD8WfLeQDgxrUZz7XJoyJUOxJJcI_E5fDg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "760436827487-n3as87mmigqf9r0ng8cvq56jt7bi4u1e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
