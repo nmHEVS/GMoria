@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:gmoria/Pages/LoginPage.dart';
 import 'package:gmoria/auth/AuthProvider.dart';
 import 'package:gmoria/auth/RootPage.dart';
 import 'Pages/About.dart';

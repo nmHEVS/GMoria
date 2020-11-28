@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:gmoria/Pages/Home.dart';
-
 import 'auth/Auth.dart';
 import 'auth/AuthProvider.dart';
 
 class DrawerApp extends StatelessWidget {
+  const DrawerApp({this.appTitle, this.onSignedOut});
   final String appTitle;
   final VoidCallback onSignedOut;
-
-  DrawerApp({this.appTitle, this.onSignedOut});
 
   Future<void> _signOut(BuildContext context) async {
     try {
