@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
         auth: Auth(),
         child: MaterialApp(
           theme: ThemeData(
-            primarySwatch: Colors.blueGrey,
+            primarySwatch: Colors.indigo,
             visualDensity: VisualDensity.adaptivePlatformDensity,
           ),
           debugShowCheckedModeBanner: false,
