@@ -1,4 +1,4 @@
-package com.example.gmoria
+package com.hevs.gmoria
 
 import io.flutter.embedding.android.FlutterActivity
 
