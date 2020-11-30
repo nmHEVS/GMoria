@@ -70,6 +70,17 @@ class _PersonLearnCardState extends State<PersonLearnCard> {
                 SizedBox(
                   height: 30,
                 ),
+                IconButton(
+                  icon: Icon(Icons.info),
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) =>
+                          _buildAboutDialog(context),
+                    );
+                    // Perform some action
+                  },
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -92,4 +103,30 @@ class _PersonLearnCardState extends State<PersonLearnCard> {
       ),
     );
   }
+}
+
+//Pop-up infos of the person when click on (i)
+Widget _buildAboutDialog(BuildContext context) {
+  return new AlertDialog(
+    title: const Text('Infos'),
+    content: new Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text(
+          'Infos here bla bla bla',
+          style: TextStyle(fontSize: 30),
+        ),
+      ],
+    ),
+    actions: <Widget>[
+      new FlatButton(
+        onPressed: () {
+          Navigator.of(context).pop();
+        },
+        textColor: Theme.of(context).primaryColor,
+        child: const Text('Okay, got it!'),
+      ),
+    ],
+  );
 }
