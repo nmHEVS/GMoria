@@ -14,7 +14,7 @@ class PersonGameCard extends StatefulWidget {
   _PersonGameCardState createState() => _PersonGameCardState();
 }
 
-Future updateScore(double score, String listId, String listname) async {
+Future updateScore(int score, String listId, String listname) async {
   var firestoreInstance = FirebaseFirestore.instance;
   var firebaseUser = FirebaseAuth.instance.currentUser;
 
@@ -35,7 +35,7 @@ class _PersonGameCardState extends State<PersonGameCard> {
   @override
   Widget build(BuildContext context) {
     var _controller = TextEditingController();
-    double scorePercent = 0;
+    int scorePercent = 0;
 
     void _randomQuestion() {
       if (_controller.text ==
@@ -47,9 +47,9 @@ class _PersonGameCardState extends State<PersonGameCard> {
 
       if (_i == widget.personsList.length - 1) {
         Navigator.pushNamed(context, '/score', arguments: score);
-        scorePercent = (score / widget.personsList.length) * 100;
+        scorePercent = ((score / widget.personsList.length) * 100).round();
         //post score on FireBase
-        updateScore(scorePercent, "WhrPwOydJwKX3s2r78mK", widget.listName);
+        updateScore(scorePercent, "nLeDmdpy2OU9tcBmv8Nu", widget.listName);
       } else {
         setState(() {
           _i++;
@@ -70,6 +70,7 @@ class _PersonGameCardState extends State<PersonGameCard> {
             child: Column(
               children: [
                 TextField(
+                  decoration: InputDecoration(hintText: 'Firstname Lastname'),
                   controller: _controller,
                 ),
                 SizedBox(
