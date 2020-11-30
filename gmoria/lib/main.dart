@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:gmoria/Pages/PersonListPage.dart';
 import 'package:gmoria/auth/AuthProvider.dart';
 import 'package:gmoria/auth/RootPage.dart';
 import 'Pages/About.dart';
 import 'Pages/Home.dart';
-import 'Pages/ListOfPersons.dart';
 import 'Pages/PersonGameCard.dart';
 import 'Pages/PersonInfo.dart';
 import 'Pages/PersonLearnCard.dart';
@@ -31,8 +31,8 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           home: RootPage(),
           routes: {
-            PersonList.routeName: (context) {
-              return PersonList();
+            PersonListPage.routeName: (context) {
+              return PersonListPage();
             },
             PersonLearnCard.routeName: (context) {
               return PersonLearnCard();

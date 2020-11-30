@@ -13,6 +13,8 @@ class PersonCard extends StatefulWidget {
 class _PersonCardState extends State<PersonCard> {
   @override
   Widget build(BuildContext context) {
+    final String listId = ModalRoute.of(context).settings.arguments;
+
     Person person = widget.person;
     return Card(
       child: ListTile(

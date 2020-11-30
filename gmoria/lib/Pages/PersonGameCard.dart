@@ -5,6 +5,10 @@ import 'package:gmoria/models/PersonModel.dart';
 class PersonGameCard extends StatefulWidget {
   static String routeName = '/game';
   final String appTitle = 'GMORIA';
+  final personsList;
+  final listName;
+
+  PersonGameCard({this.listName, this.personsList});
 
   @override
   _PersonGameCardState createState() => _PersonGameCardState();
@@ -16,18 +20,17 @@ class _PersonGameCardState extends State<PersonGameCard> {
 
   @override
   Widget build(BuildContext context) {
-    final List<Person> persons = ModalRoute.of(context).settings.arguments;
     var _controller = TextEditingController();
 
     void _randomQuestion() {
       if (_controller.text ==
-          (persons.elementAt(_i).firstname +
+          (widget.personsList.elementAt(_i)['firstname'] +
               ' ' +
-              persons.elementAt(_i).name)) {
+              widget.personsList.elementAt(_i)['name'])) {
         score++;
       }
 
-      if (_i == persons.length - 1) {
+      if (_i == widget.personsList.length - 1) {
         Navigator.pushNamed(context, '/score', arguments: score);
       } else {
         setState(() {
@@ -40,9 +43,6 @@ class _PersonGameCardState extends State<PersonGameCard> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.appTitle),
-      ),
-      drawer: DrawerApp(
-        appTitle: widget.appTitle,
       ),
       resizeToAvoidBottomInset: false,
       body: Center(
@@ -58,7 +58,8 @@ class _PersonGameCardState extends State<PersonGameCard> {
                   height: 30,
                 ),
                 CircleAvatar(
-                  backgroundImage: AssetImage(persons.elementAt(_i).image),
+                  backgroundImage:
+                      AssetImage(widget.personsList.elementAt(_i)['image']),
                   radius: 180,
                 ),
                 SizedBox(

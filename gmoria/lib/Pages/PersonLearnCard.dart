@@ -4,6 +4,10 @@ import 'package:gmoria/models/PersonModel.dart';
 class PersonLearnCard extends StatefulWidget {
   static String routeName = '/learn';
   final String appTitle = 'GMORIA';
+  final personsList;
+  final listName;
+
+  PersonLearnCard({this.listName, this.personsList});
 
   @override
   _PersonLearnCardState createState() => _PersonLearnCardState();
@@ -14,10 +18,8 @@ class _PersonLearnCardState extends State<PersonLearnCard> {
 
   @override
   Widget build(BuildContext context) {
-    final List<Person> persons = ModalRoute.of(context).settings.arguments;
-
     void _incrementCounter() {
-      if (_i == persons.length - 1) {
+      if (_i == widget.personsList.length - 1) {
         setState(() {
           _i = 0;
         });
@@ -31,7 +33,7 @@ class _PersonLearnCardState extends State<PersonLearnCard> {
     void _decrementCounter() {
       if (_i == 0) {
         setState(() {
-          _i = persons.length - 1;
+          _i = widget.personsList.length - 1;
         });
       } else {
         setState(() {
@@ -42,12 +44,13 @@ class _PersonLearnCardState extends State<PersonLearnCard> {
 
     return Scaffold(
       appBar: AppBar(
-          title: Text("List"),
-          automaticallyImplyLeading: true,
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back),
-            onPressed: () => Navigator.pop(context, false),
-          )),
+        title: Text(widget.listName + " - Learn"),
+        automaticallyImplyLeading: true,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () => Navigator.pop(context, false),
+        ),
+      ),
       body: Center(
         child: Container(
           width: double.infinity,
@@ -55,16 +58,17 @@ class _PersonLearnCardState extends State<PersonLearnCard> {
             child: Column(
               children: [
                 CircleAvatar(
-                  backgroundImage: AssetImage(persons.elementAt(_i).image),
+                  backgroundImage:
+                      AssetImage(widget.personsList.elementAt(_i)['image']),
                   radius: 180,
                 ),
                 SizedBox(
                   height: 30,
                 ),
                 Text(
-                  persons.elementAt(_i).firstname +
+                  widget.personsList.elementAt(_i)['firstname'] +
                       ' ' +
-                      persons.elementAt(_i).name,
+                      widget.personsList.elementAt(_i)['name'],
                   style: TextStyle(fontSize: 30),
                 ),
                 SizedBox(

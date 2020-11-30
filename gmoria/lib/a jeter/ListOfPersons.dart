@@ -8,7 +8,7 @@ class PersonList extends StatelessWidget {
   final String appTitle = 'GMORIA';
   final List<Person> persons = list.personsList;
 
-  static String routeName = '/listContent';
+  //static String routeName = '/listContent';
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +27,8 @@ class PersonList extends StatelessWidget {
       floatingActionButton: Stack(
         children: <Widget>[
           Positioned(
-            top: 115.0,
-            right: 10.0,
+            top: 110.0,
+            right: 0.0,
             child: FloatingActionButton(
               heroTag: 'learn',
               onPressed: () {
@@ -41,8 +41,8 @@ class PersonList extends StatelessWidget {
             ),
           ),
           Positioned(
-            top: 190.0,
-            right: 10.0,
+            top: 110.0,
+            right: 65.0,
             child: FloatingActionButton(
               heroTag: 'game',
               onPressed: () {
