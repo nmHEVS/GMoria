@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:gmoria/models/PersonModel.dart';
 
 class PersonLearnCard extends StatefulWidget {
   static String routeName = '/learn';
@@ -79,8 +78,8 @@ class _PersonLearnCardState extends State<PersonLearnCard> {
                   onPressed: () {
                     showDialog(
                       context: context,
-                      builder: (BuildContext context) =>
-                          _buildAboutDialog(context),
+                      builder: (BuildContext context) => _buildAboutDialog(
+                          context, widget.personsList.elementAt(_i)['notes']),
                     );
                     // Perform some action
                   },
@@ -110,15 +109,15 @@ class _PersonLearnCardState extends State<PersonLearnCard> {
 }
 
 //Pop-up infos of the person when click on (i)
-Widget _buildAboutDialog(BuildContext context) {
+Widget _buildAboutDialog(BuildContext context, String notes) {
   return new AlertDialog(
-    title: const Text('Infos'),
+    title: const Text('Notes'),
     content: new Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text(
-          'Infos here bla bla bla',
+          notes,
           style: TextStyle(fontSize: 30),
         ),
       ],

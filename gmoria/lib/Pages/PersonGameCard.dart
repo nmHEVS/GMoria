@@ -1,6 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:gmoria/DrawerApp.dart';
-import 'package:gmoria/models/PersonModel.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class PersonGameCard extends StatefulWidget {
   static String routeName = '/game';
@@ -14,6 +14,20 @@ class PersonGameCard extends StatefulWidget {
   _PersonGameCardState createState() => _PersonGameCardState();
 }
 
+Future updateScore(int score, String listId, String listname) async {
+  var firestoreInstance = FirebaseFirestore.instance;
+  var firebaseUser = FirebaseAuth.instance.currentUser;
+
+  debugPrint(score.toString());
+
+  return await firestoreInstance
+      .collection('users')
+      .doc(firebaseUser.uid)
+      .collection('lists')
+      .doc(listId)
+      .set({'name': listname, 'score': score});
+}
+
 class _PersonGameCardState extends State<PersonGameCard> {
   int _i = 0;
   int score = 0;
@@ -21,6 +35,7 @@ class _PersonGameCardState extends State<PersonGameCard> {
   @override
   Widget build(BuildContext context) {
     var _controller = TextEditingController();
+    int scorePercent = 0;
 
     void _randomQuestion() {
       if (_controller.text ==
@@ -32,6 +47,9 @@ class _PersonGameCardState extends State<PersonGameCard> {
 
       if (_i == widget.personsList.length - 1) {
         Navigator.pushNamed(context, '/score', arguments: score);
+        scorePercent = ((score / widget.personsList.length) * 100).round();
+        //post score on FireBase
+        updateScore(scorePercent, "nLeDmdpy2OU9tcBmv8Nu", widget.listName);
       } else {
         setState(() {
           _i++;
@@ -52,6 +70,7 @@ class _PersonGameCardState extends State<PersonGameCard> {
             child: Column(
               children: [
                 TextField(
+                  decoration: InputDecoration(hintText: 'Firstname Lastname'),
                   controller: _controller,
                 ),
                 SizedBox(

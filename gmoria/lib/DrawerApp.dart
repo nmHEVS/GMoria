@@ -23,18 +23,10 @@ class DrawerApp extends StatelessWidget {
       child: ListView(
         children: [
           DrawerHeader(
-            child: Text(
-              appTitle,
-              style: TextStyle(color: Colors.white, fontSize: 30.0),
-            ),
             decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  Theme.of(context).primaryColor,
-                  Theme.of(context).primaryColor.withOpacity(0.5),
-                ],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
+              image: new DecorationImage(
+                image: new ExactAssetImage('assets/images/banner.png'),
+                fit: BoxFit.cover,
               ),
             ),
           ),

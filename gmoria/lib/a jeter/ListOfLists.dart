@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gmoria/ListCard.dart';
+import 'package:gmoria/a%20jeter/ListCard.dart';
 import 'package:gmoria/models/ListModel.dart';
 
 class ListOfList extends StatelessWidget {
