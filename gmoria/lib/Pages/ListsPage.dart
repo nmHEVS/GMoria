@@ -12,7 +12,7 @@ class _ListsPageState extends State<ListsPage> {
   var firestoreInstance = FirebaseFirestore.instance;
   var firebaseUser = FirebaseAuth.instance.currentUser;
 
-  deleteList(String listId) async {
+  void deleteList(String listId) async {
     await firestoreInstance
         .collection('users')
         .doc(firebaseUser.uid)
@@ -39,23 +39,34 @@ class _ListsPageState extends State<ListsPage> {
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: GestureDetector(
-                      onTap: () {},
-                      child: Card(
-                        child: ListTile(
-                          title: Text(doc[index]['name'].toString()),
-                          subtitle: Text(doc[index]['score'].toString() + "%"),
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => PersonListPage(
-                                    idList: doc[index].id,
-                                    name: doc[index]['name'].toString()),
+                    child: Card(
+                      child: ListTile(
+                        title: Text(doc[index]['name'].toString()),
+                        subtitle: Text(doc[index]['score'].toString() + "%"),
+                        trailing: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              IconButton(
+                                icon: Icon(
+                                  Icons.delete,
+                                  size: 20.0,
+                                  color: Colors.brown[900],
+                                ),
+                                onPressed: () {
+                                  deleteList(doc[index].id);
+                                },
                               ),
-                            );
-                          },
-                        ),
+                            ]),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => PersonListPage(
+                                  idList: doc[index].id,
+                                  name: doc[index]['name'].toString()),
+                            ),
+                          );
+                        },
                       ),
                     ),
                   );

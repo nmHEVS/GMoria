@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 abstract class BaseAuth {
@@ -27,6 +28,16 @@ class Auth implements BaseAuth {
             email: email, password: password))
         .user;
     return user?.uid;
+  }
+
+  final databaseReference = FirebaseFirestore.instance;
+  var firebaseUser = FirebaseAuth.instance.currentUser;
+
+  void createUserDatabase() async {
+    databaseReference
+        .collection("users")
+        .doc(firebaseUser.uid)
+        .collection("lists");
   }
 
   @override
