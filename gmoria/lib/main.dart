@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gmoria/Pages/PersonListPage.dart';
 import 'package:gmoria/auth/AuthProvider.dart';
 import 'package:gmoria/auth/RootPage.dart';
+import 'DrawerApp.dart';
 import 'Pages/About.dart';
 import 'Pages/Home.dart';
 import 'Pages/PersonGameCard.dart';

@@ -3,9 +3,9 @@ import 'auth/Auth.dart';
 import 'auth/AuthProvider.dart';
 
 class DrawerApp extends StatelessWidget {
-  const DrawerApp({this.appTitle, this.onSignedOut});
+  final Function onSignedOut;
   final String appTitle;
-  final VoidCallback onSignedOut;
+  DrawerApp({this.appTitle, this.onSignedOut});
 
   Future<void> _signOut(BuildContext context) async {
     try {
@@ -48,7 +48,7 @@ class DrawerApp extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: Icon(Icons.info),
+            leading: Icon(Icons.logout),
             title: Text('Logout'),
             onTap: () => _signOut(context),
           ),
