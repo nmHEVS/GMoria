@@ -7,8 +7,9 @@ class PersonGameCard extends StatefulWidget {
   final String appTitle = 'GMORIA';
   final personsList;
   final listName;
+  final listId;
 
-  PersonGameCard({this.listName, this.personsList});
+  PersonGameCard({this.listName, this.personsList, this.listId});
 
   @override
   _PersonGameCardState createState() => _PersonGameCardState();
@@ -49,7 +50,7 @@ class _PersonGameCardState extends State<PersonGameCard> {
         Navigator.pushNamed(context, '/score', arguments: score);
         scorePercent = ((score / widget.personsList.length) * 100).round();
         //post score on FireBase
-        updateScore(scorePercent, "nLeDmdpy2OU9tcBmv8Nu", widget.listName);
+        updateScore(scorePercent, widget.listId, widget.listName);
       } else {
         setState(() {
           _i++;
@@ -60,7 +61,7 @@ class _PersonGameCardState extends State<PersonGameCard> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.appTitle),
+        title: Text(widget.appTitle + " - " + widget.listName),
       ),
       resizeToAvoidBottomInset: false,
       body: Center(

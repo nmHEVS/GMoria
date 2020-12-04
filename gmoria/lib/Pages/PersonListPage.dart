@@ -24,6 +24,7 @@ class _PersonListPageState extends State<PersonListPage> {
   var firestoreInstance = FirebaseFirestore.instance;
   var firebaseUser = FirebaseAuth.instance.currentUser;
   List personsList = [];
+  var listId;
 
   fetchData() {
     return Padding(
@@ -43,6 +44,7 @@ class _PersonListPageState extends State<PersonListPage> {
               itemCount: doc.length,
               itemBuilder: (context, index) {
                 personsList.add(doc[index]);
+                listId = doc[index].id;
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Card(
@@ -126,7 +128,9 @@ class _PersonListPageState extends State<PersonListPage> {
                   context,
                   MaterialPageRoute(
                     builder: (context) => PersonGameCard(
-                        personsList: personsList, listName: widget.name),
+                        personsList: personsList,
+                        listName: widget.name,
+                        listId: listId),
                   ),
                 );
               },

@@ -59,7 +59,7 @@ class _PersonLearnCardState extends State<PersonLearnCard> {
                 CircleAvatar(
                   backgroundImage:
                       AssetImage(widget.personsList.elementAt(_i)['image']),
-                  radius: 180,
+                  radius: 150,
                 ),
                 SizedBox(
                   height: 30,
