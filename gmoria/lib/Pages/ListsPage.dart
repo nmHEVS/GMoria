@@ -53,7 +53,15 @@ class _ListsPageState extends State<ListsPage> {
                                   color: Colors.brown[900],
                                 ),
                                 onPressed: () {
-                                  deleteList(doc[index].id);
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) =>
+                                        _alertDelete(
+                                      context,
+                                      doc[index]['name'].toString(),
+                                      doc[index].id,
+                                    ),
+                                  );
                                 },
                               ),
                             ]),
@@ -76,6 +84,39 @@ class _ListsPageState extends State<ListsPage> {
           }
         },
       ),
+    );
+  }
+
+  Widget _alertDelete(BuildContext context, String listName, String listId) {
+    return new AlertDialog(
+      title: const Text('Delete'),
+      content: new Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(
+            "Do you want to delete this list : $listName ?",
+            style: TextStyle(fontSize: 15),
+          ),
+        ],
+      ),
+      actions: <Widget>[
+        new FlatButton(
+          onPressed: () {
+            deleteList(listId);
+            Navigator.of(context).pop();
+          },
+          textColor: Theme.of(context).primaryColor,
+          child: const Text('Delete it'),
+        ),
+        new FlatButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          textColor: Theme.of(context).primaryColor,
+          child: const Text('Cancel'),
+        ),
+      ],
     );
   }
 }
