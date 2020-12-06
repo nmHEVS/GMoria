@@ -1,20 +1,21 @@
-import 'dart:ffi';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:gmoria/DrawerApp.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:gmoria/Pages/AddPersonPage.dart';
+import 'package:gmoria/Pages/EditListPage.dart';
 import 'package:gmoria/Pages/PersonDetailsPage.dart';
 import 'package:gmoria/Pages/PersonGameCard.dart';
 import 'package:gmoria/Pages/PersonLearnCard.dart';
+import 'package:gmoria/alerts/alertDelete.dart';
 
 class PersonListPage extends StatefulWidget {
   final idList;
-  final name;
+  final listName;
   final String appTitle = 'GMORIA';
   static String routeName = '/listContent';
 
-  PersonListPage({this.idList, this.name});
+  PersonListPage({this.idList, this.listName});
 
   @override
   _PersonListPageState createState() => _PersonListPageState();
@@ -23,6 +24,7 @@ class PersonListPage extends StatefulWidget {
 class _PersonListPageState extends State<PersonListPage> {
   var firestoreInstance = FirebaseFirestore.instance;
   var firebaseUser = FirebaseAuth.instance.currentUser;
+
   List personsList = [];
   var listId;
 
@@ -55,6 +57,32 @@ class _PersonListPageState extends State<PersonListPage> {
                       title: Text(doc[index]['name'].toString() +
                           ' ' +
                           doc[index]['firstname'].toString()),
+                      trailing: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          IconButton(
+                            icon: Icon(
+                              Icons.delete,
+                              size: 20.0,
+                              color: Colors.brown[900],
+                            ),
+                            onPressed: () {
+                              var name = doc[index]['name'].toString() +
+                                  ' ' +
+                                  doc[index]['firstname'].toString();
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) => alertDelete(
+                                    context,
+                                    name,
+                                    widget.idList,
+                                    doc[index].id,
+                                    'person'),
+                              );
+                            },
+                          ),
+                        ],
+                      ),
                       onTap: () {
                         Navigator.push(
                           context,
@@ -62,7 +90,7 @@ class _PersonListPageState extends State<PersonListPage> {
                             builder: (context) => PersonDetailsPage(
                               idList: widget.idList,
                               idPerson: doc[index].id,
-                              listName: widget.name,
+                              listName: widget.listName,
                               image: doc[index]['image'],
                             ),
                           ),
@@ -85,12 +113,26 @@ class _PersonListPageState extends State<PersonListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.appTitle + " - " + widget.name),
+        title: Text(widget.appTitle + " - " + widget.listName),
         automaticallyImplyLeading: true,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () => Navigator.pop(context, false),
         ),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.edit),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => EditListPage(
+                      listId: widget.idList, listName: widget.listName),
+                ),
+              );
+            },
+          ),
+        ],
       ),
       drawer: DrawerApp(
         appTitle: widget.appTitle,
@@ -100,7 +142,7 @@ class _PersonListPageState extends State<PersonListPage> {
         children: <Widget>[
           Positioned(
             top: 110.0,
-            right: 0.0,
+            right: 65.0,
             child: FloatingActionButton(
               heroTag: 'learn',
               onPressed: () {
@@ -108,7 +150,7 @@ class _PersonListPageState extends State<PersonListPage> {
                   context,
                   MaterialPageRoute(
                     builder: (context) => PersonLearnCard(
-                        personsList: personsList, listName: widget.name),
+                        personsList: personsList, listName: widget.listName),
                   ),
                 );
               },
@@ -120,7 +162,7 @@ class _PersonListPageState extends State<PersonListPage> {
           ),
           Positioned(
             top: 110.0,
-            right: 65.0,
+            right: 130.0,
             child: FloatingActionButton(
               heroTag: 'game',
               onPressed: () {
@@ -129,12 +171,32 @@ class _PersonListPageState extends State<PersonListPage> {
                   MaterialPageRoute(
                     builder: (context) => PersonGameCard(
                         personsList: personsList,
-                        listName: widget.name,
+                        listName: widget.listName,
                         listId: listId),
                   ),
                 );
               },
               child: Icon(Icons.play_arrow),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(5.0),
+              ),
+            ),
+          ),
+          Positioned(
+            top: 110.0,
+            right: 0.0,
+            child: FloatingActionButton(
+              heroTag: 'addPeople',
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => AddPersonPage(
+                        listName: widget.listName, listId: widget.idList),
+                  ),
+                );
+              },
+              child: Icon(Icons.add),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(5.0),
               ),

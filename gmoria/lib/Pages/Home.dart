@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gmoria/DrawerApp.dart';
+import 'package:gmoria/Pages/AddListPage.dart';
+import 'package:gmoria/Pages/EditListPage.dart';
 import 'package:gmoria/Pages/ListsPage.dart';
 import 'package:gmoria/models/ListModel.dart';
 import 'package:gmoria/auth/Auth.dart';
@@ -42,7 +44,7 @@ class _HomeState extends State<Home> {
             child: Text('Logout',
                 style: TextStyle(fontSize: 17.0, color: Colors.white)),
             onPressed: () => _signOut(context),
-          )
+          ),
         ],
       ),
       drawer: DrawerApp(
@@ -51,38 +53,38 @@ class _HomeState extends State<Home> {
       body: ListsPage(),
       floatingActionButton: Stack(
         children: <Widget>[
-          Positioned(
+          /*Positioned(
             top: 110.0,
             right: 0.0,
             child: FloatingActionButton(
-              heroTag: 'learn',
-              /*onPressed: () {
+              heroTag: 'editList',
+              onPressed: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => EditList(),
+                    builder: (context) => EditListPage(),
                   ),
                 );
-              },*/
+              },
               child: Icon(Icons.edit),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(5.0),
               ),
             ),
-          ),
+          ),*/
           Positioned(
             top: 110.0,
-            right: 65.0,
+            right: 0.0,
             child: FloatingActionButton(
-              heroTag: 'game',
-              /*onPressed: () {
+              heroTag: 'addList',
+              onPressed: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => AddList(),
+                    builder: (context) => AddListPage(),
                   ),
                 );
-              },*/
+              },
               child: Icon(Icons.add),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(5.0),
