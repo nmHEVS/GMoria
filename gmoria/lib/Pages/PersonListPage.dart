@@ -2,8 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:gmoria/DrawerApp.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:gmoria/Pages/AddPersonPage.dart';
-import 'package:gmoria/Pages/EditListPage.dart';
+import 'package:gmoria/Pages/Add%20Edit/AddPersonPage.dart';
+import 'package:gmoria/Pages/Add%20Edit/EditListPage.dart';
 import 'package:gmoria/Pages/PersonDetailsPage.dart';
 import 'package:gmoria/Pages/PersonGameCard.dart';
 import 'package:gmoria/Pages/PersonLearnCard.dart';
@@ -172,7 +172,7 @@ class _PersonListPageState extends State<PersonListPage> {
                     builder: (context) => PersonGameCard(
                         personsList: personsList,
                         listName: widget.listName,
-                        listId: listId),
+                        listId: widget.idList),
                   ),
                 );
               },

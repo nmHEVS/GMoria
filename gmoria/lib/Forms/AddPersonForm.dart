@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AddPersonForm extends StatefulWidget {
-  @override
   final listName;
   final listId;
 
+  @override
   AddPersonForm({this.listName, this.listId});
 
   _AddPersonFormState createState() => _AddPersonFormState();
@@ -30,6 +30,9 @@ class _AddPersonFormState extends State<AddPersonForm> {
 
   void addPeople(
       String name, String firstname, String notes, String image) async {
+    if (image == '') {
+      image = 'assets/images/person2.PNG';
+    }
     await firestoreInstance
         .collection('users')
         .doc(firebaseUser.uid)
@@ -47,64 +50,70 @@ class _AddPersonFormState extends State<AddPersonForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: _formKey,
-      child: Padding(
-        padding: EdgeInsets.all(20),
-        child: Column(
-          children: [
-            IconButton(
-              icon: Icon(Icons.add_a_photo),
-              onPressed: () {},
-              iconSize: 110,
+    return SingleChildScrollView(
+      child: ConstrainedBox(
+        constraints:
+            BoxConstraints(maxHeight: MediaQuery.of(context).size.height),
+        child: Form(
+          key: _formKey,
+          child: Padding(
+            padding: EdgeInsets.all(20),
+            child: Column(
+              children: [
+                IconButton(
+                  icon: Icon(Icons.add_a_photo),
+                  onPressed: () {},
+                  iconSize: 110,
+                ),
+                TextFormField(
+                  controller: peopleNameController,
+                  decoration: InputDecoration(labelText: 'Name'),
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return 'Please fill this field';
+                    }
+                    return null;
+                  },
+                ),
+                TextFormField(
+                  controller: peopleFirstnameController,
+                  decoration: InputDecoration(labelText: 'Firstname'),
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return 'Please fill this field';
+                    }
+                    return null;
+                  },
+                ),
+                TextFormField(
+                  controller: peopleNotesController,
+                  decoration: InputDecoration(labelText: 'Notes '),
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return 'Please fill this field';
+                    }
+                    return null;
+                  },
+                ),
+                SizedBox(
+                  height: 40,
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    if (_formKey.currentState.validate()) {
+                      addPeople(
+                          peopleNameController.text,
+                          peopleFirstnameController.text,
+                          peopleNotesController.text,
+                          '');
+                      Navigator.of(context).pop();
+                    }
+                  },
+                  child: Text('Create'),
+                )
+              ],
             ),
-            TextFormField(
-              controller: peopleNameController,
-              decoration: InputDecoration(labelText: 'Name'),
-              validator: (value) {
-                if (value.isEmpty) {
-                  return 'Please fill this field';
-                }
-                return null;
-              },
-            ),
-            TextFormField(
-              controller: peopleFirstnameController,
-              decoration: InputDecoration(labelText: 'Firstname'),
-              validator: (value) {
-                if (value.isEmpty) {
-                  return 'Please fill this field';
-                }
-                return null;
-              },
-            ),
-            TextFormField(
-              controller: peopleNotesController,
-              decoration: InputDecoration(labelText: 'Notes '),
-              validator: (value) {
-                if (value.isEmpty) {
-                  return 'Please fill this field';
-                }
-                return null;
-              },
-            ),
-            SizedBox(
-              height: 40,
-            ),
-            ElevatedButton(
-              onPressed: () {
-                if (_formKey.currentState.validate()) {
-                  addPeople(
-                      peopleNameController.text,
-                      peopleFirstnameController.text,
-                      peopleNotesController.text,
-                      '');
-                  Navigator.of(context).pop();
-                }
-              },
-              child: Text('Create'),
-            )
-          ],
+          ),
         ),
       ),
     );

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gmoria/DrawerApp.dart';
-import 'package:gmoria/Pages/AddListPage.dart';
-import 'package:gmoria/Pages/EditListPage.dart';
+import 'package:gmoria/Pages/Add%20Edit/AddListPage.dart';
 import 'package:gmoria/Pages/ListsPage.dart';
 import 'package:gmoria/models/ListModel.dart';
 import 'package:gmoria/auth/Auth.dart';

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gmoria/DrawerApp.dart';
+import 'package:gmoria/Pages/Add%20Edit/EditPersonPage.dart';
 
 import '../models/PersonModel.dart';
 
@@ -18,12 +19,26 @@ class _PersonInfoState extends State<PersonInfo> {
 
     return Scaffold(
       appBar: AppBar(
-          title: Text(widget.appTitle),
-          automaticallyImplyLeading: true,
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back),
-            onPressed: () => Navigator.pop(context, false),
-          )),
+        title: Text(widget.appTitle),
+        automaticallyImplyLeading: true,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () => Navigator.pop(context, false),
+        ),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.edit),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => EditPersonPage(),
+                ),
+              );
+            },
+          ),
+        ],
+      ),
       drawer: DrawerApp(
         appTitle: widget.appTitle,
       ),
