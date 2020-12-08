@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:gmoria/auth/RootPage.dart';
 import 'auth/Auth.dart';
 import 'auth/AuthProvider.dart';
 
 class DrawerApp extends StatelessWidget {
-  final Function onSignedOut;
+  final VoidCallback onSignedOut;
   final String appTitle;
   DrawerApp({this.appTitle, this.onSignedOut});
 
@@ -11,7 +12,12 @@ class DrawerApp extends StatelessWidget {
     try {
       final BaseAuth auth = AuthProvider.of(context).auth;
       await auth.signOut();
-      onSignedOut();
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => RootPage(),
+        ),
+      );
     } catch (e) {
       print(e);
     }
