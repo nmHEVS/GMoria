@@ -1,8 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:gmoria/Pages/PersonGameCard.dart';
-import 'package:gmoria/alerts/alertDelete.dart';
-import 'package:gmoria/auth/Auth.dart';
+import 'package:gmoria/Pages/Game/PersonGameCard.dart';
 
 class GameConfiguration extends StatefulWidget {
   static String routeName = '/gameConfig';

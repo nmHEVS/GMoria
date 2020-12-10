@@ -15,18 +15,30 @@ void deleteList(String listId) async {
 }
 
 void deletePerson(String listId, String personId) async {
-  await firestoreInstance
-      .collection('users')
-      .doc(firebaseUser.uid)
-      .collection('lists')
-      .doc(listId)
-      .collection('persons')
-      .doc(personId)
-      .delete();
+  if (listId == '') {
+    await firestoreInstance
+        .collection('users')
+        .doc(firebaseUser.uid)
+        .collection('persons')
+        .doc(personId)
+        .delete();
+  } else {
+    await firestoreInstance
+        .collection('users')
+        .doc(firebaseUser.uid)
+        .collection('lists')
+        .doc(listId)
+        .collection('persons')
+        .doc(personId)
+        .delete();
+  }
 }
 
 Widget alertDelete(BuildContext context, String name, String listId,
     String personId, String objectToDelete) {
+  print("--------------------");
+  print(listId);
+  print(personId);
   return new AlertDialog(
     title: const Text('Delete'),
     content: new Column(

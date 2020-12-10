@@ -33,19 +33,36 @@ class _AddPersonFormState extends State<AddPersonForm> {
     if (image == '') {
       image = 'assets/images/person2.PNG';
     }
-    await firestoreInstance
-        .collection('users')
-        .doc(firebaseUser.uid)
-        .collection('lists')
-        .doc(widget.listId)
-        .collection('persons')
-        .add({
-      'name': name,
-      'firstname': firstname,
-      'notes': notes,
-      'isCorrect': false,
-      'image': image,
-    });
+
+    if (widget.listId == '') {
+      await firestoreInstance
+          .collection('users')
+          .doc(firebaseUser.uid)
+          .collection('persons')
+          .add({
+        'name': name,
+        'firstname': firstname,
+        'notes': notes,
+        'isCorrect': false,
+        'image': image,
+        'idList': '',
+        'isChecked': false, //TODO pas sur
+      });
+    } else {
+      await firestoreInstance
+          .collection('users')
+          .doc(firebaseUser.uid)
+          .collection('persons')
+          .add({
+        'name': name,
+        'firstname': firstname,
+        'notes': notes,
+        'isCorrect': false,
+        'image': image,
+        'idList': widget.listId,
+        'isChecked': true,
+      });
+    }
   }
 
   @override

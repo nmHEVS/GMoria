@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gmoria/DrawerApp.dart';
+import 'package:gmoria/Pages/Drawer/DrawerApp.dart';
 
 class ScorePage extends StatefulWidget {
   static String routeName = '/score';

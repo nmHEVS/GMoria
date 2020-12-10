@@ -1,17 +1,19 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:gmoria/Pages/PersonListPage.dart';
+import 'package:gmoria/Pages/Person/PersonListPage.dart';
 import 'package:gmoria/alerts/alertDelete.dart';
 
-class ListsPage extends StatefulWidget {
+class FetchDataList extends StatefulWidget {
   @override
-  _ListsPageState createState() => _ListsPageState();
+  _FetchDataListState createState() => _FetchDataListState();
 }
 
-class _ListsPageState extends State<ListsPage> {
+class _FetchDataListState extends State<FetchDataList> {
   var firestoreInstance = FirebaseFirestore.instance;
   var firebaseUser = FirebaseAuth.instance.currentUser;
+
+  var idList;
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +24,7 @@ class _ListsPageState extends State<ListsPage> {
             .collection('users')
             .doc(firebaseUser.uid)
             .collection('lists')
+            .orderBy('name')
             .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
@@ -42,7 +45,7 @@ class _ListsPageState extends State<ListsPage> {
                               icon: Icon(
                                 Icons.delete,
                                 size: 20.0,
-                                color: Colors.brown[900],
+                                color: Colors.red,
                               ),
                               onPressed: () {
                                 showDialog(
@@ -60,6 +63,7 @@ class _ListsPageState extends State<ListsPage> {
                           ],
                         ),
                         onTap: () {
+                          idList = doc[index].id;
                           Navigator.push(
                             context,
                             MaterialPageRoute(
