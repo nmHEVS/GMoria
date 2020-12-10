@@ -18,16 +18,25 @@ class _PersonDetailsPageState extends State<PersonDetailsPage> {
   var firebaseUser = FirebaseAuth.instance.currentUser;
   final String appTitle = 'GMORIA';
   var firestoreInstance = FirebaseFirestore.instance;
+  DocumentReference documentReference;
   Map data;
 
   fetchData() {
-    DocumentReference documentReference = FirebaseFirestore.instance
-        .collection('users')
-        .doc(firebaseUser.uid)
-        .collection('lists')
-        .doc(widget.idList)
-        .collection('persons')
-        .doc(widget.idPerson);
+    if (widget.idList == '') {
+      documentReference = firestoreInstance
+          .collection('users')
+          .doc(firebaseUser.uid)
+          .collection('persons')
+          .doc(widget.idPerson);
+    } else {
+      documentReference = firestoreInstance
+          .collection('users')
+          .doc(firebaseUser.uid)
+          .collection('lists')
+          .doc(widget.idList)
+          .collection('persons')
+          .doc(widget.idPerson);
+    }
 
     documentReference.snapshots().listen((snapshot) {
       setState(() {
@@ -47,7 +56,9 @@ class _PersonDetailsPageState extends State<PersonDetailsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(appTitle + ' - ' + widget.listName),
+        title: widget.listName == ''
+            ? Text(appTitle + ' - Contact\'s details')
+            : Text(appTitle + ' - ' + widget.listName),
         automaticallyImplyLeading: true,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),

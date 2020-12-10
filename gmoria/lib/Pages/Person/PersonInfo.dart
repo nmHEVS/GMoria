@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:gmoria/DrawerApp.dart';
 import 'package:gmoria/Pages/Add%20Edit/EditPersonPage.dart';
-
-import '../models/PersonModel.dart';
+import 'package:gmoria/Pages/Drawer/DrawerApp.dart';
+import 'package:gmoria/models/PersonModel.dart';
 
 class PersonInfo extends StatefulWidget {
   static String routeName = '/personInfo';

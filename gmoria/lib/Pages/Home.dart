@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:gmoria/DrawerApp.dart';
-import 'package:gmoria/Pages/Add%20Edit/AddListPage.dart';
-import 'package:gmoria/Pages/ListsPage.dart';
-import 'package:gmoria/models/ListModel.dart';
+import 'package:gmoria/Pages/Drawer/DrawerApp.dart';
+import 'package:gmoria/Pages/List/ListsPage.dart';
+import 'package:gmoria/Pages/Person/ContactsPage.dart';
 import 'package:gmoria/auth/Auth.dart';
 import 'package:gmoria/auth/AuthProvider.dart';
-import '../datas/dataList.dart' as dataList;
 
 class Home extends StatefulWidget {
   final VoidCallback onSignedOut;
   Home({this.onSignedOut});
-  final List<ListApp> lists = dataList.list;
   final String appTitle = 'GMORIA';
   static String routeName = '/home';
 
@@ -22,6 +19,21 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   Map data;
+  int selectedIndex;
+  final tabs = [ListsPage(), ContactsPage()];
+
+  @override
+  void initState() {
+    super.initState();
+    print('init state');
+    selectedIndex = 0;
+  }
+
+  void switchIndex(newIndex) {
+    setState(() {
+      selectedIndex = newIndex;
+    });
+  }
 
   Future<void> _signOut(BuildContext context) async {
     try {
@@ -37,7 +49,9 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.appTitle),
+        title: selectedIndex == 0
+            ? Text(widget.appTitle + ' - My lists')
+            : Text(widget.appTitle + ' - Contacts'),
         actions: <Widget>[
           FlatButton(
             child: Text('Logout',
@@ -49,48 +63,17 @@ class _HomeState extends State<Home> {
       drawer: DrawerApp(
         appTitle: widget.appTitle,
       ),
-      body: ListsPage(),
-      floatingActionButton: Stack(
-        children: <Widget>[
-          /*Positioned(
-            top: 110.0,
-            right: 0.0,
-            child: FloatingActionButton(
-              heroTag: 'editList',
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => EditListPage(),
-                  ),
-                );
-              },
-              child: Icon(Icons.edit),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(5.0),
-              ),
-            ),
-          ),*/
-          Positioned(
-            top: 110.0,
-            right: 0.0,
-            child: FloatingActionButton(
-              heroTag: 'addList',
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => AddListPage(),
-                  ),
-                );
-              },
-              child: Icon(Icons.add),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(5.0),
-              ),
-            ),
-          ),
+      body: tabs[selectedIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.indigo,
+        selectedItemColor: Colors.white,
+        items: [
+          BottomNavigationBarItem(icon: Icon(Icons.list), label: 'My lists'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.contact_page), label: 'Contacts'),
         ],
+        currentIndex: selectedIndex,
+        onTap: switchIndex,
       ),
     );
   }

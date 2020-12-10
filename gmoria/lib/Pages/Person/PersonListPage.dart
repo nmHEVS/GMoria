@@ -1,12 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:gmoria/DrawerApp.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:gmoria/Pages/Add%20Edit/AddPersonList.dart';
 import 'package:gmoria/Pages/Add%20Edit/AddPersonPage.dart';
 import 'package:gmoria/Pages/Add%20Edit/EditListPage.dart';
-import 'package:gmoria/Pages/PersonDetailsPage.dart';
-import 'package:gmoria/Pages/PersonGameCard.dart';
-import 'package:gmoria/Pages/PersonLearnCard.dart';
+import 'package:gmoria/Pages/Drawer/DrawerApp.dart';
+import 'package:gmoria/Pages/Game/PersonGameCard.dart';
+import 'package:gmoria/Pages/Learn/PersonLearnCard.dart';
+import 'package:gmoria/Pages/Person/PersonDetailsPage.dart';
 import 'package:gmoria/alerts/alertDelete.dart';
 
 class PersonListPage extends StatefulWidget {
@@ -22,23 +23,33 @@ class PersonListPage extends StatefulWidget {
 }
 
 class _PersonListPageState extends State<PersonListPage> {
+  @override
+  void initState() {
+    super.initState();
+    fetchData2();
+  }
+
   var firestoreInstance = FirebaseFirestore.instance;
   var firebaseUser = FirebaseAuth.instance.currentUser;
 
   List personsList = [];
   var listId;
 
+  var all;
+  fetchData2() {
+    all = firestoreInstance
+        .collection('users')
+        .doc(firebaseUser.uid)
+        .collection('persons')
+        .where('idList', isEqualTo: widget.idList)
+        .snapshots();
+  }
+
   fetchData() {
     return Padding(
       padding: const EdgeInsets.only(left: 5, right: 5, bottom: 5, top: 70),
       child: StreamBuilder<QuerySnapshot>(
-        stream: firestoreInstance
-            .collection('users')
-            .doc(firebaseUser.uid)
-            .collection('lists')
-            .doc(widget.idList)
-            .collection('persons')
-            .snapshots(),
+        stream: all,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             var doc = snapshot.data.docs;
@@ -64,7 +75,7 @@ class _PersonListPageState extends State<PersonListPage> {
                             icon: Icon(
                               Icons.delete,
                               size: 20.0,
-                              color: Colors.brown[900],
+                              color: Colors.red,
                             ),
                             onPressed: () {
                               var name = doc[index]['name'].toString() +
@@ -191,9 +202,8 @@ class _PersonListPageState extends State<PersonListPage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => AddPersonPage(
-                        listName: widget.listName, listId: widget.idList),
-                  ),
+                      builder: (context) => AddPersonList(
+                          listName: widget.listName, listId: widget.idList)),
                 );
               },
               child: Icon(Icons.add),

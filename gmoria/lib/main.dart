@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:gmoria/Pages/PersonListPage.dart';
+import 'package:gmoria/Pages/Drawer/About.dart';
+import 'package:gmoria/Pages/Game/PersonGameCard.dart';
+import 'package:gmoria/Pages/Game/ScorePage.dart';
+import 'package:gmoria/Pages/Learn/PersonLearnCard.dart';
+import 'package:gmoria/Pages/Person/PersonInfo.dart';
+import 'package:gmoria/Pages/Person/PersonListPage.dart';
+
 import 'package:gmoria/auth/AuthProvider.dart';
 import 'package:gmoria/auth/RootPage.dart';
-import 'DrawerApp.dart';
-import 'Pages/About.dart';
+
 import 'Pages/Home.dart';
-import 'Pages/PersonGameCard.dart';
-import 'Pages/PersonInfo.dart';
-import 'Pages/PersonLearnCard.dart';
-import 'Pages/ScorePage.dart';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'auth/Auth.dart';
 
