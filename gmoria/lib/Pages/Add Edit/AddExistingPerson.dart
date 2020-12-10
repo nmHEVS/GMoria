@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:gmoria/Pages/Person/PersonListPage.dart';
 import 'package:gmoria/datas/FetchDataPersonToAdd.dart';
 
 class AddExistingPerson extends StatefulWidget {
   final String appTitle = 'GMORIA';
+  final listId;
+  AddExistingPerson({this.listId});
+
   @override
   _AddExistingPersonState createState() => _AddExistingPersonState();
 }
@@ -18,7 +22,27 @@ class _AddExistingPersonState extends State<AddExistingPerson> {
             icon: Icon(Icons.arrow_back),
             onPressed: () => Navigator.pop(context, false),
           )),
-      body: FetchDataPersonToAdd(),
+      body: FetchDataPersonToAdd(
+        listId: widget.listId,
+      ),
+      floatingActionButton: Stack(
+        children: <Widget>[
+          Positioned(
+            top: 110.0,
+            right: 0.0,
+            child: FloatingActionButton(
+              heroTag: 'back',
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Icon(Icons.save),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(5.0),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

@@ -38,7 +38,8 @@ class _AddPersonListState extends State<AddPersonList> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => AddExistingPerson(),
+                    builder: (context) =>
+                        AddExistingPerson(listId: widget.listId),
                   ),
                 );
               },

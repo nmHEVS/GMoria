@@ -26,11 +26,9 @@ void deletePerson(String listId, String personId) async {
     await firestoreInstance
         .collection('users')
         .doc(firebaseUser.uid)
-        .collection('lists')
-        .doc(listId)
         .collection('persons')
         .doc(personId)
-        .delete();
+        .update({'idList': ''});
   }
 }
 
