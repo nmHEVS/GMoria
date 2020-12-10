@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:gmoria/Pages/PersonListPage.dart';
 import 'package:gmoria/auth/AuthProvider.dart';
 import 'package:gmoria/auth/RootPage.dart';
-import 'DrawerApp.dart';
 import 'Pages/About.dart';
 import 'Pages/Home.dart';
 import 'Pages/PersonGameCard.dart';
 import 'Pages/PersonInfo.dart';
 import 'Pages/PersonLearnCard.dart';
 import 'Pages/ScorePage.dart';
+import 'Pages/GameConfiguration.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'auth/Auth.dart';
 
@@ -52,6 +52,9 @@ class MyApp extends StatelessWidget {
             },
             About.routeName: (context) {
               return About();
+            },
+            GameConfiguration.routeName: (context) {
+              return GameConfiguration();
             }
           },
         ));

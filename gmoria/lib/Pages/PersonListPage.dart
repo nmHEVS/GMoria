@@ -5,9 +5,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:gmoria/Pages/Add%20Edit/AddPersonPage.dart';
 import 'package:gmoria/Pages/Add%20Edit/EditListPage.dart';
 import 'package:gmoria/Pages/PersonDetailsPage.dart';
-import 'package:gmoria/Pages/PersonGameCard.dart';
 import 'package:gmoria/Pages/PersonLearnCard.dart';
 import 'package:gmoria/alerts/alertDelete.dart';
+
+import 'GameConfiguration.dart';
 
 class PersonListPage extends StatefulWidget {
   final idList;
@@ -169,7 +170,7 @@ class _PersonListPageState extends State<PersonListPage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => PersonGameCard(
+                    builder: (context) => GameConfiguration(
                         personsList: personsList,
                         listName: widget.listName,
                         listId: widget.idList),

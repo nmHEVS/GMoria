@@ -8,8 +8,13 @@ class PersonGameCard extends StatefulWidget {
   final personsList;
   final listName;
   final listId;
+  final bool isSwitchedPlayOnlyWithMistakes;
 
-  PersonGameCard({this.listName, this.personsList, this.listId});
+  PersonGameCard(
+      {this.listName,
+      this.personsList,
+      this.listId,
+      this.isSwitchedPlayOnlyWithMistakes});
 
   @override
   _PersonGameCardState createState() => _PersonGameCardState();
@@ -39,12 +44,19 @@ class _PersonGameCardState extends State<PersonGameCard> {
     int scorePercent = 0;
 
     void _randomQuestion() {
-      if (_controller.text ==
-          (widget.personsList.elementAt(_i)['firstname'] +
-              ' ' +
-              widget.personsList.elementAt(_i)['name'])) {
-        score++;
+      if (widget.isSwitchedPlayOnlyWithMistakes == false) {
+        if (_controller.text ==
+            (widget.personsList.elementAt(_i)['firstname'] +
+                ' ' +
+                widget.personsList.elementAt(_i)['name'])) {
+          score++;
+        }
       }
+      /*else {
+        if (widget.personsList.elemantAt(_i)['isCorrect'] == false) {
+
+        }
+      }*/
 
       if (_i == widget.personsList.length - 1) {
         Navigator.pushNamed(context, '/score', arguments: score);
