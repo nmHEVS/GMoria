@@ -49,7 +49,6 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-<<<<<<< HEAD
         title: selectedIndex == 0
             ? Text(widget.appTitle + ' - My lists')
             : Text(widget.appTitle + ' - Contacts'),
@@ -60,9 +59,6 @@ class _HomeState extends State<Home> {
             onPressed: () => _signOut(context),
           ),
         ],
-=======
-        title: Text(widget.appTitle),
->>>>>>> 05812ea4d59bef3d793d03d5daa50bbff582b5cf
       ),
       drawer: DrawerApp(
         appTitle: widget.appTitle,

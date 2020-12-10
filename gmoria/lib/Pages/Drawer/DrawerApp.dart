@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
-<<<<<<< HEAD:gmoria/lib/Pages/Drawer/DrawerApp.dart
 import 'package:gmoria/auth/Auth.dart';
 import 'package:gmoria/auth/AuthProvider.dart';
-=======
 import 'package:gmoria/auth/RootPage.dart';
-import 'auth/Auth.dart';
-import 'auth/AuthProvider.dart';
->>>>>>> 05812ea4d59bef3d793d03d5daa50bbff582b5cf:gmoria/lib/DrawerApp.dart
 
 class DrawerApp extends StatelessWidget {
   final VoidCallback onSignedOut;
