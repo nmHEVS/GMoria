@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
+<<<<<<< HEAD:gmoria/lib/Pages/Drawer/DrawerApp.dart
 import 'package:gmoria/auth/Auth.dart';
 import 'package:gmoria/auth/AuthProvider.dart';
+=======
+import 'package:gmoria/auth/RootPage.dart';
+import 'auth/Auth.dart';
+import 'auth/AuthProvider.dart';
+>>>>>>> 05812ea4d59bef3d793d03d5daa50bbff582b5cf:gmoria/lib/DrawerApp.dart
 
 class DrawerApp extends StatelessWidget {
-  final Function onSignedOut;
+  final VoidCallback onSignedOut;
   final String appTitle;
   DrawerApp({this.appTitle, this.onSignedOut});
 
@@ -11,7 +17,12 @@ class DrawerApp extends StatelessWidget {
     try {
       final BaseAuth auth = AuthProvider.of(context).auth;
       await auth.signOut();
-      onSignedOut();
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => RootPage(),
+        ),
+      );
     } catch (e) {
       print(e);
     }
