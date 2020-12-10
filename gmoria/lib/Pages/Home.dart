@@ -52,13 +52,6 @@ class _HomeState extends State<Home> {
         title: selectedIndex == 0
             ? Text(widget.appTitle + ' - My lists')
             : Text(widget.appTitle + ' - Contacts'),
-        actions: <Widget>[
-          FlatButton(
-            child: Text('Logout',
-                style: TextStyle(fontSize: 17.0, color: Colors.white)),
-            onPressed: () => _signOut(context),
-          ),
-        ],
       ),
       drawer: DrawerApp(
         appTitle: widget.appTitle,

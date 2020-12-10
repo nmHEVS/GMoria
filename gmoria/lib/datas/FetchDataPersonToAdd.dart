@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class FetchDataPersonToAdd extends StatefulWidget {
+  final listId;
+
+  FetchDataPersonToAdd({this.listId});
+
   @override
   _FetchDataPersonToAddState createState() => _FetchDataPersonToAddState();
 }
@@ -12,25 +16,14 @@ class _FetchDataPersonToAddState extends State<FetchDataPersonToAdd> {
   var firebaseUser = FirebaseAuth.instance.currentUser;
   bool isChecked = false;
 
-  //lists des contacts qu'on veut ajouter
-  final List selectedContacts = List();
-
-  void _onContactSelected(bool selected, categoryId) {
-    if (selected == true) {
-      setState(() {
-        selectedContacts.add(categoryId);
-      });
-    } else {
-      setState(() {
-        selectedContacts.remove(categoryId);
-      });
-    }
+  void addPeople(String listId, String personId) async {
+    await firestoreInstance
+        .collection('users')
+        .doc(firebaseUser.uid)
+        .collection('persons')
+        .doc(personId)
+        .update({'idList': listId});
   }
-
-  var tmpArray = [];
-  var persons = [];
-  var color = Colors.white;
-  bool tapped = false;
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +34,7 @@ class _FetchDataPersonToAddState extends State<FetchDataPersonToAdd> {
             .collection('users')
             .doc(firebaseUser.uid)
             .collection('persons')
-            .orderBy('name')
+            .where('idList', isNotEqualTo: widget.listId)
             .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
@@ -49,8 +42,6 @@ class _FetchDataPersonToAddState extends State<FetchDataPersonToAdd> {
             return new ListView.builder(
               itemCount: doc.length,
               itemBuilder: (context, index) {
-                persons.add(doc[index]);
-                tapped = doc[index]['isChecked'];
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Card(
@@ -64,88 +55,15 @@ class _FetchDataPersonToAddState extends State<FetchDataPersonToAdd> {
                       trailing: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Checkbox(
-                            value: isChecked,
-                            onChanged: (bool value) {
-                              setState(() {
-                                isChecked = value;
-                              });
-                            },
-                          )
+                          IconButton(
+                              icon: Icon(Icons.add),
+                              onPressed: () {
+                                addPeople(widget.listId, doc[index].id);
+                              }),
                         ],
                       ),
                     ),
                   ),
-                  /*color: tapped ? Colors.indigo[100] : color,
-                    child: ListTile(
-                      leading: CircleAvatar(
-                        backgroundImage: AssetImage(doc[index]['image']),
-                      ),
-                      title: Text(doc[index]['name'].toString() +
-                          ' ' +
-                          doc[index]['firstname'].toString()),
-                      onTap: () {
-                        setState(() {
-                          tapped = !tapped;
-                        });
-                      },
-                    ),
-                  ),*/
-                  /*child: ListTile(
-                      leading: CircleAvatar(
-                        backgroundImage: AssetImage(doc[index]['image']),
-                      ),
-                      title: Text(doc[index]['name'].toString() +
-                          ' ' +
-                          doc[index]['firstname'].toString()),
-                      trailing: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Checkbox(
-                            value: isChecked,
-                            onChanged: (bool value) {
-                              setState(() {
-                                isChecked = value;
-                              });
-                            },
-                          )
-                        ],
-                      ),
-                    ),*/
-
-                  /*child: CheckboxListTile(
-                      value: isChecked,
-                      title: Text(doc[index]['name'].toString() +
-                          ' ' +
-                          doc[index]['firstname'].toString()),
-                      secondary: CircleAvatar(
-                        backgroundImage: AssetImage(doc[index]['image']),
-                      ),
-                      onChanged: (bool selected) {
-                        _onContactSelected(selected, doc[index].id);
-                      },
-                    ),*/
-                  /*child: ListTile(
-                      leading: CircleAvatar(
-                        backgroundImage: AssetImage(doc[index]['image']),
-                      ),
-                      title: Text(doc[index]['name'].toString() +
-                          ' ' +
-                          doc[index]['firstname'].toString()),
-                      trailing: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Checkbox(
-                            value: isChecked,
-                            onChanged: (bool value) {
-                              setState(() {
-                                isChecked = value;
-                              });
-                            },
-                          )
-                        ],
-                      ),
-                    ),*/
                 );
               },
             );

@@ -34,6 +34,7 @@ class _PersonListPageState extends State<PersonListPage> {
 
   List personsList = [];
   var listId;
+  var image;
 
   var all;
   fetchData2() {
@@ -58,6 +59,7 @@ class _PersonListPageState extends State<PersonListPage> {
               itemBuilder: (context, index) {
                 personsList.add(doc[index]);
                 listId = doc[index].id;
+                image = doc[index]['image'];
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Card(
@@ -102,7 +104,7 @@ class _PersonListPageState extends State<PersonListPage> {
                               idList: widget.idList,
                               idPerson: doc[index].id,
                               listName: widget.listName,
-                              image: doc[index]['image'],
+                              image: image,
                             ),
                           ),
                         );

@@ -46,7 +46,6 @@ class _AddPersonFormState extends State<AddPersonForm> {
         'isCorrect': false,
         'image': image,
         'idList': '',
-        'isChecked': false, //TODO pas sur
       });
     } else {
       await firestoreInstance
@@ -60,7 +59,6 @@ class _AddPersonFormState extends State<AddPersonForm> {
         'isCorrect': false,
         'image': image,
         'idList': widget.listId,
-        'isChecked': true,
       });
     }
   }

@@ -22,26 +22,15 @@ class _PersonDetailsPageState extends State<PersonDetailsPage> {
   Map data;
 
   fetchData() {
-    if (widget.idList == '') {
-      documentReference = firestoreInstance
-          .collection('users')
-          .doc(firebaseUser.uid)
-          .collection('persons')
-          .doc(widget.idPerson);
-    } else {
-      documentReference = firestoreInstance
-          .collection('users')
-          .doc(firebaseUser.uid)
-          .collection('lists')
-          .doc(widget.idList)
-          .collection('persons')
-          .doc(widget.idPerson);
-    }
+    documentReference = firestoreInstance
+        .collection('users')
+        .doc(firebaseUser.uid)
+        .collection('persons')
+        .doc(widget.idPerson);
 
     documentReference.snapshots().listen((snapshot) {
       setState(() {
         data = snapshot.data();
-        print('+++++++++++' + data.toString());
       });
     });
   }
