@@ -80,8 +80,6 @@ class _FetchDataPersonToAddState extends State<FetchDataPersonToAdd> {
                       ),
                     ),
                   ),
-
-                  // _buildChild(doc, index, addPeople, widget.listId, ids),
                 );
               },
             );
@@ -89,44 +87,6 @@ class _FetchDataPersonToAddState extends State<FetchDataPersonToAdd> {
             return LinearProgressIndicator();
           }
         },
-      ),
-    );
-  }
-}
-
-Widget _buildChild(doc, index, addPeople, listId, ids) {
-  if (doc[index]['listIds[0]'] == listId) {
-    return Card(
-      color: Colors.red[100],
-      child: ListTile(
-        leading: CircleAvatar(
-          backgroundImage: AssetImage(doc[index]['image']),
-        ),
-        title: Text(doc[index]['name'].toString() +
-            ' ' +
-            doc[index]['firstname'].toString()),
-        subtitle: Text('Already in this list'),
-      ),
-    );
-  } else {
-    return Card(
-      child: ListTile(
-        leading: CircleAvatar(
-          backgroundImage: AssetImage(doc[index]['image']),
-        ),
-        title: Text(doc[index]['name'].toString() +
-            ' ' +
-            doc[index]['firstname'].toString()),
-        trailing: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            IconButton(
-                icon: Icon(Icons.add),
-                onPressed: () {
-                  addPeople(listId, doc[index].id);
-                }),
-          ],
-        ),
       ),
     );
   }

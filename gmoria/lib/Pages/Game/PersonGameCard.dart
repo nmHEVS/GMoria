@@ -92,7 +92,7 @@ class _PersonGameCardState extends State<PersonGameCard> {
                 CircleAvatar(
                   backgroundImage:
                       AssetImage(widget.personsList.elementAt(_i)['image']),
-                  radius: 180,
+                  radius: 150,
                 ),
                 SizedBox(
                   height: 30,

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:gmoria/Pages/Add%20Edit/EditPersonPage.dart';
 
 class PersonDetailsPage extends StatefulWidget {
   final idList;
@@ -53,6 +54,25 @@ class _PersonDetailsPageState extends State<PersonDetailsPage> {
           icon: Icon(Icons.arrow_back),
           onPressed: () => Navigator.pop(context, false),
         ),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.edit),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => EditPersonPage(
+                    name: data['name'],
+                    firstname: data['firstname'],
+                    notes: data['notes'],
+                    image: data['image'],
+                    personId: widget.idPerson,
+                  ),
+                ),
+              );
+            },
+          ),
+        ],
       ),
       body: Center(
         child: Column(

@@ -3,7 +3,6 @@ import 'package:gmoria/Pages/Drawer/About.dart';
 import 'package:gmoria/Pages/Game/PersonGameCard.dart';
 import 'package:gmoria/Pages/Game/ScorePage.dart';
 import 'package:gmoria/Pages/Learn/PersonLearnCard.dart';
-import 'package:gmoria/Pages/Person/PersonInfo.dart';
 import 'package:gmoria/Pages/Person/PersonListPage.dart';
 import 'package:gmoria/auth/AuthProvider.dart';
 import 'package:gmoria/auth/RootPage.dart';
@@ -46,9 +45,6 @@ class MyApp extends StatelessWidget {
             },
             Home.routeName: (context) {
               return Home();
-            },
-            PersonInfo.routeName: (context) {
-              return PersonInfo();
             },
             About.routeName: (context) {
               return About();
