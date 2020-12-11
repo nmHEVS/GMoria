@@ -2,13 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:gmoria/Pages/Add%20Edit/AddPersonList.dart';
-import 'package:gmoria/Pages/Add%20Edit/AddPersonPage.dart';
 import 'package:gmoria/Pages/Add%20Edit/EditListPage.dart';
-import 'package:gmoria/Pages/Drawer/DrawerApp.dart';
-import 'package:gmoria/Pages/Game/PersonGameCard.dart';
-import 'package:gmoria/Pages/Learn/PersonLearnCard.dart';
 import 'package:gmoria/Pages/Person/PersonDetailsPage.dart';
+import 'package:gmoria/Pages/Learn/PersonLearnCard.dart';
+import 'package:gmoria/Pages/Drawer/DrawerApp.dart';
 import 'package:gmoria/alerts/alertDelete.dart';
+import 'package:gmoria/Pages/Game/GameConfiguration.dart';
 
 class PersonListPage extends StatefulWidget {
   final idList;
@@ -182,7 +181,7 @@ class _PersonListPageState extends State<PersonListPage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => PersonGameCard(
+                    builder: (context) => GameConfiguration(
                         personsList: personsList,
                         listName: widget.listName,
                         listId: widget.idList),

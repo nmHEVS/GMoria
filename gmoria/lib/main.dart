@@ -5,12 +5,10 @@ import 'package:gmoria/Pages/Game/ScorePage.dart';
 import 'package:gmoria/Pages/Learn/PersonLearnCard.dart';
 import 'package:gmoria/Pages/Person/PersonInfo.dart';
 import 'package:gmoria/Pages/Person/PersonListPage.dart';
-
 import 'package:gmoria/auth/AuthProvider.dart';
 import 'package:gmoria/auth/RootPage.dart';
-
 import 'Pages/Home.dart';
-
+import 'Pages/Game/GameConfiguration.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'auth/Auth.dart';
 
@@ -54,6 +52,9 @@ class MyApp extends StatelessWidget {
             },
             About.routeName: (context) {
               return About();
+            },
+            GameConfiguration.routeName: (context) {
+              return GameConfiguration();
             }
           },
         ));

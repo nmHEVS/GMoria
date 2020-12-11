@@ -6,7 +6,7 @@ class PersonLearnCard extends StatefulWidget {
   final personsList;
   final listName;
 
-  PersonLearnCard({this.listName, this.personsList});
+  PersonLearnCard({this.listName, this.personsList, listId});
 
   @override
   _PersonLearnCardState createState() => _PersonLearnCardState();
