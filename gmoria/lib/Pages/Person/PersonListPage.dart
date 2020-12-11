@@ -42,7 +42,7 @@ class _PersonListPageState extends State<PersonListPage> {
         .collection('users')
         .doc(firebaseUser.uid)
         .collection('persons')
-        .where('idList', isEqualTo: widget.idList)
+        .where('listIds', arrayContains: widget.idList)
         .snapshots();
   }
 
@@ -204,8 +204,9 @@ class _PersonListPageState extends State<PersonListPage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => AddPersonList(
-                          listName: widget.listName, listId: widget.idList)),
+                    builder: (context) => AddPersonList(
+                        listName: widget.listName, listId: widget.idList),
+                  ),
                 );
               },
               child: Icon(Icons.add),

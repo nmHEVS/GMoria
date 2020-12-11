@@ -28,7 +28,9 @@ void deletePerson(String listId, String personId) async {
         .doc(firebaseUser.uid)
         .collection('persons')
         .doc(personId)
-        .update({'idList': ''});
+        .update({
+      'listIds': FieldValue.arrayRemove([listId])
+    });
   }
 }
 

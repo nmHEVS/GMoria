@@ -45,7 +45,7 @@ class _AddPersonFormState extends State<AddPersonForm> {
         'notes': notes,
         'isCorrect': false,
         'image': image,
-        'idList': '',
+        'listIds': FieldValue.arrayUnion([]),
       });
     } else {
       await firestoreInstance
@@ -58,7 +58,7 @@ class _AddPersonFormState extends State<AddPersonForm> {
         'notes': notes,
         'isCorrect': false,
         'image': image,
-        'idList': widget.listId,
+        'listIds': FieldValue.arrayUnion([widget.listId]),
       });
     }
   }

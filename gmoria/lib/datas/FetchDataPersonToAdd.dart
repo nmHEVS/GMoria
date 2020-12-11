@@ -12,6 +12,22 @@ class FetchDataPersonToAdd extends StatefulWidget {
 }
 
 class _FetchDataPersonToAddState extends State<FetchDataPersonToAdd> {
+  @override
+  void initState() {
+    super.initState();
+    fetchData2();
+  }
+
+  var all;
+  fetchData2() {
+    all = firestoreInstance
+        .collection('users')
+        .doc(firebaseUser.uid)
+        .collection('persons')
+        .snapshots();
+    //.where('listIds', arrayContains: widget.listId);
+  }
+
   var firestoreInstance = FirebaseFirestore.instance;
   var firebaseUser = FirebaseAuth.instance.currentUser;
   bool isChecked = false;
@@ -22,7 +38,9 @@ class _FetchDataPersonToAddState extends State<FetchDataPersonToAdd> {
         .doc(firebaseUser.uid)
         .collection('persons')
         .doc(personId)
-        .update({'idList': listId});
+        .update({
+      'listIds': FieldValue.arrayUnion([widget.listId]),
+    });
   }
 
   @override
@@ -30,12 +48,7 @@ class _FetchDataPersonToAddState extends State<FetchDataPersonToAdd> {
     return Padding(
       padding: const EdgeInsets.only(left: 5, right: 5, bottom: 5, top: 70),
       child: StreamBuilder<QuerySnapshot>(
-        stream: firestoreInstance
-            .collection('users')
-            .doc(firebaseUser.uid)
-            .collection('persons')
-            .where('idList', isNotEqualTo: widget.listId)
-            .snapshots(),
+        stream: all,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             var doc = snapshot.data.docs;
@@ -45,6 +58,7 @@ class _FetchDataPersonToAddState extends State<FetchDataPersonToAdd> {
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Card(
+                    //color: Colors.red[100],
                     child: ListTile(
                       leading: CircleAvatar(
                         backgroundImage: AssetImage(doc[index]['image']),
@@ -52,18 +66,22 @@ class _FetchDataPersonToAddState extends State<FetchDataPersonToAdd> {
                       title: Text(doc[index]['name'].toString() +
                           ' ' +
                           doc[index]['firstname'].toString()),
+                      //subtitle: Text('Already in this list'),
                       trailing: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           IconButton(
-                              icon: Icon(Icons.add),
-                              onPressed: () {
-                                addPeople(widget.listId, doc[index].id);
-                              }),
+                            icon: Icon(Icons.add),
+                            onPressed: () {
+                              addPeople(widget.listId, doc[index].id);
+                            },
+                          ),
                         ],
                       ),
                     ),
                   ),
+
+                  // _buildChild(doc, index, addPeople, widget.listId, ids),
                 );
               },
             );
@@ -71,6 +89,44 @@ class _FetchDataPersonToAddState extends State<FetchDataPersonToAdd> {
             return LinearProgressIndicator();
           }
         },
+      ),
+    );
+  }
+}
+
+Widget _buildChild(doc, index, addPeople, listId, ids) {
+  if (doc[index]['listIds[0]'] == listId) {
+    return Card(
+      color: Colors.red[100],
+      child: ListTile(
+        leading: CircleAvatar(
+          backgroundImage: AssetImage(doc[index]['image']),
+        ),
+        title: Text(doc[index]['name'].toString() +
+            ' ' +
+            doc[index]['firstname'].toString()),
+        subtitle: Text('Already in this list'),
+      ),
+    );
+  } else {
+    return Card(
+      child: ListTile(
+        leading: CircleAvatar(
+          backgroundImage: AssetImage(doc[index]['image']),
+        ),
+        title: Text(doc[index]['name'].toString() +
+            ' ' +
+            doc[index]['firstname'].toString()),
+        trailing: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            IconButton(
+                icon: Icon(Icons.add),
+                onPressed: () {
+                  addPeople(listId, doc[index].id);
+                }),
+          ],
+        ),
       ),
     );
   }
