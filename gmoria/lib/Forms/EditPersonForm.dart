@@ -1,7 +1,9 @@
+import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:gmoria/Pages/Home.dart';
+import 'package:image_picker/image_picker.dart';
 
 class EditPersonForm extends StatefulWidget {
   final name;
@@ -24,6 +26,58 @@ class _EditPersonFormState extends State<EditPersonForm> {
   var addNotesController = TextEditingController();
   var firestoreInstance = FirebaseFirestore.instance;
   var firebaseUser = FirebaseAuth.instance.currentUser;
+  PickedFile _imagePicked;
+  final _picker = ImagePicker();
+  File file;
+  File fileSaved;
+
+  void _imgFromCamera() async {
+    PickedFile image =
+        await _picker.getImage(source: ImageSource.camera, imageQuality: 50);
+
+    setState(() {
+      _imagePicked = image;
+    });
+  }
+
+  void _imgFromGallery() async {
+    PickedFile image =
+        await _picker.getImage(source: ImageSource.gallery, imageQuality: 50);
+
+    setState(() {
+      _imagePicked = image;
+    });
+  }
+
+  void _showPicker(context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext bc) {
+          return SafeArea(
+            child: Container(
+              child: new Wrap(
+                children: <Widget>[
+                  new ListTile(
+                      leading: new Icon(Icons.photo_library),
+                      title: new Text('Photo Library'),
+                      onTap: () {
+                        _imgFromGallery();
+                        Navigator.of(context).pop();
+                      }),
+                  new ListTile(
+                    leading: new Icon(Icons.photo_camera),
+                    title: new Text('Camera'),
+                    onTap: () {
+                      _imgFromCamera();
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
+  }
 
   @override
   void initState() {
@@ -72,11 +126,51 @@ class _EditPersonFormState extends State<EditPersonForm> {
           child: Padding(
             padding: EdgeInsets.all(20),
             child: Column(
-              children: [
-                IconButton(
-                  icon: Icon(Icons.add_a_photo),
-                  onPressed: () {},
-                  iconSize: 110,
+              children: <Widget>[
+                SizedBox(
+                  height: 32,
+                ),
+                Center(
+                  child: GestureDetector(
+                    onTap: () {
+                      _showPicker(context);
+                    },
+                    child: CircleAvatar(
+                        radius: 55,
+                        backgroundColor: Color(0xFF1A237E),
+                        child: _imagePicked == null
+                            ? widget.image != null
+                                ? ClipRRect(
+                                    borderRadius: BorderRadius.circular(50),
+                                    child: Image.file(
+                                      file = File(widget.image),
+                                      width: 100,
+                                      height: 100,
+                                      fit: BoxFit.fitHeight,
+                                    ),
+                                  )
+                                : Container(
+                                    decoration: BoxDecoration(
+                                        color: Colors.grey[200],
+                                        borderRadius:
+                                            BorderRadius.circular(50)),
+                                    width: 100,
+                                    height: 100,
+                                    child: Icon(
+                                      Icons.camera_alt,
+                                      color: Colors.grey[800],
+                                    ),
+                                  )
+                            : ClipRRect(
+                                borderRadius: BorderRadius.circular(50),
+                                child: Image.file(
+                                  file = File(_imagePicked.path),
+                                  width: 100,
+                                  height: 100,
+                                  fit: BoxFit.fitHeight,
+                                ),
+                              )),
+                  ),
                 ),
                 TextFormField(
                   controller: addNameController,
@@ -121,10 +215,11 @@ class _EditPersonFormState extends State<EditPersonForm> {
                   onPressed: () {
                     if (_formKey.currentState.validate()) {
                       updateList(
-                          addNameController.text,
-                          addFirstnameController.text,
-                          addNotesController.text,
-                          addImageController.text);
+                        addNameController.text,
+                        addFirstnameController.text,
+                        addNotesController.text,
+                        addImageController.text = _imagePicked.path,
+                      );
                       Navigator.push(
                         context,
                         MaterialPageRoute(

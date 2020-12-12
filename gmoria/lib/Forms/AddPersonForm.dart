@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:image_picker/image_picker.dart';
 
 class AddPersonForm extends StatefulWidget {
   final listName;
@@ -21,6 +24,58 @@ class _AddPersonFormState extends State<AddPersonForm> {
 
   var firestoreInstance = FirebaseFirestore.instance;
   var firebaseUser = FirebaseAuth.instance.currentUser;
+
+  PickedFile _image;
+  final _picker = ImagePicker();
+  File file;
+
+  void _imgFromCamera() async {
+    PickedFile image =
+        await _picker.getImage(source: ImageSource.camera, imageQuality: 50);
+
+    setState(() {
+      _image = image;
+    });
+  }
+
+  void _imgFromGallery() async {
+    PickedFile image =
+        await _picker.getImage(source: ImageSource.gallery, imageQuality: 50);
+
+    setState(() {
+      _image = image;
+    });
+  }
+
+  void _showPicker(context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext bc) {
+          return SafeArea(
+            child: Container(
+              child: new Wrap(
+                children: <Widget>[
+                  new ListTile(
+                      leading: new Icon(Icons.photo_library),
+                      title: new Text('Photo Library'),
+                      onTap: () {
+                        _imgFromGallery();
+                        Navigator.of(context).pop();
+                      }),
+                  new ListTile(
+                    leading: new Icon(Icons.photo_camera),
+                    title: new Text('Camera'),
+                    onTap: () {
+                      _imgFromCamera();
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
+  }
 
   @override
   void dispose() {
@@ -74,11 +129,41 @@ class _AddPersonFormState extends State<AddPersonForm> {
           child: Padding(
             padding: EdgeInsets.all(20),
             child: Column(
-              children: [
-                IconButton(
-                  icon: Icon(Icons.add_a_photo),
-                  onPressed: () {},
-                  iconSize: 110,
+              children: <Widget>[
+                SizedBox(
+                  height: 32,
+                ),
+                Center(
+                  child: GestureDetector(
+                    onTap: () {
+                      _showPicker(context);
+                    },
+                    child: CircleAvatar(
+                      radius: 55,
+                      backgroundColor: Color(0xFF1A237E),
+                      child: _image != null
+                          ? ClipRRect(
+                              borderRadius: BorderRadius.circular(50),
+                              child: Image.file(
+                                file = File(_image.path),
+                                width: 100,
+                                height: 100,
+                                fit: BoxFit.fitHeight,
+                              ),
+                            )
+                          : Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.grey[200],
+                                  borderRadius: BorderRadius.circular(50)),
+                              width: 100,
+                              height: 100,
+                              child: Icon(
+                                Icons.camera_alt,
+                                color: Colors.grey[800],
+                              ),
+                            ),
+                    ),
+                  ),
                 ),
                 TextFormField(
                   controller: peopleNameController,
@@ -120,7 +205,7 @@ class _AddPersonFormState extends State<AddPersonForm> {
                           peopleNameController.text,
                           peopleFirstnameController.text,
                           peopleNotesController.text,
-                          '');
+                          peopleImageController.text = _image.path);
                       Navigator.of(context).pop();
                     }
                   },
