@@ -139,30 +139,34 @@ class _AddPersonFormState extends State<AddPersonForm> {
                       _showPicker(context);
                     },
                     child: CircleAvatar(
-                      radius: 55,
-                      backgroundColor: Color(0xFF1A237E),
-                      child: _image != null
-                          ? ClipRRect(
-                              borderRadius: BorderRadius.circular(50),
-                              child: Image.file(
-                                file = File(_image.path),
-                                width: 100,
-                                height: 100,
-                                fit: BoxFit.fitHeight,
-                              ),
-                            )
-                          : Container(
-                              decoration: BoxDecoration(
-                                  color: Colors.grey[200],
-                                  borderRadius: BorderRadius.circular(50)),
-                              width: 100,
-                              height: 100,
-                              child: Icon(
-                                Icons.camera_alt,
-                                color: Colors.grey[800],
-                              ),
-                            ),
-                    ),
+                        radius: 70,
+                        backgroundColor: Color(0xFF1A237E),
+                        child: _image == null
+                            ? _image != null
+                                ? CircleAvatar(
+                                    backgroundImage: Image.file(
+                                      file = File(_image.path),
+                                    ).image,
+                                    radius: 65,
+                                  )
+                                : Container(
+                                    decoration: BoxDecoration(
+                                        color: Colors.grey[200],
+                                        borderRadius:
+                                            BorderRadius.circular(65)),
+                                    width: 110,
+                                    height: 110,
+                                    child: Icon(
+                                      Icons.camera_alt,
+                                      color: Colors.grey[800],
+                                    ),
+                                  )
+                            : CircleAvatar(
+                                backgroundImage: Image.file(
+                                  file = File(_image.path),
+                                ).image,
+                                radius: 65,
+                              )),
                   ),
                 ),
                 TextFormField(

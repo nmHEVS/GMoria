@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -61,7 +63,9 @@ class _FetchDataPersonToAddState extends State<FetchDataPersonToAdd> {
                     //color: Colors.red[100],
                     child: ListTile(
                       leading: CircleAvatar(
-                        backgroundImage: AssetImage(doc[index]['image']),
+                        backgroundImage:
+                            Image.file(File(doc[index]['image'])).image,
+                        //backgroundImage: AssetImage(doc[index]['image']),
                       ),
                       title: Text(doc[index]['name'].toString() +
                           ' ' +

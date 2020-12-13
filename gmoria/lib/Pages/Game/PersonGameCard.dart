@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -90,9 +92,11 @@ class _PersonGameCardState extends State<PersonGameCard> {
                   height: 30,
                 ),
                 CircleAvatar(
-                  backgroundImage:
-                      AssetImage(widget.personsList.elementAt(_i)['image']),
+                  backgroundImage: Image.file(
+                    File(widget.personsList.elementAt(_i)['image']),
+                  ).image,
                   radius: 150,
+                  backgroundColor: Colors.black,
                 ),
                 SizedBox(
                   height: 30,

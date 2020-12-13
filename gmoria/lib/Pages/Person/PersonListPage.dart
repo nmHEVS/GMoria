@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -58,13 +60,13 @@ class _PersonListPageState extends State<PersonListPage> {
               itemBuilder: (context, index) {
                 personsList.add(doc[index]);
                 listId = doc[index].id;
-                image = doc[index]['image'];
+                image = doc[index]['image'].toString();
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Card(
                     child: ListTile(
                       leading: CircleAvatar(
-                        backgroundImage: AssetImage(doc[index]['image']),
+                        backgroundImage: Image.file(File(image)).image,
                       ),
                       title: Text(doc[index]['name'].toString() +
                           ' ' +

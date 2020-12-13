@@ -136,39 +136,33 @@ class _EditPersonFormState extends State<EditPersonForm> {
                       _showPicker(context);
                     },
                     child: CircleAvatar(
-                        radius: 55,
+                        radius: 70,
                         backgroundColor: Color(0xFF1A237E),
                         child: _imagePicked == null
                             ? widget.image != null
-                                ? ClipRRect(
-                                    borderRadius: BorderRadius.circular(50),
-                                    child: Image.file(
+                                ? CircleAvatar(
+                                    backgroundImage: Image.file(
                                       file = File(widget.image),
-                                      width: 100,
-                                      height: 100,
-                                      fit: BoxFit.fitHeight,
-                                    ),
+                                    ).image,
+                                    radius: 65,
                                   )
                                 : Container(
                                     decoration: BoxDecoration(
                                         color: Colors.grey[200],
                                         borderRadius:
-                                            BorderRadius.circular(50)),
-                                    width: 100,
-                                    height: 100,
+                                            BorderRadius.circular(65)),
+                                    width: 110,
+                                    height: 110,
                                     child: Icon(
                                       Icons.camera_alt,
                                       color: Colors.grey[800],
                                     ),
                                   )
-                            : ClipRRect(
-                                borderRadius: BorderRadius.circular(50),
-                                child: Image.file(
-                                  file = File(_imagePicked.path),
-                                  width: 100,
-                                  height: 100,
-                                  fit: BoxFit.fitHeight,
-                                ),
+                            : CircleAvatar(
+                                backgroundImage: Image.file(
+                                  file = File(widget.image),
+                                ).image,
+                                radius: 65,
                               )),
                   ),
                 ),

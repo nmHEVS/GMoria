@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -78,7 +80,7 @@ class _PersonDetailsPageState extends State<PersonDetailsPage> {
         child: Column(
           children: [
             CircleAvatar(
-              backgroundImage: AssetImage(data['image']),
+              backgroundImage: Image.file(File(data['image'].toString())).image,
               radius: 50,
             ),
             Container(

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 class PersonLearnCard extends StatefulWidget {
@@ -57,9 +59,11 @@ class _PersonLearnCardState extends State<PersonLearnCard> {
             child: Column(
               children: [
                 CircleAvatar(
-                  backgroundImage:
-                      AssetImage(widget.personsList.elementAt(_i)['image']),
+                  backgroundImage: Image.file(
+                    File(widget.personsList.elementAt(_i)['image']),
+                  ).image,
                   radius: 150,
+                  backgroundColor: Colors.black,
                 ),
                 SizedBox(
                   height: 30,
