@@ -39,7 +39,9 @@ class DrawerApp extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.person),
             title: Text('My profile'),
-            onTap: () {},
+            onTap: () {
+              Navigator.pushNamed(context, '/profile');
+            },
           ),
           ListTile(
             leading: Icon(Icons.settings),

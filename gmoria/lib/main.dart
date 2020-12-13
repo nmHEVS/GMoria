@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gmoria/Pages/Drawer/About.dart';
+import 'package:gmoria/Pages/Drawer/Profile.dart';
 import 'package:gmoria/Pages/Game/PersonGameCard.dart';
 import 'package:gmoria/Pages/Game/ScorePage.dart';
 import 'package:gmoria/Pages/Learn/PersonLearnCard.dart';
@@ -51,7 +52,10 @@ class MyApp extends StatelessWidget {
             },
             GameConfiguration.routeName: (context) {
               return GameConfiguration();
-            }
+            },
+            Profile.routeName: (context) {
+              return Profile();
+            },
           },
         ));
   }
