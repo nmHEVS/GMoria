@@ -82,6 +82,7 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Gmoria'),
+        automaticallyImplyLeading: false,
       ),
       body: Container(
         padding: EdgeInsets.all(16.0),
