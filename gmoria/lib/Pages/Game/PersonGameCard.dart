@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -8,24 +9,26 @@ class PersonGameCard extends StatefulWidget {
   static String routeName = '/game';
   final String appTitle = 'GMORIA';
   final personsList;
+  final nbQuestions;
   final listName;
   final listId;
-  final bool isSwitchedPlayOnlyWithMistakes;
+  final bool playWithMistakes;
 
   PersonGameCard(
       {this.listName,
       this.personsList,
       this.listId,
-      this.isSwitchedPlayOnlyWithMistakes});
+      this.nbQuestions,
+      this.playWithMistakes});
 
   @override
   _PersonGameCardState createState() => _PersonGameCardState();
 }
 
-Future updateScore(int score, String listId, String listname) async {
-  var firestoreInstance = FirebaseFirestore.instance;
-  var firebaseUser = FirebaseAuth.instance.currentUser;
+var firestoreInstance = FirebaseFirestore.instance;
+var firebaseUser = FirebaseAuth.instance.currentUser;
 
+Future updateScore(int score, String listId, String listname) async {
   debugPrint(score.toString());
 
   return await firestoreInstance
@@ -39,28 +42,74 @@ Future updateScore(int score, String listId, String listname) async {
 class _PersonGameCardState extends State<PersonGameCard> {
   int _i = 0;
   int score = 0;
+  int randomNumber;
+  List drawnNumbers = [];
+  var temp;
+  var nbQuestions;
+
+  @override
+  void initState() {
+    randomQuestions();
+
+    super.initState();
+  }
+
+  randomQuestions() {
+    //random questions, on check si on a déjà eu la meme question juste avant
+    var random = new Random();
+    if (drawnNumbers.length > 0) {
+      temp = random.nextInt(widget.personsList.length);
+      for (int i = 0; i < drawnNumbers.length; i++) {
+        if (temp == drawnNumbers[i]) {
+          temp = random.nextInt(widget.personsList.length);
+        } else {
+          randomNumber = temp;
+          print(randomNumber);
+        }
+      }
+      drawnNumbers.add(randomNumber);
+    } else {
+      randomNumber = random.nextInt(widget.personsList.length);
+      drawnNumbers.add(randomNumber);
+    }
+
+    print(randomNumber);
+  }
+
+  void updateIsCorrect(personId, correct) async {
+    await firestoreInstance
+        .collection('users')
+        .doc(firebaseUser.uid)
+        .collection('persons')
+        .doc(personId)
+        .update({'isCorrect': correct});
+  }
 
   @override
   Widget build(BuildContext context) {
     var _controller = TextEditingController();
     int scorePercent = 0;
 
-    void _randomQuestion() {
-      if (widget.isSwitchedPlayOnlyWithMistakes == false) {
-        if (_controller.text ==
-            (widget.personsList.elementAt(_i)['firstname'] +
-                ' ' +
-                widget.personsList.elementAt(_i)['name'])) {
-          score++;
-        }
+    void _validateQuestion() {
+      if (_controller.text ==
+          (widget.personsList.elementAt(randomNumber)['firstname'] +
+              ' ' +
+              widget.personsList.elementAt(randomNumber)['name'])) {
+        score++;
+        //si on fait juste on met à jour firestore
+        updateIsCorrect(widget.personsList.elementAt(randomNumber).id, true);
+      } else {
+        updateIsCorrect(widget.personsList.elementAt(randomNumber).id, false);
       }
-      /*else {
-        if (widget.personsList.elemantAt(_i)['isCorrect'] == false) {
 
-        }
-      }*/
+      //si on ne choisit pas de nombre de questions on joue avec toute la liste
+      if (widget.nbQuestions == null) {
+        nbQuestions = widget.personsList.length - 1;
+      } else {
+        nbQuestions = widget.nbQuestions - 1;
+      }
 
-      if (_i == widget.personsList.length - 1) {
+      if (_i == nbQuestions) {
         Navigator.pushNamed(context, '/score', arguments: score);
         scorePercent = ((score / widget.personsList.length) * 100).round();
         //post score on FireBase
@@ -69,6 +118,7 @@ class _PersonGameCardState extends State<PersonGameCard> {
         setState(() {
           _i++;
           _controller.clear();
+          randomQuestions();
         });
       }
     }
@@ -93,7 +143,7 @@ class _PersonGameCardState extends State<PersonGameCard> {
                 ),
                 CircleAvatar(
                   backgroundImage: Image.file(
-                    File(widget.personsList.elementAt(_i)['image']),
+                    File(widget.personsList.elementAt(randomNumber)['image']),
                   ).image,
                   radius: 150,
                   backgroundColor: Colors.black,
@@ -103,7 +153,7 @@ class _PersonGameCardState extends State<PersonGameCard> {
                 ),
                 IconButton(
                   icon: Icon(Icons.done),
-                  onPressed: _randomQuestion,
+                  onPressed: _validateQuestion,
                   iconSize: 50,
                 ),
               ],

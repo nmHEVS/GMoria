@@ -62,7 +62,7 @@ class _PersonLearnCardState extends State<PersonLearnCard> {
                   backgroundImage: Image.file(
                     File(widget.personsList.elementAt(_i)['image']),
                   ).image,
-                  radius: 150,
+                  radius: 130,
                   backgroundColor: Colors.black,
                 ),
                 SizedBox(

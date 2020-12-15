@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:gmoria/Pages/Drawer/About.dart';
 import 'package:gmoria/Pages/Drawer/Profile.dart';
@@ -15,6 +17,7 @@ import 'auth/Auth.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+
   runApp(new MyApp());
 }
 

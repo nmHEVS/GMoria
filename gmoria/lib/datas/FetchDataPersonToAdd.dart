@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -17,17 +18,16 @@ class _FetchDataPersonToAddState extends State<FetchDataPersonToAdd> {
   @override
   void initState() {
     super.initState();
-    fetchData2();
+    getPeople();
   }
 
   var all;
-  fetchData2() {
+  getPeople() {
     all = firestoreInstance
         .collection('users')
         .doc(firebaseUser.uid)
         .collection('persons')
         .snapshots();
-    //.where('listIds', arrayContains: widget.listId);
   }
 
   var firestoreInstance = FirebaseFirestore.instance;
@@ -60,17 +60,14 @@ class _FetchDataPersonToAddState extends State<FetchDataPersonToAdd> {
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Card(
-                    //color: Colors.red[100],
                     child: ListTile(
                       leading: CircleAvatar(
                         backgroundImage:
                             Image.file(File(doc[index]['image'])).image,
-                        //backgroundImage: AssetImage(doc[index]['image']),
                       ),
                       title: Text(doc[index]['name'].toString() +
                           ' ' +
                           doc[index]['firstname'].toString()),
-                      //subtitle: Text('Already in this list'),
                       trailing: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
@@ -78,6 +75,12 @@ class _FetchDataPersonToAddState extends State<FetchDataPersonToAdd> {
                             icon: Icon(Icons.add),
                             onPressed: () {
                               addPeople(widget.listId, doc[index].id);
+                              final snackBar = SnackBar(
+                                backgroundColor: Colors.indigo,
+                                duration: Duration(seconds: 2),
+                                content: Text('Added to the list !'),
+                              );
+                              Scaffold.of(context).showSnackBar(snackBar);
                             },
                           ),
                         ],
