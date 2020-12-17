@@ -23,29 +23,6 @@ class _GameConfiguration extends State<GameConfiguration> {
   List listIsNotCorrect;
   List personsListTest = [];
 
-  /*List test = <int>[
-    1,
-    2,
-    3,
-    4,
-    5,
-    6,
-    7,
-    8,
-    9,
-    10,
-    11,
-    12,
-    13,
-    14,
-    15,
-    16,
-    17,
-    18,
-    19,
-    20
-  ];*/
-
   @override
   void initState() {
     //getRandomNumber();

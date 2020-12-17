@@ -48,7 +48,7 @@ class _FetchDataPersonToAddState extends State<FetchDataPersonToAdd> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 5, right: 5, bottom: 5, top: 70),
+      padding: const EdgeInsets.all(5),
       child: StreamBuilder<QuerySnapshot>(
         stream: all,
         builder: (context, snapshot) {
