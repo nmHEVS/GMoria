@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gmoria/Pages/Game/PersonGameCard.dart';
+import 'package:gmoria/Pages/Game/Game.dart';
 import 'package:gmoria/a%20jeter/data.dart';
 
 class GameConfiguration extends StatefulWidget {
@@ -8,8 +8,10 @@ class GameConfiguration extends StatefulWidget {
   final personsList;
   final listName;
   final listId;
+  final listMistakes;
 
-  GameConfiguration({this.listName, this.personsList, this.listId});
+  GameConfiguration(
+      {this.listName, this.personsList, this.listMistakes, this.listId});
 
   @override
   _GameConfiguration createState() => _GameConfiguration();
@@ -18,15 +20,14 @@ class GameConfiguration extends StatefulWidget {
 class _GameConfiguration extends State<GameConfiguration> {
   //List personsList = [];
   bool isSwitchedPlayOnlyWithMistakes = false;
-  var _controller = TextEditingController();
   bool isCorrect;
   List listIsNotCorrect;
   List personsListTest = [];
 
   @override
   void initState() {
-    //getRandomNumber();
     fillDropdown();
+
     super.initState();
   }
 
@@ -37,10 +38,6 @@ class _GameConfiguration extends State<GameConfiguration> {
       test.add(i);
     }
   }
-
-  //var _controller = TextEditingController();
-
-  //stream: FirebaseFirestore.instance.collection('users').doc(firebaseUser.uid).collection('lists').doc(widget.listId).collection('persons').snapshots(),
 
   int selectedNumber;
 
@@ -90,20 +87,15 @@ class _GameConfiguration extends State<GameConfiguration> {
                           selectedNumber = value;
                         });
                       },
-                      items: test.map<DropdownMenuItem<int>>((e) {
-                        return DropdownMenuItem<int>(
-                          child: Text(e.toString()),
-                          value: e,
-                        );
-                      }).toList(),
+                      items: isSwitchedPlayOnlyWithMistakes
+                          ? null
+                          : test.map<DropdownMenuItem<int>>((e) {
+                              return DropdownMenuItem<int>(
+                                child: Text(e.toString()),
+                                value: e,
+                              );
+                            }).toList(),
                     ),
-                    /*Flexible(
-                          child: TextField(
-                        keyboardType: TextInputType.number,
-                        decoration:
-                            InputDecoration(hintText: 'Number of questions'),
-                        controller: _controller,
-                      )),*/
                   ],
                 ),
                 Text(
@@ -119,9 +111,10 @@ class _GameConfiguration extends State<GameConfiguration> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => PersonGameCard(
+                        builder: (context) => Game(
                           listName: widget.listName,
                           listId: widget.listId,
+                          personsMistakesList: widget.listMistakes,
                           personsList: widget.personsList,
                           nbQuestions: selectedNumber,
                           playWithMistakes: isSwitchedPlayOnlyWithMistakes,

@@ -49,13 +49,22 @@ class _PersonInfoState extends State<PersonInfo> {
               radius: 50,
             ),
             Container(
-              child: Text('Name : ' + person.name),
+              child: Text(
+                'Name : ' + person.name,
+                style: TextStyle(fontSize: 40),
+              ),
             ),
             Container(
-              child: Text('Firstame : ' + person.firstname),
+              child: Text(
+                'Firstame : ' + person.firstname,
+                style: TextStyle(fontSize: 40),
+              ),
             ),
             Container(
-              child: Text('Notes : ' + person.notes),
+              child: Text(
+                'Notes : ' + person.notes,
+                style: TextStyle(fontSize: 40),
+              ),
             ),
             IconButton(
               icon: Icon(Icons.arrow_back),

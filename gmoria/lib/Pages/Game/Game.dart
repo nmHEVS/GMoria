@@ -5,24 +5,26 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class PersonGameCard extends StatefulWidget {
+class Game extends StatefulWidget {
   static String routeName = '/game';
   final String appTitle = 'GMORIA';
   final personsList;
   final nbQuestions;
   final listName;
   final listId;
-  final bool playWithMistakes;
+  final personsMistakesList;
+  final playWithMistakes;
 
-  PersonGameCard(
+  Game(
       {this.listName,
       this.personsList,
       this.listId,
       this.nbQuestions,
+      this.personsMistakesList,
       this.playWithMistakes});
 
   @override
-  _PersonGameCardState createState() => _PersonGameCardState();
+  _GameState createState() => _GameState();
 }
 
 var firestoreInstance = FirebaseFirestore.instance;
@@ -39,43 +41,60 @@ Future updateScore(int score, String listId, String listname) async {
       .set({'name': listname, 'score': score});
 }
 
-class _PersonGameCardState extends State<PersonGameCard> {
+class _GameState extends State<Game> {
   int _i = 0;
   int score = 0;
   int randomNumber;
-  List drawnNumbers = [];
-  var temp;
   var nbQuestions;
+  List numbers = [];
+  var playedList;
 
   @override
   void initState() {
+    //if the user wants to play with mitakes only
+    if (widget.playWithMistakes) {
+      playedList = widget.personsMistakesList;
+    } else {
+      playedList = widget.personsList;
+    }
+
+    //fill an array with numbers
+    for (int i = 0; i < playedList.length; i++) {
+      numbers.add(i);
+    }
+    print(numbers);
+
+    //mix the numbers to have random questions
+    numbers = shuffle(numbers);
+    print(numbers);
     randomQuestions();
 
     super.initState();
   }
 
   randomQuestions() {
-    //random questions, on check si on a déjà eu la meme question juste avant
-    var random = new Random();
-    if (drawnNumbers.length > 0) {
-      temp = random.nextInt(widget.personsList.length);
-      for (int i = 0; i < drawnNumbers.length; i++) {
-        if (temp == drawnNumbers[i]) {
-          temp = random.nextInt(widget.personsList.length);
-        } else {
-          randomNumber = temp;
-          print(randomNumber);
-        }
-      }
-      drawnNumbers.add(randomNumber);
-    } else {
-      randomNumber = random.nextInt(widget.personsList.length);
-      drawnNumbers.add(randomNumber);
-    }
-
+    randomNumber = numbers[_i];
     print(randomNumber);
   }
 
+  //Methode to mix the order of the questions
+  List shuffle(List items) {
+    var random = new Random();
+
+    // Go through all elements.
+    for (var i = 0; i < items.length; i++) {
+      // Pick a pseudorandom number according to the list length
+      var n = random.nextInt(i + 1);
+
+      var temp = items[i];
+      items[i] = items[n];
+      items[n] = temp;
+    }
+
+    return items;
+  }
+
+  //Method to update the field 'isCorrect' in the DB
   void updateIsCorrect(personId, correct) async {
     await firestoreInstance
         .collection('users')
@@ -91,30 +110,34 @@ class _PersonGameCardState extends State<PersonGameCard> {
     int scorePercent = 0;
 
     void _validateQuestion() {
+      //Check if what the user wrote is correct
       if (_controller.text ==
-          (widget.personsList.elementAt(randomNumber)['firstname'] +
+          (playedList.elementAt(randomNumber)['firstname'] +
               ' ' +
-              widget.personsList.elementAt(randomNumber)['name'])) {
+              playedList.elementAt(randomNumber)['name'])) {
+        //it's correct, so we increment the score and update the field is correct in the DB
         score++;
-        //si on fait juste on met à jour firestore
-        updateIsCorrect(widget.personsList.elementAt(randomNumber).id, true);
+        updateIsCorrect(playedList.elementAt(randomNumber).id, true);
       } else {
-        updateIsCorrect(widget.personsList.elementAt(randomNumber).id, false);
+        //it's not correct, so we update the field is correct in the DB
+        updateIsCorrect(playedList.elementAt(randomNumber).id, false);
       }
 
-      //si on ne choisit pas de nombre de questions on joue avec toute la liste
+      //if we don't choose a number of question, then play with all the list
       if (widget.nbQuestions == null) {
-        nbQuestions = widget.personsList.length - 1;
+        nbQuestions = playedList.length - 1;
       } else {
         nbQuestions = widget.nbQuestions - 1;
       }
 
+      //check if the game id finished
       if (_i == nbQuestions) {
         Navigator.pushNamed(context, '/score', arguments: score);
-        scorePercent = ((score / widget.personsList.length) * 100).round();
+        scorePercent = ((score / playedList.length) * 100).round();
         //post score on FireBase
         updateScore(scorePercent, widget.listId, widget.listName);
       } else {
+        //if not finished, pass to the next question
         setState(() {
           _i++;
           _controller.clear();
@@ -143,7 +166,7 @@ class _PersonGameCardState extends State<PersonGameCard> {
                 ),
                 CircleAvatar(
                   backgroundImage: Image.file(
-                    File(widget.personsList.elementAt(randomNumber)['image']),
+                    File(playedList.elementAt(numbers[randomNumber])['image']),
                   ).image,
                   radius: 150,
                   backgroundColor: Colors.black,

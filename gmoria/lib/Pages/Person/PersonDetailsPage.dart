@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -79,18 +78,80 @@ class _PersonDetailsPageState extends State<PersonDetailsPage> {
       body: Center(
         child: Column(
           children: [
-            CircleAvatar(
-              backgroundImage: Image.file(File(data['image'].toString())).image,
-              radius: 50,
+            //Photo
+            Padding(
+              padding: EdgeInsets.all(30.0),
+              child: CircleAvatar(
+                backgroundImage:
+                    Image.file(File(data['image'].toString())).image,
+                radius: 100,
+              ),
             ),
-            Container(
-              child: Text('Name : ' + data['name']),
+            //Name title
+            Padding(
+              padding: EdgeInsets.only(left: 15),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Name :',
+                  style: TextStyle(fontSize: 20, color: Colors.indigo),
+                ),
+              ),
             ),
-            Container(
-              child: Text('Firstame : ' + data['firstname']),
+            //Name
+            Padding(
+              padding: EdgeInsets.only(left: 15),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  data['name'],
+                  style: TextStyle(fontSize: 30),
+                ),
+              ),
             ),
-            Container(
-              child: Text('Notes : ' + data['notes']),
+            //Firstname title
+            Padding(
+              padding: EdgeInsets.only(left: 15, top: 15),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Firstame :',
+                  style: TextStyle(fontSize: 20, color: Colors.indigo),
+                ),
+              ),
+            ),
+            //Firstname
+            Padding(
+              padding: EdgeInsets.only(left: 15),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  data['firstname'],
+                  style: TextStyle(fontSize: 30),
+                ),
+              ),
+            ),
+            //Notes title
+            Padding(
+              padding: EdgeInsets.only(left: 15, top: 15),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Notes :',
+                  style: TextStyle(fontSize: 20, color: Colors.indigo),
+                ),
+              ),
+            ),
+            //Notes
+            Padding(
+              padding: EdgeInsets.only(left: 15),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  data['notes'],
+                  style: TextStyle(fontSize: 30),
+                ),
+              ),
             ),
           ],
         ),

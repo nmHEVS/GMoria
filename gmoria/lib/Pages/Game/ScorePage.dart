@@ -23,15 +23,23 @@ class _ScorePageState extends State<ScorePage> {
       ),
       body: Center(
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             Container(
               child: Text(
-                'SCORE : $score',
+                'Your score :',
+                style: TextStyle(fontSize: 50),
+              ),
+            ),
+            Container(
+              child: Text(
+                '$score',
                 style: TextStyle(fontSize: 50),
               ),
             ),
             IconButton(
-              icon: Icon(Icons.home),
+              icon: Icon(Icons.home_rounded),
+              iconSize: 150,
               onPressed: () {
                 Navigator.pushNamed(context, '/home');
               },
