@@ -41,9 +41,6 @@ class MyApp extends StatelessWidget {
             PersonLearnCard.routeName: (context) {
               return PersonLearnCard();
             },
-            PersonGameCard.routeName: (context) {
-              return PersonGameCard();
-            },
             ScorePage.routeName: (context) {
               return ScorePage();
             },

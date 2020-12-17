@@ -27,18 +27,19 @@ class _PersonListPageState extends State<PersonListPage> {
   @override
   void initState() {
     super.initState();
-    fetchData2();
+    getPeopleOfTheList();
   }
 
   var firestoreInstance = FirebaseFirestore.instance;
   var firebaseUser = FirebaseAuth.instance.currentUser;
 
   List personsList = [];
+  List personsMistakes = [];
   var listId;
   var image;
 
   var all;
-  fetchData2() {
+  getPeopleOfTheList() {
     all = firestoreInstance
         .collection('users')
         .doc(firebaseUser.uid)
@@ -61,6 +62,9 @@ class _PersonListPageState extends State<PersonListPage> {
                 personsList.add(doc[index]);
                 listId = doc[index].id;
                 image = doc[index]['image'].toString();
+                if (doc[index]['isCorrect'] == false) {
+                  personsMistakes.add(doc[index]);
+                }
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Card(
@@ -186,6 +190,7 @@ class _PersonListPageState extends State<PersonListPage> {
                     builder: (context) => GameConfiguration(
                         personsList: personsList,
                         listName: widget.listName,
+                        listMistakes: personsMistakes,
                         listId: widget.idList),
                   ),
                 );
