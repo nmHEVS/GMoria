@@ -7,6 +7,7 @@ abstract class BaseAuth {
   Future<String> createUserWithEmailAndPassword(String email, String password);
   Future<String> currentUser();
   Future<void> signOut();
+  Future<void> deleteAccount();
 }
 
 class Auth implements BaseAuth {
@@ -48,6 +49,12 @@ class Auth implements BaseAuth {
 
   @override
   Future<void> signOut() async {
+    return _firebaseAuth.signOut();
+  }
+
+  @override
+  Future<void> deleteAccount() async {
+    _firebaseAuth.currentUser.delete();
     return _firebaseAuth.signOut();
   }
 }

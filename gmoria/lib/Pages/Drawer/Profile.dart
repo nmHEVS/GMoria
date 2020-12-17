@@ -7,8 +7,6 @@ import 'package:gmoria/auth/AuthProvider.dart';
 import 'package:gmoria/auth/RootPage.dart';
 
 class Profile extends StatefulWidget {
-  final VoidCallback onSignedOut;
-  Profile({this.onSignedOut});
   static String routeName = '/profile';
   final String appTitle = 'GMORIA';
   final firestoreInstance = FirebaseFirestore.instance;
@@ -94,6 +92,7 @@ void deleteListData() async {
     print(element.id);
     deleteList(element.id);
   });
+  //querySnapshotList = null;
 }
 
 void deletePersonData() async {
@@ -108,16 +107,15 @@ void deletePersonData() async {
     print(element.id);
     deletePerson(element.id);
   });
+  //querySnapshotPerson = null;
 }
 
-void deleteAccount() async {
-  await firebaseUser.delete();
-}
-
-Future<void> _signOut(BuildContext context) async {
+void _signOut(BuildContext context) async {
   try {
     final BaseAuth auth = AuthProvider.of(context).auth;
-    await auth.signOut();
+    deleteListData();
+    deletePersonData();
+    await auth.deleteAccount();
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -139,9 +137,6 @@ Widget _buildDeleteDialog(BuildContext context) {
   Widget continueButton = FlatButton(
     child: Text("Yes, delete"),
     onPressed: () {
-      deleteListData();
-      deletePersonData();
-      deleteAccount();
       _signOut(context);
     },
   );

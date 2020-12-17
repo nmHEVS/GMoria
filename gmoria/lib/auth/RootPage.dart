@@ -36,12 +36,6 @@ class _RootPageState extends State<RootPage> {
     });
   }
 
-  void _signedOut() {
-    setState(() {
-      authStatus = AuthStatus.notSignedIn;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     switch (authStatus) {
@@ -52,9 +46,7 @@ class _RootPageState extends State<RootPage> {
           onSignedIn: _signedIn,
         );
       case AuthStatus.signedIn:
-        return Home(
-          onSignedOut: _signedOut,
-        );
+        return Home();
     }
     return null;
   }
