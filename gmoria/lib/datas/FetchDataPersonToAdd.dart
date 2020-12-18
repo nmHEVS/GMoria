@@ -27,6 +27,7 @@ class _FetchDataPersonToAddState extends State<FetchDataPersonToAdd> {
         .collection('users')
         .doc(firebaseUser.uid)
         .collection('persons')
+        .orderBy('name')
         .snapshots();
   }
 
@@ -48,7 +49,7 @@ class _FetchDataPersonToAddState extends State<FetchDataPersonToAdd> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(5),
+      padding: const EdgeInsets.only(left: 5, right: 5, bottom: 5, top: 70),
       child: StreamBuilder<QuerySnapshot>(
         stream: all,
         builder: (context, snapshot) {

@@ -61,7 +61,7 @@ class _ScorePageState extends State<ScorePage> {
               Container(
                 child: widget.score > 80
                     ? Text(
-                        'Well Done ! Almost perfect !',
+                        'Well Done !',
                         style: TextStyle(fontSize: 30),
                         textAlign: TextAlign.center,
                       )
@@ -76,7 +76,7 @@ class _ScorePageState extends State<ScorePage> {
               ),
               Container(
                 child: Text(
-                  'Your score for the list ' + widget.listName + ' : ',
+                  'Your score : ',
                   style: TextStyle(fontSize: 30),
                 ),
               ),

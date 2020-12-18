@@ -36,9 +36,6 @@ void deletePerson(String listId, String personId) async {
 
 Widget alertDelete(BuildContext context, String name, String listId,
     String personId, String objectToDelete) {
-  print("--------------------");
-  print(listId);
-  print(personId);
   return new AlertDialog(
     title: const Text('Delete'),
     content: new Column(
