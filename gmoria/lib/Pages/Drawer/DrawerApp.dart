@@ -58,7 +58,9 @@ class DrawerApp extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.logout),
             title: Text('Logout'),
-            onTap: () => _signOut(context),
+            onTap: () {
+              _signOut(context);
+            },
           ),
         ],
       ),
