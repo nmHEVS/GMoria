@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:gmoria/Pages/Drawer/About.dart';
 import 'package:gmoria/Pages/Drawer/Profile.dart';
-import 'package:gmoria/Pages/Game/PersonGameCard.dart';
 import 'package:gmoria/Pages/Game/ScorePage.dart';
 import 'package:gmoria/Pages/Learn/PersonLearnCard.dart';
 import 'package:gmoria/Pages/Person/PersonListPage.dart';
 import 'package:gmoria/auth/AuthProvider.dart';
 import 'package:gmoria/auth/RootPage.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'Pages/Home.dart';
 import 'Pages/Game/GameConfiguration.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -40,9 +40,6 @@ class MyApp extends StatelessWidget {
             },
             PersonLearnCard.routeName: (context) {
               return PersonLearnCard();
-            },
-            ScorePage.routeName: (context) {
-              return ScorePage();
             },
             Home.routeName: (context) {
               return Home();

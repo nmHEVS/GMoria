@@ -192,12 +192,6 @@ class _AddPersonFormState extends State<AddPersonForm> {
                 TextFormField(
                   controller: peopleNotesController,
                   decoration: InputDecoration(labelText: 'Notes '),
-                  validator: (value) {
-                    if (value.isEmpty) {
-                      return 'Please fill this field';
-                    }
-                    return null;
-                  },
                 ),
                 SizedBox(
                   height: 40,

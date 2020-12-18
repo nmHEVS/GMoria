@@ -97,11 +97,8 @@ class _EditPersonFormState extends State<EditPersonForm> {
     super.dispose();
   }
 
-  void updateList(
+  void updatePerson(
       String name, String firstname, String notes, String image) async {
-    if (image == '') {
-      image = 'assets/images/person2.PNG';
-    }
     await firestoreInstance
         .collection('users')
         .doc(firebaseUser.uid)
@@ -195,12 +192,6 @@ class _EditPersonFormState extends State<EditPersonForm> {
                 TextFormField(
                   controller: addNotesController,
                   decoration: InputDecoration(labelText: 'Notes'),
-                  validator: (value) {
-                    if (value.isEmpty) {
-                      return 'Please fill this field';
-                    }
-                    return null;
-                  },
                 ),
                 SizedBox(
                   height: 40,
@@ -208,18 +199,16 @@ class _EditPersonFormState extends State<EditPersonForm> {
                 ElevatedButton(
                   onPressed: () {
                     if (_formKey.currentState.validate()) {
-                      updateList(
+                      if (_imagePicked == null) {
+                        addImageController.text = widget.image;
+                      }
+                      updatePerson(
                         addNameController.text,
                         addFirstnameController.text,
                         addNotesController.text,
-                        addImageController.text = _imagePicked.path,
+                        addImageController.text,
                       );
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => Home(),
-                        ),
-                      );
+                      Navigator.pop(context);
                     }
                   },
                   child: Text('Save'),

@@ -24,6 +24,24 @@ class _AddExistingPersonState extends State<AddExistingPerson> {
       body: FetchDataPersonToAdd(
         listId: widget.listId,
       ),
+      floatingActionButton: Stack(
+        children: <Widget>[
+          Positioned(
+            top: 110.0,
+            right: 0.0,
+            child: FloatingActionButton(
+              heroTag: 'save',
+              onPressed: () {
+                Navigator.pushNamed(context, '/home');
+              },
+              child: Icon(Icons.save),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(5.0),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

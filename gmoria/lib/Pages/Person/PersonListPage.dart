@@ -10,6 +10,7 @@ import 'package:gmoria/Pages/Game/GameConfiguration.dart';
 import 'package:gmoria/Pages/Learn/PersonLearnCard.dart';
 import 'package:gmoria/Pages/Person/PersonDetailsPage.dart';
 import 'package:gmoria/alerts/alertDelete.dart';
+import 'package:gmoria/alerts/alertNoPeople.dart';
 
 class PersonListPage extends StatefulWidget {
   final idList;
@@ -44,6 +45,7 @@ class _PersonListPageState extends State<PersonListPage> {
         .collection('users')
         .doc(firebaseUser.uid)
         .collection('persons')
+        .orderBy('name')
         .where('listIds', arrayContains: widget.idList)
         .snapshots();
   }
@@ -164,13 +166,21 @@ class _PersonListPageState extends State<PersonListPage> {
             child: FloatingActionButton(
               heroTag: 'learn',
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => PersonLearnCard(
-                        personsList: personsList, listName: widget.listName),
-                  ),
-                );
+                if (personsList.length == 0) {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) => alertNoPeople(
+                        context, 'learn', widget.listName, widget.idList),
+                  );
+                } else {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => PersonLearnCard(
+                          personsList: personsList, listName: widget.listName),
+                    ),
+                  );
+                }
               },
               child: Icon(Icons.book),
               shape: RoundedRectangleBorder(
@@ -184,16 +194,24 @@ class _PersonListPageState extends State<PersonListPage> {
             child: FloatingActionButton(
               heroTag: 'game',
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => GameConfiguration(
-                        personsList: personsList,
-                        listName: widget.listName,
-                        listMistakes: personsMistakes,
-                        listId: widget.idList),
-                  ),
-                );
+                if (personsList.length == 0) {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) => alertNoPeople(
+                        context, 'play', widget.listName, widget.idList),
+                  );
+                } else {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => GameConfiguration(
+                          personsList: personsList,
+                          listName: widget.listName,
+                          listMistakes: personsMistakes,
+                          listId: widget.idList),
+                    ),
+                  );
+                }
               },
               child: Icon(Icons.play_arrow),
               shape: RoundedRectangleBorder(
