@@ -1,9 +1,6 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:gmoria/Pages/Drawer/About.dart';
 import 'package:gmoria/Pages/Drawer/Profile.dart';
-import 'package:gmoria/Pages/Game/PersonGameCard.dart';
 import 'package:gmoria/Pages/Game/ScorePage.dart';
 import 'package:gmoria/Pages/Learn/PersonLearnCard.dart';
 import 'package:gmoria/Pages/Person/PersonListPage.dart';

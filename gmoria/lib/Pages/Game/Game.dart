@@ -134,7 +134,7 @@ class _GameState extends State<Game> {
       if (_i == nbQuestions) {
         Navigator.pushNamed(context, '/score', arguments: score);
         scorePercent = ((score / playedList.length) * 100).round();
-        //post score on FireBase
+        //post score on FireBase if better
         updateScore(scorePercent, widget.listId, widget.listName);
       } else {
         //if not finished, pass to the next question
