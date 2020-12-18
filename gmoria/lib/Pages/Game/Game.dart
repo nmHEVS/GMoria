@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:gmoria/Pages/Game/ScorePage.dart';
 
 class Game extends StatefulWidget {
   static String routeName = '/game';
@@ -58,15 +59,15 @@ class _GameState extends State<Game> {
       playedList = widget.personsList;
     }
 
+    print(playedList.toString());
+
     //fill an array with numbers
     for (int i = 0; i < playedList.length; i++) {
       numbers.add(i);
     }
-    print(numbers);
 
     //mix the numbers to have random questions
     numbers = shuffle(numbers);
-    print(numbers);
     randomQuestions();
 
     super.initState();
@@ -74,7 +75,6 @@ class _GameState extends State<Game> {
 
   randomQuestions() {
     randomNumber = numbers[_i];
-    print(randomNumber);
   }
 
   //Methode to mix the order of the questions
@@ -108,19 +108,22 @@ class _GameState extends State<Game> {
   Widget build(BuildContext context) {
     var _controller = TextEditingController();
     int scorePercent = 0;
+    var correct = false;
 
     void _validateQuestion() {
       //Check if what the user wrote is correct
-      if (_controller.text ==
-          (playedList.elementAt(randomNumber)['firstname'] +
+      if (_controller.text.toLowerCase() ==
+          (playedList.elementAt(randomNumber)['firstname'].toLowerCase() +
               ' ' +
-              playedList.elementAt(randomNumber)['name'])) {
+              playedList.elementAt(randomNumber)['name'].toLowerCase())) {
         //it's correct, so we increment the score and update the field is correct in the DB
         score++;
         updateIsCorrect(playedList.elementAt(randomNumber).id, true);
+        correct = true;
       } else {
         //it's not correct, so we update the field is correct in the DB
         updateIsCorrect(playedList.elementAt(randomNumber).id, false);
+        correct = false;
       }
 
       //if we don't choose a number of question, then play with all the list
@@ -132,8 +135,16 @@ class _GameState extends State<Game> {
 
       //check if the game id finished
       if (_i == nbQuestions) {
-        Navigator.pushNamed(context, '/score', arguments: score);
         scorePercent = ((score / playedList.length) * 100).round();
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ScorePage(
+              score: scorePercent,
+              listName: widget.listName,
+            ),
+          ),
+        );
         //post score on FireBase
         updateScore(scorePercent, widget.listId, widget.listName);
       } else {
@@ -176,7 +187,9 @@ class _GameState extends State<Game> {
                 ),
                 IconButton(
                   icon: Icon(Icons.done),
-                  onPressed: _validateQuestion,
+                  onPressed: () {
+                    _validateQuestion();
+                  },
                   iconSize: 50,
                 ),
               ],
