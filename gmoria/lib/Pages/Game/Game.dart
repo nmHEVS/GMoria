@@ -136,6 +136,7 @@ class _GameState extends State<Game> {
       //check if the game id finished
       if (_i == nbQuestions) {
         scorePercent = ((score / playedList.length) * 100).round();
+
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -145,7 +146,7 @@ class _GameState extends State<Game> {
             ),
           ),
         );
-        //post score on FireBase
+
         updateScore(scorePercent, widget.listId, widget.listName);
       } else {
         //if not finished, pass to the next question
