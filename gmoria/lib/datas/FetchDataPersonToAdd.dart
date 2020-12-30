@@ -5,6 +5,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import '../Applocalizations.dart';
+
 class FetchDataPersonToAdd extends StatefulWidget {
   final listId;
 
@@ -79,7 +81,8 @@ class _FetchDataPersonToAddState extends State<FetchDataPersonToAdd> {
                               final snackBar = SnackBar(
                                 backgroundColor: Colors.indigo,
                                 duration: Duration(seconds: 2),
-                                content: Text('Added to the list !'),
+                                content: Text(AppLocalizations.of(context)
+                                    .translate('alertAddedToList')),
                               );
                               Scaffold.of(context).showSnackBar(snackBar);
                             },

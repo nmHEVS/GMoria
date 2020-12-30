@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import '../Applocalizations.dart';
+
 class AddListForm extends StatefulWidget {
   @override
   _AddListFormState createState() => _AddListFormState();
@@ -37,10 +39,13 @@ class _AddListFormState extends State<AddListForm> {
           children: [
             TextFormField(
               controller: addListController,
-              decoration: InputDecoration(labelText: 'List\'s name'),
+              decoration: InputDecoration(
+                  labelText:
+                      AppLocalizations.of(context).translate('labelListName')),
               validator: (value) {
                 if (value.isEmpty) {
-                  return 'Please fill this field';
+                  return AppLocalizations.of(context)
+                      .translate('alertPleaseFill');
                 }
                 return null;
               },
@@ -55,7 +60,8 @@ class _AddListFormState extends State<AddListForm> {
                   Navigator.of(context).pop();
                 }
               },
-              child: Text('Create'),
+              child:
+                  Text(AppLocalizations.of(context).translate('labelCreate')),
             )
           ],
         ),

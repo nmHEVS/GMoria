@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:gmoria/Pages/Game/Game.dart';
 import 'package:gmoria/a%20jeter/data.dart';
 
+import '../../Applocalizations.dart';
+
 class GameConfiguration extends StatefulWidget {
   static String routeName = '/gameConfig';
   final String appTitle = 'GMORIA';
@@ -47,7 +49,9 @@ class _GameConfiguration extends State<GameConfiguration> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Game configuration - " + widget.listName),
+        title: Text(AppLocalizations.of(context).translate('labelGameConfig') +
+            " - " +
+            widget.listName),
       ),
       resizeToAvoidBottomInset: false,
       body: Padding(
@@ -59,7 +63,8 @@ class _GameConfiguration extends State<GameConfiguration> {
               children: [
                 Row(
                   children: [
-                    Text('Play only with mistakes'),
+                    Text(AppLocalizations.of(context)
+                        .translate('labelPlayMistakes')),
                     Switch(
                       value: isSwitchedPlayOnlyWithMistakes,
                       onChanged: (value) {
@@ -81,7 +86,8 @@ class _GameConfiguration extends State<GameConfiguration> {
                     DropdownButton(
                       value: selectedNumber,
                       isDense: true,
-                      hint: Text('Number of questions'),
+                      hint: Text(AppLocalizations.of(context)
+                          .translate('labelNbrOfQuestions')),
                       onChanged: (value) {
                         setState(() {
                           selectedNumber = value;
@@ -99,7 +105,7 @@ class _GameConfiguration extends State<GameConfiguration> {
                   ],
                 ),
                 Text(
-                  "*If you don't choose a number of questions, you will play by default with all the list",
+                  AppLocalizations.of(context).translate('alertDefaultNbr'),
                   style: TextStyle(fontSize: 10),
                 ),
                 SizedBox(

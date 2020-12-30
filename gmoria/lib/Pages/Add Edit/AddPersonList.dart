@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:gmoria/Pages/Add%20Edit/AddExistingPerson.dart';
 import 'package:gmoria/Pages/Add%20Edit/AddPersonPage.dart';
 
+import '../../Applocalizations.dart';
+
 class AddPersonList extends StatefulWidget {
   final String appTitle = 'GMORIA';
   final listName;
@@ -18,7 +20,7 @@ class _AddPersonListState extends State<AddPersonList> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Text(widget.appTitle + ' - Add people'),
+          title: Text(AppLocalizations.of(context).translate('labelAddPeople')),
           automaticallyImplyLeading: true,
           leading: IconButton(
             icon: Icon(Icons.arrow_back),
@@ -43,7 +45,8 @@ class _AddPersonListState extends State<AddPersonList> {
                   ),
                 );
               },
-              child: Text('Add an existing contact'),
+              child: Text(AppLocalizations.of(context)
+                  .translate('labelAddExistingContact')),
             ),
             SizedBox(
               height: 20,
@@ -60,7 +63,8 @@ class _AddPersonListState extends State<AddPersonList> {
                   ),
                 );
               },
-              child: Text('Create a new contact'),
+              child: Text(
+                  AppLocalizations.of(context).translate('labelCreateContact')),
             ),
             SizedBox(
               height: 20,
@@ -69,7 +73,8 @@ class _AddPersonListState extends State<AddPersonList> {
               minWidth: 200,
               color: Colors.indigo[300],
               onPressed: () {},
-              child: Text('Import a list of contact'),
+              child: Text(AppLocalizations.of(context)
+                  .translate('labelImportFromFile')),
             ),
           ],
         ),

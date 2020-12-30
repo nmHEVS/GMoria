@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:gmoria/Pages/Add%20Edit/AddPersonList.dart';
 
+import '../Applocalizations.dart';
+
 Widget alertNoPeople(
     BuildContext context, String origin, String listName, String idList) {
   return new AlertDialog(
-    title: const Text('Stop !'),
+    title: Text(AppLocalizations.of(context).translate('labelStop')),
     content: new Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         origin == 'play'
             ? Text(
-                "Your list is empty ! Please add some contact before playing !",
+                AppLocalizations.of(context).translate('alertEmptyListPlay'),
                 style: TextStyle(fontSize: 15),
               )
             : Text(
-                "Your list is empty ! Please add some contact before learning !",
+                AppLocalizations.of(context).translate('alertEmptyListLearn'),
                 style: TextStyle(fontSize: 15),
               ),
       ],
@@ -32,14 +34,14 @@ Widget alertNoPeople(
           );
         },
         textColor: Theme.of(context).primaryColor,
-        child: const Text('Add contact'),
+        child: Text(AppLocalizations.of(context).translate('labelAddContact')),
       ),
       new FlatButton(
         onPressed: () {
           Navigator.of(context).pop();
         },
         textColor: Theme.of(context).primaryColor,
-        child: const Text('Cancel'),
+        child: Text(AppLocalizations.of(context).translate('labelCancel')),
       ),
     ],
   );
