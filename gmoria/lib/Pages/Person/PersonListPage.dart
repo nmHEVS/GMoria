@@ -3,7 +3,9 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:gmoria/Pages/Add%20Edit/AddExistingPerson.dart';
 import 'package:gmoria/Pages/Add%20Edit/AddPersonList.dart';
+import 'package:gmoria/Pages/Add%20Edit/AddPersonPage.dart';
 import 'package:gmoria/Pages/Add%20Edit/EditListPage.dart';
 import 'package:gmoria/Pages/Drawer/DrawerApp.dart';
 import 'package:gmoria/Pages/Game/GameConfiguration.dart';
@@ -137,7 +139,7 @@ class _PersonListPageState extends State<PersonListPage> {
         automaticallyImplyLeading: true,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
-          onPressed: () => Navigator.pop(context, false),
+          onPressed: () => Navigator.pop(context),
         ),
         actions: [
           IconButton(
@@ -228,8 +230,10 @@ class _PersonListPageState extends State<PersonListPage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => AddPersonList(
-                        listName: widget.listName, listId: widget.idList),
+                    builder: (context) => AddExistingPerson(
+                      listId: widget.idList,
+                      listName: widget.listName,
+                    ),
                   ),
                 );
               },
