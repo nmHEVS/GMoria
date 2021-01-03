@@ -3,6 +3,8 @@ import 'package:gmoria/Pages/Add%20Edit/AddPersonPage.dart';
 import 'package:gmoria/Pages/Person/PersonListPage.dart';
 import 'package:gmoria/datas/FetchDataPersonToAdd.dart';
 
+import '../../Applocalizations.dart';
+
 class AddExistingPerson extends StatefulWidget {
   final String appTitle = 'GMORIA';
   final listId;
@@ -19,8 +21,13 @@ class _AddExistingPersonState extends State<AddExistingPerson> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.appTitle + ' - Add a contact'),
+        title: Text(
+            AppLocalizations.of(context).translate('labelAddExistingContact')),
         automaticallyImplyLeading: true,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () => Navigator.pop(context, false),
+        ),
       ),
       body: FetchDataPersonToAdd(
         listId: widget.listId,

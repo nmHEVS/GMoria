@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 
+import '../../Applocalizations.dart';
+
 class PersonLearnCard extends StatefulWidget {
   static String routeName = '/learn';
   final String appTitle = 'GMORIA';
@@ -45,7 +47,7 @@ class _PersonLearnCardState extends State<PersonLearnCard> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.listName + " - Learn"),
+        title: Text(widget.listName),
         automaticallyImplyLeading: true,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
@@ -115,7 +117,7 @@ class _PersonLearnCardState extends State<PersonLearnCard> {
 //Pop-up infos of the person when click on (i)
 Widget _buildAboutDialog(BuildContext context, String notes) {
   return new AlertDialog(
-    title: const Text('Notes'),
+    title: Text(AppLocalizations.of(context).translate('labelNotes')),
     content: new Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -132,7 +134,7 @@ Widget _buildAboutDialog(BuildContext context, String notes) {
           Navigator.of(context).pop();
         },
         textColor: Theme.of(context).primaryColor,
-        child: const Text('Okay, got it!'),
+        child: Text(AppLocalizations.of(context).translate('labelCancel')),
       ),
     ],
   );

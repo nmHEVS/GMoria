@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../Applocalizations.dart';
+
 class About extends StatefulWidget {
   static String routeName = '/about';
   final String appTitle = 'GMORIA';
@@ -24,12 +26,12 @@ class _AboutState extends State<About> {
           children: [
             Container(
               child: Text(
-                'About Page',
+                AppLocalizations.of(context).translate('labelAbout'),
                 style: TextStyle(fontSize: 30),
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(left: 15),
+              padding: EdgeInsets.only(left: 15, right: 15),
               child: Container(
                 child: Text(
                   'Developers :\n\t- Nelson Micheloud\n\t- Gabrielle Freno\n\t- Mathieu Favez\n\nLorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna. Nunc viverra imperdiet enim. Fusce est.',

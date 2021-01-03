@@ -6,6 +6,8 @@ import 'package:gmoria/auth/Auth.dart';
 import 'package:gmoria/auth/AuthProvider.dart';
 import 'package:gmoria/auth/RootPage.dart';
 
+import '../../Applocalizations.dart';
+
 class Profile extends StatefulWidget {
   final VoidCallback onSignedOut;
   Profile({this.onSignedOut});
@@ -35,7 +37,7 @@ class _ProfileState extends State<Profile> {
           children: [
             Container(
               child: Text(
-                'Profile',
+                AppLocalizations.of(context).translate('labelMyProfile'),
                 style: TextStyle(fontSize: 30),
               ),
             ),
@@ -54,7 +56,8 @@ class _ProfileState extends State<Profile> {
                     );
                   },
                 ),
-                Text("Delete my account"),
+                Text(AppLocalizations.of(context)
+                    .translate('labelDeleteAccount')),
               ],
             )),
           ],
@@ -131,13 +134,13 @@ Future<void> _signOut(BuildContext context) async {
 
 Widget _buildDeleteDialog(BuildContext context) {
   Widget cancelButton = FlatButton(
-    child: Text("No, cancel"),
+    child: Text(AppLocalizations.of(context).translate('labelCancel')),
     onPressed: () {
       Navigator.pop(context);
     },
   );
   Widget continueButton = FlatButton(
-    child: Text("Yes, delete"),
+    child: Text(AppLocalizations.of(context).translate('labelDelete')),
     onPressed: () {
       deleteListData();
       deletePersonData();
@@ -147,8 +150,8 @@ Widget _buildDeleteDialog(BuildContext context) {
   );
 
   return new AlertDialog(
-    title: const Text('Delete your account'),
-    content: Text("Are you sure you want to delete your account ?"),
+    title: Text(AppLocalizations.of(context).translate('labelDeleteAccount')),
+    content: Text(AppLocalizations.of(context).translate('alertDeleteAccont')),
     actions: [
       cancelButton,
       continueButton,

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gmoria/Forms/EditPersonForm.dart';
 
+import '../../Applocalizations.dart';
+
 class EditPersonPage extends StatefulWidget {
   final String appTitle = 'GMORIA';
 
@@ -22,7 +24,7 @@ class _EditPersonPageState extends State<EditPersonPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.appTitle + ' - Edit a contact'),
+        title: Text(AppLocalizations.of(context).translate('labelEditContact')),
         automaticallyImplyLeading: true,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),

@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:gmoria/Pages/Game/ScorePage.dart';
 
+import '../../Applocalizations.dart';
+
 class Game extends StatefulWidget {
   static String routeName = '/game';
   final String appTitle = 'GMORIA';
@@ -152,7 +154,7 @@ class _GameState extends State<Game> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.appTitle + " - " + widget.listName),
+        title: Text(widget.listName),
       ),
       resizeToAvoidBottomInset: false,
       body: Center(
@@ -162,7 +164,9 @@ class _GameState extends State<Game> {
             child: Column(
               children: [
                 TextField(
-                  decoration: InputDecoration(hintText: 'Firstname Lastname'),
+                  decoration: InputDecoration(
+                      hintText:
+                          AppLocalizations.of(context).translate('labelHint')),
                   controller: _controller,
                 ),
                 SizedBox(

@@ -5,6 +5,8 @@ import 'package:gmoria/a%20jeter/data.dart';
 import 'package:gmoria/alerts/alertNoMistakesMode.dart';
 import 'package:gmoria/alerts/alertNoSelectedNumber.dart';
 
+import '../../Applocalizations.dart';
+
 class GameConfiguration extends StatefulWidget {
   static String routeName = '/gameConfig';
   final String appTitle = 'GMORIA';
@@ -56,7 +58,14 @@ class _GameConfiguration extends State<GameConfiguration>
   List listNumbers = [];
 
   fillDropdown() {
-    for (int i = 1; i < widget.personsList.length + 1; i++) {
+    listNumbers = [];
+    var list;
+    if (isSwitchedPlayOnlyWithMistakes) {
+      list = widget.listMistakes.length;
+    } else {
+      list = widget.personsList.length;
+    }
+    for (int i = 1; i < list + 1; i++) {
       listNumbers.add(i);
     }
   }
@@ -71,7 +80,10 @@ class _GameConfiguration extends State<GameConfiguration>
       length: 2,
       child: Scaffold(
           appBar: AppBar(
-            title: Text("Game configuration - " + widget.listName),
+            title: Text(
+                AppLocalizations.of(context).translate('labelGameConfig') +
+                    " - " +
+                    widget.listName),
           ),
           resizeToAvoidBottomInset: false,
           body: ListView(
@@ -93,9 +105,8 @@ class _GameConfiguration extends State<GameConfiguration>
                   children: [
                     Row(
                       children: [
-                        Text(
-                          'Play only with mistakes',
-                        ),
+                        Text(AppLocalizations.of(context)
+                            .translate('labelPlayMistakes')),
                         Switch(
                           value: isSwitchedPlayOnlyWithMistakes,
                           onChanged: (value) {
@@ -109,6 +120,7 @@ class _GameConfiguration extends State<GameConfiguration>
                               setState(() {
                                 isSwitchedPlayOnlyWithMistakes = value;
                               });
+                              fillDropdown();
                             }
                           },
                           activeTrackColor: Colors.lightGreenAccent,
@@ -124,20 +136,19 @@ class _GameConfiguration extends State<GameConfiguration>
                         DropdownButton(
                           value: selectedNumber,
                           isDense: true,
-                          hint: Text('Number of questions *'),
+                          hint: Text(AppLocalizations.of(context)
+                              .translate('labelNbrOfQuestions')),
                           onChanged: (value) {
                             setState(() {
                               selectedNumber = value;
                             });
                           },
-                          items: isSwitchedPlayOnlyWithMistakes
-                              ? null
-                              : listNumbers.map<DropdownMenuItem<int>>((e) {
-                                  return DropdownMenuItem<int>(
-                                    child: Text(e.toString()),
-                                    value: e,
-                                  );
-                                }).toList(),
+                          items: listNumbers.map<DropdownMenuItem<int>>((e) {
+                            return DropdownMenuItem<int>(
+                              child: Text(e.toString()),
+                              value: e,
+                            );
+                          }).toList(),
                         ),
                       ],
                     ),
@@ -195,32 +206,6 @@ class _GameConfiguration extends State<GameConfiguration>
               ),
             ],
           )),
-    );
-  }
-}
-
-class snackBarMessage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: ElevatedButton(
-        onPressed: () {
-          final snackBar = SnackBar(
-            content: Text('It seems that you made no mistakes in this list !'),
-            action: SnackBarAction(
-              label: 'Undo',
-              onPressed: () {
-                // Some code to undo the change.
-              },
-            ),
-          );
-
-          // Find the Scaffold in the widget tree and use
-          // it to show a SnackBar.
-          Scaffold.of(context).showSnackBar(snackBar);
-        },
-        child: Text('It seems that you made no mistakes in this list !'),
-      ),
     );
   }
 }
