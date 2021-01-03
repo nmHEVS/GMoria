@@ -14,23 +14,89 @@ class FetchDataContact extends StatefulWidget {
 class _FetchDataContactState extends State<FetchDataContact> {
   var firestoreInstance = FirebaseFirestore.instance;
   var firebaseUser = FirebaseAuth.instance.currentUser;
+  TextEditingController _searchController = TextEditingController();
+  Future resultsLoaded;
+
+  void initState() {
+    super.initState();
+    _searchController.addListener(_onSearchChanged);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _searchController.removeListener(_onSearchChanged);
+    _searchController.dispose();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    resultsLoaded = getPeople();
+  }
+
+  _onSearchChanged() {
+    searchResultsList();
+  }
+
+  var showResults;
+  searchResultsList() {
+    showResults = [];
+    if (_searchController.text != "") {
+      for (int i = 0; i < _allResults.length; i++) {
+        var name = _allResults[i]['name'].toString().toLowerCase();
+        var firstname = _allResults[i]['firstname'].toString().toLowerCase();
+        if (name.contains(_searchController.text.toLowerCase()) ||
+            firstname.contains(_searchController.text.toLowerCase())) {
+          showResults.add(_allResults[i]);
+        }
+      }
+    } else {
+      showResults = List.from(_allResults);
+    }
+
+    setState(() {
+      _resultsList = showResults;
+    });
+  }
+
+  List _allResults = [];
+  List _resultsList = [];
+  var lists;
+
+  getPeople() async {
+    lists = await firestoreInstance
+        .collection('users')
+        .doc(firebaseUser.uid)
+        .collection('persons')
+        .orderBy('name')
+        .get();
+
+    setState(() {
+      _allResults = lists.docs;
+    });
+    searchResultsList();
+    return "complete";
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 5, right: 5, bottom: 5, top: 70),
-      child: StreamBuilder<QuerySnapshot>(
-        stream: firestoreInstance
-            .collection('users')
-            .doc(firebaseUser.uid)
-            .collection('persons')
-            .orderBy('name')
-            .snapshots(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            var doc = snapshot.data.docs;
-            return new ListView.builder(
-              itemCount: doc.length,
+    return Container(
+      child: Column(
+        children: <Widget>[
+          SizedBox(
+            height: 25,
+          ),
+          TextField(
+            controller: _searchController,
+            decoration: InputDecoration(prefixIcon: Icon(Icons.search)),
+          ),
+          SizedBox(
+            height: 25,
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: _resultsList.length,
               itemBuilder: (context, index) {
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -39,13 +105,13 @@ class _FetchDataContactState extends State<FetchDataContact> {
                       leading: CircleAvatar(
                         backgroundColor: Colors.white,
                         backgroundImage: Image.file(
-                          File(doc[index]['image'].toString()),
+                          File(_resultsList[index]['image'].toString()),
                           fit: BoxFit.fitHeight,
                         ).image,
                       ),
-                      title: Text(doc[index]['name'].toString() +
+                      title: Text(_resultsList[index]['name'].toString() +
                           ' ' +
-                          doc[index]['firstname'].toString()),
+                          _resultsList[index]['firstname'].toString()),
                       trailing: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: <Widget>[
@@ -56,13 +122,18 @@ class _FetchDataContactState extends State<FetchDataContact> {
                               color: Colors.red,
                             ),
                             onPressed: () {
-                              var name = doc[index]['name'].toString() +
+                              var name = _resultsList[index]['name']
+                                      .toString() +
                                   ' ' +
-                                  doc[index]['firstname'].toString();
+                                  _resultsList[index]['firstname'].toString();
                               showDialog(
                                 context: context,
                                 builder: (BuildContext context) => alertDelete(
-                                    context, name, '', doc[index].id, 'person'),
+                                    context,
+                                    name,
+                                    '',
+                                    _resultsList[index].id,
+                                    'person'),
                               );
                             },
                           ),
@@ -74,9 +145,9 @@ class _FetchDataContactState extends State<FetchDataContact> {
                           MaterialPageRoute(
                             builder: (context) => PersonDetailsPage(
                               idList: '',
-                              idPerson: doc[index].id,
+                              idPerson: _resultsList[index].id,
                               listName: '',
-                              image: doc[index]['image'],
+                              image: _resultsList[index]['image'],
                             ),
                           ),
                         );
@@ -85,11 +156,9 @@ class _FetchDataContactState extends State<FetchDataContact> {
                   ),
                 );
               },
-            );
-          } else {
-            return LinearProgressIndicator();
-          }
-        },
+            ),
+          ),
+        ],
       ),
     );
   }

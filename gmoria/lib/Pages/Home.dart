@@ -57,6 +57,12 @@ class _HomeState extends State<Home> {
             : Text(widget.appTitle +
                 " - " +
                 AppLocalizations.of(context).translate('labelContacts')),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.search),
+            onPressed: () {},
+          ),
+        ],
       ),
       drawer: DrawerApp(
         appTitle: widget.appTitle,
