@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:gmoria/Pages/Home.dart';
 
+import '../Applocalizations.dart';
+
 class EditListForm extends StatefulWidget {
   final listId;
   final listName;
@@ -50,10 +52,13 @@ class _EditListFormState extends State<EditListForm> {
           children: [
             TextFormField(
               controller: addListController,
-              decoration: InputDecoration(labelText: 'List\'s name'),
+              decoration: InputDecoration(
+                  labelText:
+                      AppLocalizations.of(context).translate('labelListName')),
               validator: (value) {
                 if (value.isEmpty) {
-                  return 'Please fill this field';
+                  return AppLocalizations.of(context)
+                      .translate('alertPleaseFill');
                 }
                 return null;
               },
@@ -73,7 +78,7 @@ class _EditListFormState extends State<EditListForm> {
                   );
                 }
               },
-              child: Text('Save'),
+              child: Text(AppLocalizations.of(context).translate('labelSave')),
             )
           ],
         ),

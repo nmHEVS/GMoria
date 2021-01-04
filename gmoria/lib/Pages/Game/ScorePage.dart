@@ -3,6 +3,8 @@ import 'dart:math';
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 
+import '../../Applocalizations.dart';
+
 class ScorePage extends StatefulWidget {
   final String appTitle = 'GMORIA';
   final score;
@@ -61,12 +63,13 @@ class _ScorePageState extends State<ScorePage> {
               Container(
                 child: widget.score > 80
                     ? Text(
-                        'Well Done !',
+                        AppLocalizations.of(context)
+                            .translate('labelYourScore'),
                         style: TextStyle(fontSize: 30),
                         textAlign: TextAlign.center,
                       )
                     : Text(
-                        'You need a little more work... ',
+                        AppLocalizations.of(context).translate('labelBadScore'),
                         style: TextStyle(fontSize: 30),
                         textAlign: TextAlign.center,
                       ),
@@ -76,7 +79,7 @@ class _ScorePageState extends State<ScorePage> {
               ),
               Container(
                 child: Text(
-                  'Your score : ',
+                  AppLocalizations.of(context).translate('labelYourScore'),
                   style: TextStyle(fontSize: 30),
                 ),
               ),

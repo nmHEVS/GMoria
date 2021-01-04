@@ -2,8 +2,9 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:gmoria/Pages/Home.dart';
 import 'package:image_picker/image_picker.dart';
+
+import '../Applocalizations.dart';
 
 class EditPersonForm extends StatefulWidget {
   final name;
@@ -59,14 +60,16 @@ class _EditPersonFormState extends State<EditPersonForm> {
                 children: <Widget>[
                   new ListTile(
                       leading: new Icon(Icons.photo_library),
-                      title: new Text('Photo Library'),
+                      title: new Text(AppLocalizations.of(context)
+                          .translate('labelPhotoLibrary')),
                       onTap: () {
                         _imgFromGallery();
                         Navigator.of(context).pop();
                       }),
                   new ListTile(
                     leading: new Icon(Icons.photo_camera),
-                    title: new Text('Camera'),
+                    title: new Text(
+                        AppLocalizations.of(context).translate('labelCamera')),
                     onTap: () {
                       _imgFromCamera();
                       Navigator.of(context).pop();
@@ -165,10 +168,13 @@ class _EditPersonFormState extends State<EditPersonForm> {
                 ),
                 TextFormField(
                   controller: addNameController,
-                  decoration: InputDecoration(labelText: 'Name'),
+                  decoration: InputDecoration(
+                      labelText:
+                          AppLocalizations.of(context).translate('labelName')),
                   validator: (value) {
                     if (value.isEmpty) {
-                      return 'Please fill this field';
+                      return AppLocalizations.of(context)
+                          .translate('alertPleaseFill');
                     }
                     return null;
                   },
@@ -178,10 +184,13 @@ class _EditPersonFormState extends State<EditPersonForm> {
                 ),
                 TextFormField(
                   controller: addFirstnameController,
-                  decoration: InputDecoration(labelText: 'Firstname'),
+                  decoration: InputDecoration(
+                      labelText: AppLocalizations.of(context)
+                          .translate('labelFirstname')),
                   validator: (value) {
                     if (value.isEmpty) {
-                      return 'Please fill this field';
+                      return AppLocalizations.of(context)
+                          .translate('alertPleaseFill');
                     }
                     return null;
                   },
@@ -191,7 +200,9 @@ class _EditPersonFormState extends State<EditPersonForm> {
                 ),
                 TextFormField(
                   controller: addNotesController,
-                  decoration: InputDecoration(labelText: 'Notes'),
+                  decoration: InputDecoration(
+                      labelText:
+                          AppLocalizations.of(context).translate('labelNotes')),
                 ),
                 SizedBox(
                   height: 40,
@@ -211,7 +222,8 @@ class _EditPersonFormState extends State<EditPersonForm> {
                       Navigator.pop(context);
                     }
                   },
-                  child: Text('Save'),
+                  child:
+                      Text(AppLocalizations.of(context).translate('labelSave')),
                 )
               ],
             ),

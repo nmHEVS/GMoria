@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gmoria/Applocalizations.dart';
 import 'package:gmoria/Pages/Drawer/DrawerApp.dart';
 import 'package:gmoria/Pages/List/ListsPage.dart';
 import 'package:gmoria/Pages/Person/ContactsPage.dart';
@@ -36,8 +37,18 @@ class _HomeState extends State<Home> {
     return Scaffold(
       appBar: AppBar(
         title: selectedIndex == 0
-            ? Text(widget.appTitle + ' - My lists')
-            : Text(widget.appTitle + ' - Contacts'),
+            ? Text(widget.appTitle +
+                " - " +
+                AppLocalizations.of(context).translate('labelLists'))
+            : Text(widget.appTitle +
+                " - " +
+                AppLocalizations.of(context).translate('labelContacts')),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.search),
+            onPressed: () {},
+          ),
+        ],
       ),
       drawer: DrawerApp(
         appTitle: widget.appTitle,
@@ -47,9 +58,12 @@ class _HomeState extends State<Home> {
         backgroundColor: Colors.indigo,
         selectedItemColor: Colors.white,
         items: [
-          BottomNavigationBarItem(icon: Icon(Icons.list), label: 'My lists'),
           BottomNavigationBarItem(
-              icon: Icon(Icons.contact_page), label: 'Contacts'),
+              icon: Icon(Icons.list),
+              label: AppLocalizations.of(context).translate('labelLists')),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.contact_page),
+              label: AppLocalizations.of(context).translate('labelContacts')),
         ],
         currentIndex: selectedIndex,
         onTap: switchIndex,

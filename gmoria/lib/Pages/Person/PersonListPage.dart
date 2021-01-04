@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:gmoria/Pages/Add%20Edit/AddPersonList.dart';
+import 'package:gmoria/Pages/Add%20Edit/AddExistingPerson.dart';
 import 'package:gmoria/Pages/Add%20Edit/EditListPage.dart';
 import 'package:gmoria/Pages/Drawer/DrawerApp.dart';
 import 'package:gmoria/Pages/Game/GameConfiguration.dart';
@@ -29,43 +29,99 @@ class _PersonListPageState extends State<PersonListPage> {
   void initState() {
     super.initState();
     getPeopleOfTheList();
+    _searchController.addListener(_onSearchChanged);
   }
 
   var firestoreInstance = FirebaseFirestore.instance;
   var firebaseUser = FirebaseAuth.instance.currentUser;
+  TextEditingController _searchController = TextEditingController();
+  Future resultsLoaded;
+  List _allResults = [];
+  List _resultsList = [];
+  var lists;
 
   List personsList = [];
   List personsMistakes = [];
   var listId;
   var image;
 
-  var all;
-  getPeopleOfTheList() {
-    all = firestoreInstance
+  @override
+  void dispose() {
+    super.dispose();
+    _searchController.removeListener(_onSearchChanged);
+    _searchController.dispose();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    resultsLoaded = getPeopleOfTheList();
+  }
+
+  _onSearchChanged() {
+    searchResultsList();
+  }
+
+  var showResults;
+  searchResultsList() {
+    showResults = [];
+    if (_searchController.text != "") {
+      for (int i = 0; i < _allResults.length; i++) {
+        var name = _allResults[i]['name'].toString().toLowerCase();
+        var firstname = _allResults[i]['firstname'].toString().toLowerCase();
+        if (name.contains(_searchController.text.toLowerCase()) ||
+            firstname.contains(_searchController.text.toLowerCase())) {
+          showResults.add(_allResults[i]);
+        }
+      }
+    } else {
+      showResults = List.from(_allResults);
+    }
+
+    setState(() {
+      _resultsList = showResults;
+    });
+  }
+
+  getPeopleOfTheList() async {
+    lists = await firestoreInstance
         .collection('users')
         .doc(firebaseUser.uid)
         .collection('persons')
         .orderBy('name')
         .where('listIds', arrayContains: widget.idList)
-        .snapshots();
+        .get();
+
+    setState(() {
+      _allResults = lists.docs;
+    });
+    searchResultsList();
+    return "complete";
   }
 
   fetchData() {
-    return Padding(
-      padding: const EdgeInsets.only(left: 5, right: 5, bottom: 5, top: 70),
-      child: StreamBuilder<QuerySnapshot>(
-        stream: all,
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            var doc = snapshot.data.docs;
-            return new ListView.builder(
-              itemCount: doc.length,
+    return Container(
+      child: Column(
+        children: <Widget>[
+          SizedBox(
+            height: 25,
+          ),
+          TextField(
+            controller: _searchController,
+            decoration: InputDecoration(prefixIcon: Icon(Icons.search)),
+          ),
+          SizedBox(
+            height: 25,
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: _resultsList.length,
               itemBuilder: (context, index) {
-                personsList.add(doc[index]);
-                listId = doc[index].id;
-                image = doc[index]['image'].toString();
-                if (doc[index]['isCorrect'] == false) {
-                  personsMistakes.add(doc[index]);
+                personsList.add(_resultsList[index]);
+                listId = _resultsList[index].id;
+                image = _resultsList[index]['image'].toString();
+                if (_resultsList[index]['isCorrect'] == false) {
+                  personsMistakes.add(_resultsList[index]);
                 }
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -74,9 +130,9 @@ class _PersonListPageState extends State<PersonListPage> {
                       leading: CircleAvatar(
                         backgroundImage: Image.file(File(image)).image,
                       ),
-                      title: Text(doc[index]['name'].toString() +
+                      title: Text(_resultsList[index]['name'].toString() +
                           ' ' +
-                          doc[index]['firstname'].toString()),
+                          _resultsList[index]['firstname'].toString()),
                       trailing: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: <Widget>[
@@ -87,16 +143,17 @@ class _PersonListPageState extends State<PersonListPage> {
                               color: Colors.red,
                             ),
                             onPressed: () {
-                              var name = doc[index]['name'].toString() +
+                              var name = _resultsList[index]['name']
+                                      .toString() +
                                   ' ' +
-                                  doc[index]['firstname'].toString();
+                                  _resultsList[index]['firstname'].toString();
                               showDialog(
                                 context: context,
                                 builder: (BuildContext context) => alertDelete(
                                     context,
                                     name,
                                     widget.idList,
-                                    doc[index].id,
+                                    _resultsList[index].id,
                                     'person'),
                               );
                             },
@@ -109,7 +166,7 @@ class _PersonListPageState extends State<PersonListPage> {
                           MaterialPageRoute(
                             builder: (context) => PersonDetailsPage(
                               idList: widget.idList,
-                              idPerson: doc[index].id,
+                              idPerson: _resultsList[index].id,
                               listName: widget.listName,
                               image: image,
                             ),
@@ -120,11 +177,9 @@ class _PersonListPageState extends State<PersonListPage> {
                   ),
                 );
               },
-            );
-          } else {
-            return LinearProgressIndicator();
-          }
-        },
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -137,7 +192,7 @@ class _PersonListPageState extends State<PersonListPage> {
         automaticallyImplyLeading: true,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
-          onPressed: () => Navigator.pop(context, false),
+          onPressed: () => Navigator.pop(context),
         ),
         actions: [
           IconButton(
@@ -228,8 +283,10 @@ class _PersonListPageState extends State<PersonListPage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => AddPersonList(
-                        listName: widget.listName, listId: widget.idList),
+                    builder: (context) => AddExistingPerson(
+                      listId: widget.idList,
+                      listName: widget.listName,
+                    ),
                   ),
                 );
               },

@@ -3,6 +3,8 @@ import 'package:gmoria/Pages/Add%20Edit/EditPersonPage.dart';
 import 'package:gmoria/Pages/Drawer/DrawerApp.dart';
 import 'package:gmoria/models/PersonModel.dart';
 
+import '../../Applocalizations.dart';
+
 class PersonInfo extends StatefulWidget {
   static String routeName = '/personInfo';
   final String appTitle = 'GMORIA';
@@ -50,19 +52,25 @@ class _PersonInfoState extends State<PersonInfo> {
             ),
             Container(
               child: Text(
-                'Name : ' + person.name,
+                AppLocalizations.of(context).translate('labelName') +
+                    ' : ' +
+                    person.name,
                 style: TextStyle(fontSize: 40),
               ),
             ),
             Container(
               child: Text(
-                'Firstame : ' + person.firstname,
+                AppLocalizations.of(context).translate('labelFirstname') +
+                    ' : ' +
+                    person.firstname,
                 style: TextStyle(fontSize: 40),
               ),
             ),
             Container(
               child: Text(
-                'Notes : ' + person.notes,
+                AppLocalizations.of(context).translate('labelNotes') +
+                    ' : ' +
+                    person.notes,
                 style: TextStyle(fontSize: 40),
               ),
             ),

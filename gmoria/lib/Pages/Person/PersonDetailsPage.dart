@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:gmoria/Pages/Add%20Edit/EditPersonPage.dart';
 
+import '../../Applocalizations.dart';
+
 class PersonDetailsPage extends StatefulWidget {
   final idList;
   final idPerson;
@@ -93,7 +95,7 @@ class _PersonDetailsPageState extends State<PersonDetailsPage> {
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  'Name :',
+                  AppLocalizations.of(context).translate('labelName') + ' :',
                   style: TextStyle(fontSize: 20, color: Colors.indigo),
                 ),
               ),
@@ -115,7 +117,8 @@ class _PersonDetailsPageState extends State<PersonDetailsPage> {
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  'Firstame :',
+                  AppLocalizations.of(context).translate('labelFirstname') +
+                      ' :',
                   style: TextStyle(fontSize: 20, color: Colors.indigo),
                 ),
               ),
@@ -137,7 +140,7 @@ class _PersonDetailsPageState extends State<PersonDetailsPage> {
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  'Notes :',
+                  AppLocalizations.of(context).translate('labelNotes') + ' :',
                   style: TextStyle(fontSize: 20, color: Colors.indigo),
                 ),
               ),

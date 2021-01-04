@@ -1,14 +1,12 @@
 import 'dart:io';
 import 'dart:math';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:gmoria/Pages/Game/ScorePage.dart';
 
-import '../../Applocalizations.dart';
-
-class Game extends StatefulWidget {
+class AutoCheckGame extends StatefulWidget {
   static String routeName = '/game';
   final String appTitle = 'GMORIA';
   final personsList;
@@ -18,7 +16,7 @@ class Game extends StatefulWidget {
   final personsMistakesList;
   final playWithMistakes;
 
-  Game(
+  AutoCheckGame(
       {this.listName,
       this.personsList,
       this.listId,
@@ -27,7 +25,7 @@ class Game extends StatefulWidget {
       this.playWithMistakes});
 
   @override
-  _GameState createState() => _GameState();
+  _AutoCheckGameState createState() => _AutoCheckGameState();
 }
 
 var firestoreInstance = FirebaseFirestore.instance;
@@ -44,13 +42,14 @@ Future updateScore(int score, String listId, String listname) async {
       .set({'name': listname, 'score': score});
 }
 
-class _GameState extends State<Game> {
+class _AutoCheckGameState extends State<AutoCheckGame> {
   int _i = 0;
   int score = 0;
   int randomNumber;
   var nbQuestions;
   List numbers = [];
   var playedList;
+  String response = 'Show me';
 
   @override
   void initState() {
@@ -68,6 +67,7 @@ class _GameState extends State<Game> {
     //fill an array with numbers
     for (int i = 0; i < nbQuestions; i++) {
       numbers.add(i);
+      print(playedList[i].id);
     }
 
     //mix the numbers to have random questions
@@ -110,25 +110,21 @@ class _GameState extends State<Game> {
 
   @override
   Widget build(BuildContext context) {
-    var _controller = TextEditingController();
     int scorePercent = 0;
 
-    void _validateQuestion() {
-      //Check if what the user wrote is correct
-      if (_controller.text.toLowerCase() ==
-          (playedList.elementAt(randomNumber)['firstname'].toLowerCase() +
-              ' ' +
-              playedList.elementAt(randomNumber)['name'].toLowerCase())) {
-        //it's correct, so we increment the score and update the field is correct in the DB
+    void _validate(String correct) {
+      //it's correct, so we increment the score and update the field is correct in the DB
+      if (correct == 'correct') {
         score++;
         updateIsCorrect(playedList.elementAt(randomNumber).id, true);
+        print(nbQuestions);
       } else {
-        //it's not correct, so we update the field is correct in the DB
         updateIsCorrect(playedList.elementAt(randomNumber).id, false);
       }
 
       //check if the game id finished
       if (_i == nbQuestions - 1) {
+        print(nbQuestions);
         scorePercent = ((score / nbQuestions) * 100).round();
 
         Navigator.push(
@@ -146,15 +142,16 @@ class _GameState extends State<Game> {
         //if not finished, pass to the next question
         setState(() {
           _i++;
-          _controller.clear();
           randomQuestions();
+          response = 'Show me';
         });
       }
     }
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.listName),
+        title: Text(widget.appTitle + " - " + widget.listName),
+        automaticallyImplyLeading: false,
       ),
       resizeToAvoidBottomInset: false,
       body: Center(
@@ -163,32 +160,64 @@ class _GameState extends State<Game> {
           child: Card(
             child: Column(
               children: [
-                TextField(
-                  decoration: InputDecoration(
-                      hintText:
-                          AppLocalizations.of(context).translate('labelHint')),
-                  controller: _controller,
+                SizedBox(
+                  height: 30,
+                ),
+                Card(
+                  elevation: 10,
+                  child: CircleAvatar(
+                    backgroundImage: Image.file(
+                      File(playedList.elementAt(randomNumber)['image']),
+                    ).image,
+                    radius: 150,
+                    backgroundColor: Colors.black,
+                  ),
                 ),
                 SizedBox(
                   height: 30,
                 ),
-                CircleAvatar(
-                  backgroundImage: Image.file(
-                    File(playedList.elementAt(randomNumber)['image']),
-                  ).image,
-                  radius: 150,
-                  backgroundColor: Colors.black,
+                SizedBox(
+                  height: 50,
+                  width: 300,
+                  child: Card(
+                    child: InkWell(
+                      child: Center(child: Text(response)),
+                      onTap: () {
+                        setState(() {
+                          response = playedList
+                                  .elementAt(randomNumber)['name'] +
+                              ' ' +
+                              playedList.elementAt(randomNumber)['firstname'];
+                        });
+                      },
+                    ),
+                    elevation: 10,
+                  ),
                 ),
                 SizedBox(
                   height: 30,
                 ),
-                IconButton(
-                  icon: Icon(Icons.done),
-                  onPressed: () {
-                    _validateQuestion();
-                  },
-                  iconSize: 50,
-                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    IconButton(
+                      icon: Icon(Icons.check_circle),
+                      color: Colors.green,
+                      onPressed: () {
+                        _validate('correct');
+                      },
+                      iconSize: 50,
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.cancel),
+                      color: Colors.red,
+                      onPressed: () {
+                        _validate('false');
+                      },
+                      iconSize: 50,
+                    ),
+                  ],
+                )
               ],
             ),
           ),

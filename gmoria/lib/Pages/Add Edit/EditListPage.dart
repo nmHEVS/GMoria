@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gmoria/Forms/EditListForm.dart';
 
+import '../../Applocalizations.dart';
+
 class EditListPage extends StatefulWidget {
   final String appTitle = 'GMORIA';
   final listId;
@@ -17,7 +19,7 @@ class _EditListPageState extends State<EditListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.appTitle + ' - Edit list'),
+        title: Text(AppLocalizations.of(context).translate('labelEditList')),
         automaticallyImplyLeading: true,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),

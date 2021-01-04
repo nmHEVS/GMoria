@@ -3,6 +3,8 @@ import 'package:gmoria/auth/Auth.dart';
 import 'package:gmoria/auth/AuthProvider.dart';
 import 'package:gmoria/auth/RootPage.dart';
 
+import '../../Applocalizations.dart';
+
 class DrawerApp extends StatelessWidget {
   final String appTitle;
   DrawerApp({this.appTitle});
@@ -37,26 +39,30 @@ class DrawerApp extends StatelessWidget {
           ),
           ListTile(
             leading: Icon(Icons.person),
-            title: Text('My profile'),
+            title:
+                Text(AppLocalizations.of(context).translate('labelMyProfile')),
             onTap: () {
               Navigator.pushNamed(context, '/profile');
             },
           ),
           ListTile(
             leading: Icon(Icons.settings),
-            title: Text('Settings'),
-            onTap: () {},
+            title:
+                Text(AppLocalizations.of(context).translate('labelSettings')),
+            onTap: () {
+              Navigator.pushNamed(context, '/settings');
+            },
           ),
           ListTile(
             leading: Icon(Icons.info),
-            title: Text('About us'),
+            title: Text(AppLocalizations.of(context).translate('labelAbout')),
             onTap: () {
               Navigator.pushNamed(context, '/about');
             },
           ),
           ListTile(
             leading: Icon(Icons.logout),
-            title: Text('Logout'),
+            title: Text(AppLocalizations.of(context).translate('labelLogout')),
             onTap: () {
               _signOut(context);
             },

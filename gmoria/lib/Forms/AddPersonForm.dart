@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../Applocalizations.dart';
+
 class AddPersonForm extends StatefulWidget {
   final listName;
   final listId;
@@ -57,14 +59,16 @@ class _AddPersonFormState extends State<AddPersonForm> {
                 children: <Widget>[
                   new ListTile(
                       leading: new Icon(Icons.photo_library),
-                      title: new Text('Photo Library'),
+                      title: new Text(AppLocalizations.of(context)
+                          .translate('labelPhotoLibrary')),
                       onTap: () {
                         _imgFromGallery();
                         Navigator.of(context).pop();
                       }),
                   new ListTile(
                     leading: new Icon(Icons.photo_camera),
-                    title: new Text('Camera'),
+                    title: new Text(
+                        AppLocalizations.of(context).translate('labelCamera')),
                     onTap: () {
                       _imgFromCamera();
                       Navigator.of(context).pop();
@@ -171,27 +175,35 @@ class _AddPersonFormState extends State<AddPersonForm> {
                 ),
                 TextFormField(
                   controller: peopleNameController,
-                  decoration: InputDecoration(labelText: 'Name'),
+                  decoration: InputDecoration(
+                      labelText:
+                          AppLocalizations.of(context).translate('labelName')),
                   validator: (value) {
                     if (value.isEmpty) {
-                      return 'Please fill this field';
+                      return AppLocalizations.of(context)
+                          .translate('alertPleaseFill');
                     }
                     return null;
                   },
                 ),
                 TextFormField(
                   controller: peopleFirstnameController,
-                  decoration: InputDecoration(labelText: 'Firstname'),
+                  decoration: InputDecoration(
+                      labelText: AppLocalizations.of(context)
+                          .translate('labelFirstname')),
                   validator: (value) {
                     if (value.isEmpty) {
-                      return 'Please fill this field';
+                      return AppLocalizations.of(context)
+                          .translate('alertPleaseFill');
                     }
                     return null;
                   },
                 ),
                 TextFormField(
                   controller: peopleNotesController,
-                  decoration: InputDecoration(labelText: 'Notes '),
+                  decoration: InputDecoration(
+                      labelText:
+                          AppLocalizations.of(context).translate('labelNotes')),
                 ),
                 SizedBox(
                   height: 40,
@@ -207,7 +219,8 @@ class _AddPersonFormState extends State<AddPersonForm> {
                       Navigator.of(context).pop();
                     }
                   },
-                  child: Text('Create'),
+                  child: Text(
+                      AppLocalizations.of(context).translate('labelCreate')),
                 )
               ],
             ),

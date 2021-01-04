@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gmoria/Forms/AddListForm.dart';
 
+import '../../Applocalizations.dart';
+
 class AddListPage extends StatefulWidget {
   final String appTitle = 'GMORIA';
 
@@ -13,7 +15,7 @@ class _AddListPageState extends State<AddListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Text(widget.appTitle + ' - Add a new list'),
+          title: Text(AppLocalizations.of(context).translate('labelAddList')),
           automaticallyImplyLeading: true,
           leading: IconButton(
             icon: Icon(Icons.arrow_back),
