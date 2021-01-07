@@ -76,8 +76,7 @@ class _ProfileState extends State<Profile> {
                       borderRadius: BorderRadius.circular(5.0),
                     ),
                   ),
-                  Text(
-                      "Add list of contact from a .csv" /*AppLocalizations.of(context).translate('labelAddCsv')*/),
+                  Text(AppLocalizations.of(context).translate('labelAddCsv')),
                 ],
               ),
             ),
@@ -96,8 +95,8 @@ class _ProfileState extends State<Profile> {
                       borderRadius: BorderRadius.circular(5.0),
                     ),
                   ),
-                  Text(
-                      "Add a contact from my phone" /*AppLocalizations.of(context).translate('labelAddCsv')*/),
+                  Text(AppLocalizations.of(context)
+                      .translate('labelAddContactFromPhone')),
                 ],
               ),
             ),
@@ -114,8 +113,8 @@ class _ProfileState extends State<Profile> {
                       borderRadius: BorderRadius.circular(5.0),
                     ),
                   ),
-                  Text(
-                      "Add a contact from Linkedin" /*AppLocalizations.of(context).translate('labelAddCsv')*/),
+                  Text(AppLocalizations.of(context)
+                      .translate('labelAddContactFromLinkedin')),
                 ],
               ),
             ),

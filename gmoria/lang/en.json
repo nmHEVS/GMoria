@@ -44,5 +44,8 @@
     "labelCreateContact" : "Create a new contact",
     "labelImportFromFile": "Import a list of contact",
     "labelEditList": "Edit list",
-    "labelEditContact": "Edit a contact"
+    "labelEditContact": "Edit a contact",
+    "labelAddCsv": "Add a .csv file from my phone",
+    "labelAddContactFromPhone": "Add a contact from my phone",
+    "labelAddContactFromLinkedin": "Add a linkedin contact"
 }
