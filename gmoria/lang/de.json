@@ -47,5 +47,10 @@
     "labelEditContact": "Kontact bearbeiten",
     "labelAddCsv": "Fügen Sie eine CSV-Datei von meinem Telefon hinzu",
     "labelAddContactFromPhone": "Fügen Sie einen Kontakt von meinem Telefon hinzu",
-    "labelAddContactFromLinkedin": "Fügen Sie einen Linkedin-Kontakt hinzu"
+    "labelAddContactFromLinkedin": "Fügen Sie einen Linkedin-Kontakt hinzu",
+    "labelEmail": "Email",
+    "labelPassword": "Passwort",
+    "labelLogin": "Einloggen",
+    "labelCreateAccount": "Konto erstellen",
+    "labelHaveAccount": "Bereits registriert ?"
 }

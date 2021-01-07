@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:gmoria/auth/Auth.dart';
 import 'package:gmoria/auth/AuthProvider.dart';
 
+import '../Applocalizations.dart';
+
 class EmailFieldValidator {
   static String validate(String value) {
     return value.isEmpty ? 'Email can\'t be empty' : null;
@@ -101,13 +103,15 @@ class _LoginPageState extends State<LoginPage> {
     return <Widget>[
       TextFormField(
         key: Key('email'),
-        decoration: InputDecoration(labelText: 'Email'),
+        decoration: InputDecoration(
+            labelText: AppLocalizations.of(context).translate('labelEmail')),
         validator: EmailFieldValidator.validate,
         onSaved: (String value) => _email = value,
       ),
       TextFormField(
         key: Key('password'),
-        decoration: InputDecoration(labelText: 'Password'),
+        decoration: InputDecoration(
+            labelText: AppLocalizations.of(context).translate('labelPassword')),
         obscureText: true,
         validator: PasswordFieldValidator.validate,
         onSaved: (String value) => _password = value,
@@ -120,23 +124,31 @@ class _LoginPageState extends State<LoginPage> {
       return <Widget>[
         RaisedButton(
           key: Key('signIn'),
-          child: Text('Login', style: TextStyle(fontSize: 20.0)),
+          child: Text(AppLocalizations.of(context).translate('labelLogin'),
+              style: TextStyle(fontSize: 20.0)),
           onPressed: validateAndSubmit,
         ),
         FlatButton(
-          child: Text('Create an account', style: TextStyle(fontSize: 20.0)),
+          child: Text(
+              AppLocalizations.of(context).translate('labelCreateAccount'),
+              style: TextStyle(fontSize: 20.0)),
           onPressed: moveToRegister,
         ),
       ];
     } else {
       return <Widget>[
         RaisedButton(
-          child: Text('Create an account', style: TextStyle(fontSize: 20.0)),
+          child: Text(
+              AppLocalizations.of(context).translate('labelCreateAccount'),
+              style: TextStyle(fontSize: 20.0)),
           onPressed: validateAndSubmit,
         ),
         FlatButton(
-          child:
-              Text('Have an account? Login', style: TextStyle(fontSize: 20.0)),
+          child: Text(
+              AppLocalizations.of(context).translate('labelHaveAccount') +
+                  " " +
+                  AppLocalizations.of(context).translate('labelLogin'),
+              style: TextStyle(fontSize: 20.0)),
           onPressed: moveToLogin,
         ),
       ];
