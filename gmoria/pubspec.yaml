@@ -30,6 +30,7 @@ dependencies:
   flutter_localizations: 
     sdk: flutter  
   csv: ^4.1.0
+  contact_picker: ^0.0.2
 
 
 

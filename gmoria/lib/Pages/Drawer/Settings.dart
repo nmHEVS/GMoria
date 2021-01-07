@@ -31,24 +31,41 @@ class SettingsState extends State<Settings> {
                 height: 80,
               ),
               Text(
-                AppLocalizations.of(context).translate('labelLanguageInUse') +
-                    " : " +
-                    AppLocalizations.of(context).translate('languageInUse'),
+                AppLocalizations.of(context).translate('labelLanguageInUse'),
+                style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Text(
+                AppLocalizations.of(context).translate('languageInUse'),
                 style: TextStyle(
                     fontSize: 30,
                     fontWeight: FontWeight.bold,
-                    color: Colors.black),
+                    color: Colors.grey),
               ),
               SizedBox(
                 height: 30,
               ),
               Text(
                 AppLocalizations.of(context).translate('labelLanguageList'),
+                style: TextStyle(fontSize: 20),
+                textAlign: TextAlign.center,
+              ),
+              Text(
+                AppLocalizations.of(context).translate('labelFrench'),
                 style: TextStyle(fontSize: 20, color: Colors.grey),
                 textAlign: TextAlign.center,
               ),
-              SizedBox(
-                height: 70,
+              Text(
+                AppLocalizations.of(context).translate('labelEnglish'),
+                style: TextStyle(fontSize: 20, color: Colors.grey),
+                textAlign: TextAlign.center,
+              ),
+              Text(
+                AppLocalizations.of(context).translate('labelGerman'),
+                style: TextStyle(fontSize: 20, color: Colors.grey),
+                textAlign: TextAlign.center,
               ),
             ],
           ),

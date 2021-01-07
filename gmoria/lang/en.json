@@ -1,5 +1,8 @@
 {
     "languageInUse": "English",
+    "labelFrench":"French",
+    "labelEnglish":"English",
+    "labelGerman":"German",
     "labelLanguageInUse": "Current Language",
     "labelLanguageList": "Available languages : ",
     "labelLists": "My Lists",
@@ -52,5 +55,6 @@
     "labelPassword": "Password",
     "labelLogin": "Login",
     "labelCreateAccount": "Create an account",
-    "labelHaveAccount": "Have an account ?"
+    "labelHaveAccount": "Have an account ?",
+    "labelImportContact": "Import from contacts"
 }

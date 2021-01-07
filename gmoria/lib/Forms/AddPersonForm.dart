@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:contact_picker/contact_picker.dart';
 
 import '../Applocalizations.dart';
 
@@ -23,6 +24,8 @@ class _AddPersonFormState extends State<AddPersonForm> {
   final peopleFirstnameController = TextEditingController();
   final peopleNotesController = TextEditingController();
   final peopleImageController = TextEditingController();
+  final ContactPicker _contactPicker = new ContactPicker();
+  Contact _contact;
 
   var firestoreInstance = FirebaseFirestore.instance;
   var firebaseUser = FirebaseAuth.instance.currentUser;
@@ -209,6 +212,29 @@ class _AddPersonFormState extends State<AddPersonForm> {
                   height: 40,
                 ),
                 ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.grey,
+                  ),
+                  onPressed: () async {
+                    //get contact from phone
+                    Contact contact = await _contactPicker.selectContact();
+                    setState(() {
+                      _contact = contact;
+                    });
+
+                    //Separate firstname lastname
+                    List<String> contactSplit = _contact.fullName.split(' ');
+                    String lname = contactSplit.first;
+                    String fname = contactSplit.last;
+
+                    //fill the fields with info from contact selectionned
+                    peopleFirstnameController.text = lname;
+                    peopleNameController.text = fname;
+                  },
+                  child: Text(AppLocalizations.of(context)
+                      .translate('labelImportContact')),
+                ),
+                ElevatedButton(
                   onPressed: () {
                     if (_formKey.currentState.validate()) {
                       addPeople(
@@ -220,7 +246,9 @@ class _AddPersonFormState extends State<AddPersonForm> {
                     }
                   },
                   child: Text(
-                      AppLocalizations.of(context).translate('labelCreate')),
+                    AppLocalizations.of(context).translate('labelCreate'),
+                    style: TextStyle(fontSize: 40),
+                  ),
                 )
               ],
             ),
