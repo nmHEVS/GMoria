@@ -3,12 +3,8 @@ import 'package:gmoria/Applocalizations.dart';
 import 'package:gmoria/Pages/Drawer/DrawerApp.dart';
 import 'package:gmoria/Pages/List/ListsPage.dart';
 import 'package:gmoria/Pages/Person/ContactsPage.dart';
-import 'package:gmoria/auth/Auth.dart';
-import 'package:gmoria/auth/AuthProvider.dart';
 
 class Home extends StatefulWidget {
-  final VoidCallback onSignedOut;
-  Home({this.onSignedOut});
   final String appTitle = 'GMORIA';
   static String routeName = '/home';
 
@@ -34,16 +30,6 @@ class _HomeState extends State<Home> {
     setState(() {
       selectedIndex = newIndex;
     });
-  }
-
-  Future<void> _signOut(BuildContext context) async {
-    try {
-      final BaseAuth auth = AuthProvider.of(context).auth;
-      await auth.signOut();
-      widget.onSignedOut();
-    } catch (e) {
-      print(e);
-    }
   }
 
   @override

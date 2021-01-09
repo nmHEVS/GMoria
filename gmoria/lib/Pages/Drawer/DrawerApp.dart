@@ -6,9 +6,8 @@ import 'package:gmoria/auth/RootPage.dart';
 import '../../Applocalizations.dart';
 
 class DrawerApp extends StatelessWidget {
-  final VoidCallback onSignedOut;
   final String appTitle;
-  DrawerApp({this.appTitle, this.onSignedOut});
+  DrawerApp({this.appTitle});
 
   Future<void> _signOut(BuildContext context) async {
     try {

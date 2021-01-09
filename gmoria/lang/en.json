@@ -1,5 +1,8 @@
 {
     "languageInUse": "English",
+    "labelFrench":"French",
+    "labelEnglish":"English",
+    "labelGerman":"German",
     "labelLanguageInUse": "Current Language",
     "labelLanguageList": "Available languages : ",
     "labelLists": "My Lists",
@@ -58,5 +61,14 @@
     "alertListAlreadyExist" : "Oops, this list already exists !",
     "alertAlreadyAdded" : "This contact is already in the list !",
     "labelFalse" : "False ...",
-    "labelCorrect" : "Correct !"
+    "labelCorrect" : "Correct !",
+    "labelAddCsv": "Add a .csv file from my phone",
+    "labelAddContactFromPhone": "Add a contact from my phone",
+    "labelAddContactFromLinkedin": "Add a linkedin contact",
+    "labelEmail": "Email",
+    "labelPassword": "Password",
+    "labelLogin": "Login",
+    "labelCreateAccount": "Create an account",
+    "labelHaveAccount": "Have an account ?",
+    "labelImportContact": "Import from contacts"
 }
