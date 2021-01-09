@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gmoria/Forms/EditPersonForm.dart';
-
 import '../../Applocalizations.dart';
+
+//Created by GF
+//Page to edit a contact, calls EditPersonForm()
 
 class EditPersonPage extends StatefulWidget {
   final String appTitle = 'GMORIA';

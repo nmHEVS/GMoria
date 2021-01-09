@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gmoria/Forms/EditListForm.dart';
-
 import '../../Applocalizations.dart';
+
+//Created by GF
+//Page to edit a list, calls EditListForm()
 
 class EditListPage extends StatefulWidget {
   final String appTitle = 'GMORIA';

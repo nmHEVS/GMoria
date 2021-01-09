@@ -1,10 +1,12 @@
 import 'dart:io';
 import 'dart:math';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:gmoria/Pages/Game/ScorePage.dart';
+
+//Created by GF
+//Class to play the game with the mode self-check, the user choose himself if its response is correct or not
 
 class AutoCheckGame extends StatefulWidget {
   static String routeName = '/game';
@@ -31,9 +33,10 @@ class AutoCheckGame extends StatefulWidget {
 var firestoreInstance = FirebaseFirestore.instance;
 var firebaseUser = FirebaseAuth.instance.currentUser;
 
+//GF
+//Method to update the score at the end of the game
 Future updateScore(int score, String listId, String listname) async {
   debugPrint(score.toString());
-
   return await firestoreInstance
       .collection('users')
       .doc(firebaseUser.uid)
@@ -53,6 +56,7 @@ class _AutoCheckGameState extends State<AutoCheckGame> {
 
   @override
   void initState() {
+    //GF
     //if the user wants to play with mitakes only
     if (widget.playWithMistakes) {
       playedList = widget.personsMistakesList;
@@ -62,14 +66,13 @@ class _AutoCheckGameState extends State<AutoCheckGame> {
 
     nbQuestions = widget.nbQuestions;
 
-    print(playedList.toString());
-
+    //GF
     //fill an array with numbers
     for (int i = 0; i < nbQuestions; i++) {
       numbers.add(i);
       print(playedList[i].id);
     }
-
+    //GF
     //mix the numbers to have random questions
     numbers = shuffle(numbers);
     randomQuestions();
@@ -77,16 +80,21 @@ class _AutoCheckGameState extends State<AutoCheckGame> {
     super.initState();
   }
 
+  //GF
+  //set up the next question
   randomQuestions() {
     randomNumber = numbers[_i];
   }
 
+  //GF
   //Methode to mix the order of the questions
   List shuffle(List items) {
     var random = new Random();
 
+    //GF
     // Go through all elements.
     for (var i = 0; i < items.length; i++) {
+      //GF
       // Pick a pseudorandom number according to the list length
       var n = random.nextInt(i + 1);
 
@@ -98,6 +106,7 @@ class _AutoCheckGameState extends State<AutoCheckGame> {
     return items;
   }
 
+  //GF
   //Method to update the field 'isCorrect' in the DB
   void updateIsCorrect(personId, correct) async {
     await firestoreInstance
@@ -113,6 +122,7 @@ class _AutoCheckGameState extends State<AutoCheckGame> {
     int scorePercent = 0;
 
     void _validate(String correct) {
+      //GF
       //it's correct, so we increment the score and update the field is correct in the DB
       if (correct == 'correct') {
         score++;
@@ -122,6 +132,7 @@ class _AutoCheckGameState extends State<AutoCheckGame> {
         updateIsCorrect(playedList.elementAt(randomNumber).id, false);
       }
 
+      //GF
       //check if the game id finished
       if (_i == nbQuestions - 1) {
         print(nbQuestions);
@@ -139,6 +150,7 @@ class _AutoCheckGameState extends State<AutoCheckGame> {
 
         updateScore(scorePercent, widget.listId, widget.listName);
       } else {
+        //GF
         //if not finished, pass to the next question
         setState(() {
           _i++;

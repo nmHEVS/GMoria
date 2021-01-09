@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:gmoria/Pages/Add%20Edit/AddPersonList.dart';
-
+import 'package:gmoria/Pages/Add%20Edit/AddExistingPerson.dart';
 import '../Applocalizations.dart';
+
+//Created by GF
+//Alert message to notify the user that he can't play or learn an empty list
 
 Widget alertNoPeople(
     BuildContext context, String origin, String listName, String idList) {
@@ -11,6 +13,8 @@ Widget alertNoPeople(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
+        //GF
+        //The alert message depends on if we try to play or to learn the empty list
         origin == 'play'
             ? Text(
                 AppLocalizations.of(context).translate('alertEmptyListPlay'),
@@ -23,13 +27,15 @@ Widget alertNoPeople(
       ],
     ),
     actions: <Widget>[
+      //GF
+      //Two buttons : one to add people one to cancel
       new FlatButton(
         onPressed: () {
           Navigator.push(
             context,
             MaterialPageRoute(
               builder: (context) =>
-                  AddPersonList(listName: listName, listId: idList),
+                  AddExistingPerson(listName: listName, listId: idList),
             ),
           );
         },

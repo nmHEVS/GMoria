@@ -3,6 +3,9 @@ import 'package:gmoria/Pages/Add%20Edit/AddPersonPage.dart';
 import 'package:gmoria/Pages/Drawer/DrawerApp.dart';
 import 'package:gmoria/datas/FetchDataContact.dart';
 
+//Created by GF
+//Class to display all the existing contact of a user
+
 class ContactsPage extends StatefulWidget {
   final String appTitle = 'GMORIA';
 
@@ -11,12 +14,6 @@ class ContactsPage extends StatefulWidget {
 }
 
 class _ContactsPageState extends State<ContactsPage> {
-  @override
-  void initState() {
-    FetchDataContact();
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +29,10 @@ class _ContactsPageState extends State<ContactsPage> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => AddPersonPage(listName: '', listId: ''),
+                builder: (context) => AddPersonPage(
+                  listName: '',
+                  listId: '',
+                ),
               ),
             );
           },

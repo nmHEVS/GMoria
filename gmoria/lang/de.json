@@ -44,5 +44,20 @@
     "labelCreateContact" : "neuen Kontakt erstellen",
     "labelImportFromFile": "Kontaktliste Importieren",
     "labelEditList": "Liste bearbeiten",
-    "labelEditContact": "Kontact bearbeiten"
+    "labelEditContact": "Kontact bearbeiten",
+    "labelOups" : "Oops",
+    "labelNoMistakes" : "Es scheint, dass Sie in dieser Liste keine Fehler gemacht haben !",
+    "labelGotIt" : "Kapiert !",
+    "labelNoSelectedNumber" : "Bitte wählen Sie eine Anzahl von Fragen zum Spielen aus !",
+    "labelAlreadyExist" : "Es scheint, dass dieser Kontakt bereits besteht",
+    "labelSelfCheckGame" : "Selbsteinschätzung",
+    "labelHelpSelfCheckGame" : "Bei diesem Spielmodus liegt es an Ihnen, Ihre Antwort zu bestätigen! Klicken Sie auf \"Richtig\", wenn Sie es richtig gemacht haben, oder auf \"Falsch\", wenn Sie es falsch gemacht haben...",
+    "labelQuizGame" : "Quiz Game",
+    "labelHelpQuizGame" : "Bei dieser Spielart müssen Sie den Namen der Person auf dem Foto schreiben oder diktieren.",
+    "alertContactAlreadyExist" : "Oops, der Kontakt existiert schon !",
+    "alertListAlreadyExist" : "Oops, die Liste existiert schon !",
+    "alertAlreadyAdded" : "Dieser Kontakt ist bereits in der Liste enthalten !",
+    "labelFalse" : "Falsch ...",
+    "labelCorrect" : "Richtig !"
+
 }

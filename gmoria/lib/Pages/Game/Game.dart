@@ -1,12 +1,14 @@
+import 'dart:async';
 import 'dart:io';
 import 'dart:math';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:gmoria/Pages/Game/ScorePage.dart';
-
 import '../../Applocalizations.dart';
+
+//Created by GF
+//Class to play the game with the mode Quiz, the user must write or dictate the name of the displaying contact
 
 class Game extends StatefulWidget {
   static String routeName = '/game';
@@ -33,9 +35,9 @@ class Game extends StatefulWidget {
 var firestoreInstance = FirebaseFirestore.instance;
 var firebaseUser = FirebaseAuth.instance.currentUser;
 
+//GF
+//Method to update the score at the end of the game
 Future updateScore(int score, String listId, String listname) async {
-  debugPrint(score.toString());
-
   return await firestoreInstance
       .collection('users')
       .doc(firebaseUser.uid)
@@ -51,9 +53,11 @@ class _GameState extends State<Game> {
   var nbQuestions;
   List numbers = [];
   var playedList;
+  var validate;
 
   @override
   void initState() {
+    //GF
     //if the user wants to play with mitakes only
     if (widget.playWithMistakes) {
       playedList = widget.personsMistakesList;
@@ -63,13 +67,13 @@ class _GameState extends State<Game> {
 
     nbQuestions = widget.nbQuestions;
 
-    print(playedList.toString());
-
+    //GF
     //fill an array with numbers
     for (int i = 0; i < nbQuestions; i++) {
       numbers.add(i);
     }
 
+    //GF
     //mix the numbers to have random questions
     numbers = shuffle(numbers);
     randomQuestions();
@@ -81,12 +85,15 @@ class _GameState extends State<Game> {
     randomNumber = numbers[_i];
   }
 
+  //GF
   //Methode to mix the order of the questions
   List shuffle(List items) {
     var random = new Random();
 
+    //GF
     // Go through all elements.
     for (var i = 0; i < items.length; i++) {
+      //GF
       // Pick a pseudorandom number according to the list length
       var n = random.nextInt(i + 1);
 
@@ -98,6 +105,7 @@ class _GameState extends State<Game> {
     return items;
   }
 
+  //GF
   //Method to update the field 'isCorrect' in the DB
   void updateIsCorrect(personId, correct) async {
     await firestoreInstance
@@ -114,40 +122,78 @@ class _GameState extends State<Game> {
     int scorePercent = 0;
 
     void _validateQuestion() {
+      //GF
       //Check if what the user wrote is correct
       if (_controller.text.toLowerCase() ==
           (playedList.elementAt(randomNumber)['firstname'].toLowerCase() +
               ' ' +
               playedList.elementAt(randomNumber)['name'].toLowerCase())) {
+        //GF
         //it's correct, so we increment the score and update the field is correct in the DB
         score++;
         updateIsCorrect(playedList.elementAt(randomNumber).id, true);
+        showDialog(
+            context: context,
+            builder: (context) {
+              Future.delayed(Duration(seconds: 2), () {
+                Navigator.of(context).pop(true);
+              });
+              return AlertDialog(
+                backgroundColor: Colors.green[300],
+                title: Text(
+                  AppLocalizations.of(context).translate('labelCorrect'),
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.white),
+                ),
+              );
+            });
       } else {
+        //GF
         //it's not correct, so we update the field is correct in the DB
         updateIsCorrect(playedList.elementAt(randomNumber).id, false);
+        showDialog(
+            context: context,
+            builder: (context) {
+              Future.delayed(Duration(seconds: 2), () {
+                Navigator.of(context).pop(true);
+              });
+              return AlertDialog(
+                backgroundColor: Colors.red[400],
+                title: Text(
+                  AppLocalizations.of(context).translate('labelFalse'),
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.white),
+                ),
+              );
+            });
       }
 
+      //GF
       //check if the game id finished
       if (_i == nbQuestions - 1) {
         scorePercent = ((score / nbQuestions) * 100).round();
-
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => ScorePage(
-              score: scorePercent,
-              listName: widget.listName,
+        Timer(Duration(seconds: 3), () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ScorePage(
+                score: scorePercent,
+                listName: widget.listName,
+              ),
             ),
-          ),
-        );
+          );
+        });
 
         updateScore(scorePercent, widget.listId, widget.listName);
       } else {
+        //GF
         //if not finished, pass to the next question
-        setState(() {
-          _i++;
-          _controller.clear();
-          randomQuestions();
+        Timer(Duration(seconds: 2), () {
+          setState(() {
+            _i++;
+            _controller.clear();
+            randomQuestions();
+          });
         });
       }
     }
@@ -155,6 +201,7 @@ class _GameState extends State<Game> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.listName),
+        automaticallyImplyLeading: false,
       ),
       resizeToAvoidBottomInset: false,
       body: Center(

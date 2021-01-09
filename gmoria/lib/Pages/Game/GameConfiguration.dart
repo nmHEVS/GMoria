@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:gmoria/Pages/Game/AutoCheckGame.dart';
 import 'package:gmoria/Pages/Game/Game.dart';
-import 'package:gmoria/a%20jeter/data.dart';
+import 'package:gmoria/alerts/alertHelpGameSCGame.dart';
+import 'package:gmoria/alerts/alertHelpQuizGame.dart';
 import 'package:gmoria/alerts/alertNoMistakesMode.dart';
 import 'package:gmoria/alerts/alertNoSelectedNumber.dart';
-
 import '../../Applocalizations.dart';
+
+//Created by GF & MF
+//Page to set up the game's configuration, choose the mode and the number of question
 
 class GameConfiguration extends StatefulWidget {
   static String routeName = '/gameConfig';
@@ -25,13 +28,19 @@ class GameConfiguration extends StatefulWidget {
 class _GameConfiguration extends State<GameConfiguration>
     with SingleTickerProviderStateMixin {
   bool isSwitchedPlayOnlyWithMistakes = false;
+  //GF
+  //Set up the two tabs for the game mode
   final List<Widget> myTabs = [
     Tab(text: 'Self-Check Game'),
     Tab(text: 'Quiz Game'),
   ];
   TabController _tabController;
   int _tabIndex = 0;
+  List listNumbers = [];
+  int selectedNumber;
 
+  //GF
+  //fill the dropdown list & add the controller to change tabs
   @override
   void initState() {
     listNumbers = [];
@@ -41,6 +50,8 @@ class _GameConfiguration extends State<GameConfiguration>
     super.initState();
   }
 
+  //GF
+  //method to handle the changing tab
   _handleTabSelection() {
     if (_tabController.indexIsChanging) {
       setState(() {
@@ -49,14 +60,16 @@ class _GameConfiguration extends State<GameConfiguration>
     }
   }
 
+  //GF
+  //Remove the controller
   @override
   void dispose() {
     _tabController.dispose();
     super.dispose();
   }
 
-  List listNumbers = [];
-
+  //GF
+  //Method to fill the dropdown with the number of possible question
   fillDropdown() {
     listNumbers = [];
     var list;
@@ -70,16 +83,16 @@ class _GameConfiguration extends State<GameConfiguration>
     }
   }
 
-  int selectedNumber;
-
-  List data = personsList;
-
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
           appBar: AppBar(
+            leading: IconButton(
+              icon: Icon(Icons.arrow_back),
+              onPressed: () => Navigator.pop(context, false),
+            ),
             title: Text(
                 AppLocalizations.of(context).translate('labelGameConfig') +
                     " - " +
@@ -100,9 +113,31 @@ class _GameConfiguration extends State<GameConfiguration>
                 height: 10,
               ),
               Padding(
-                padding: const EdgeInsets.all(25.0),
+                padding: const EdgeInsets.symmetric(horizontal: 25.0),
                 child: Column(
                   children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        IconButton(
+                          tooltip: "Help",
+                          icon: Icon(Icons.help_outline),
+                          onPressed: () {
+                            _tabIndex == 0
+                                ? showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) =>
+                                        alertHelpSCGame(context),
+                                  )
+                                : showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) =>
+                                        alertHelpQuizGame(context),
+                                  );
+                          },
+                        )
+                      ],
+                    ),
                     Row(
                       children: [
                         Text(AppLocalizations.of(context)

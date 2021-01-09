@@ -1,8 +1,9 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
-
 import '../../Applocalizations.dart';
+
+//Created by GF & MF & NM
+//Class to edit a contact
 
 class PersonLearnCard extends StatefulWidget {
   static String routeName = '/learn';
@@ -21,6 +22,8 @@ class _PersonLearnCardState extends State<PersonLearnCard> {
 
   @override
   Widget build(BuildContext context) {
+    //GF MF NM
+    //Method to increment the counter to display the next contact
     void _incrementCounter() {
       if (_i == widget.personsList.length - 1) {
         setState(() {
@@ -33,6 +36,8 @@ class _PersonLearnCardState extends State<PersonLearnCard> {
       }
     }
 
+    //GF MF NM
+    //Method to increment the counter to display the previous contact
     void _decrementCounter() {
       if (_i == 0) {
         setState(() {
@@ -87,7 +92,6 @@ class _PersonLearnCardState extends State<PersonLearnCard> {
                       builder: (BuildContext context) => _buildAboutDialog(
                           context, widget.personsList.elementAt(_i)['notes']),
                     );
-                    // Perform some action
                   },
                 ),
                 Row(
@@ -114,6 +118,7 @@ class _PersonLearnCardState extends State<PersonLearnCard> {
   }
 }
 
+//NM
 //Pop-up infos of the person when click on (i)
 Widget _buildAboutDialog(BuildContext context, String notes) {
   return new AlertDialog(

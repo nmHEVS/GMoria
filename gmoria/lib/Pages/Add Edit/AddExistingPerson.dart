@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:gmoria/Pages/Add%20Edit/AddPersonPage.dart';
+import 'package:gmoria/Pages/Home.dart';
 import 'package:gmoria/Pages/Person/PersonListPage.dart';
 import 'package:gmoria/datas/FetchDataPersonToAdd.dart';
-
 import '../../Applocalizations.dart';
+
+//Created by GF
+//Page to add an existing contact, calls FetchDataPersonToAdd()
 
 class AddExistingPerson extends StatefulWidget {
   final String appTitle = 'GMORIA';
@@ -23,17 +26,15 @@ class _AddExistingPersonState extends State<AddExistingPerson> {
       appBar: AppBar(
         title: Text(
             AppLocalizations.of(context).translate('labelAddExistingContact')),
-        automaticallyImplyLeading: true,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () => Navigator.pop(context, false),
-        ),
+        automaticallyImplyLeading: false,
       ),
       body: FetchDataPersonToAdd(
         listId: widget.listId,
       ),
       floatingActionButton: Stack(
         children: <Widget>[
+          //GF
+          //Button to save changes
           Positioned(
             top: 110.0,
             right: 0.0,
@@ -44,7 +45,9 @@ class _AddExistingPersonState extends State<AddExistingPerson> {
                   context,
                   MaterialPageRoute(
                     builder: (context) => PersonListPage(
-                        listName: widget.listName, idList: widget.listId),
+                      listName: widget.listName,
+                      idList: widget.listId,
+                    ),
                   ),
                 );
               },
@@ -54,6 +57,8 @@ class _AddExistingPersonState extends State<AddExistingPerson> {
               ),
             ),
           ),
+          //GF
+          //Button to add a contact
           Positioned(
             top: 110.0,
             right: 65.0,

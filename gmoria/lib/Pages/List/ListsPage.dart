@@ -3,6 +3,9 @@ import 'package:gmoria/Pages/Add%20Edit/AddListPage.dart';
 import 'package:gmoria/Pages/Drawer/DrawerApp.dart';
 import 'package:gmoria/datas/FetchDataList.dart';
 
+//Created by GF
+//Class to display all the list of the user, calls FetchDataList()
+
 class ListsPage extends StatefulWidget {
   final String appTitle = 'GMORIA';
 

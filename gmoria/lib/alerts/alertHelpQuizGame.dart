@@ -2,30 +2,30 @@ import 'package:flutter/material.dart';
 import 'package:gmoria/Applocalizations.dart';
 
 //Created by GF
-//Alert message to notify the user that the mode Mistake only is not available because the list score is 100%
+//Alert message to help the user to undertand the game
 
-Widget alertNoMistakesMode(BuildContext context) {
+Widget alertHelpQuizGame(BuildContext context) {
   return new AlertDialog(
-    title: Text(AppLocalizations.of(context).translate('labelOups')),
+    title: Text(AppLocalizations.of(context).translate('labelQuizGame')),
     content: new Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text(
-          AppLocalizations.of(context).translate('labelNoMistakes'),
+          AppLocalizations.of(context).translate('labelHelpQuizGame'),
           style: TextStyle(fontSize: 15),
         ),
       ],
     ),
     actions: <Widget>[
+      //GF
+      //One button to pop the message
       new FlatButton(
         onPressed: () {
           Navigator.of(context).pop();
         },
         textColor: Theme.of(context).primaryColor,
-        child: Text(
-          AppLocalizations.of(context).translate('labelGotIt'),
-        ),
+        child: Text(AppLocalizations.of(context).translate('labelGotIt')),
       ),
     ],
   );

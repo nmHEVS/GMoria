@@ -4,9 +4,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import '../Applocalizations.dart';
 
+//Created by GF
+//Alert message to confirm the deletion of a contact or a list
+
 var firestoreInstance = FirebaseFirestore.instance;
 var firebaseUser = FirebaseAuth.instance.currentUser;
 
+//GF
+//Method to delete the list of Firestore
 void deleteList(String listId) async {
   await firestoreInstance
       .collection('users')
@@ -16,6 +21,8 @@ void deleteList(String listId) async {
       .delete();
 }
 
+//GF
+//Method to delete the contact of Firestore or delete of the selected list
 void deletePerson(String listId, String personId) async {
   if (listId == '') {
     await firestoreInstance
@@ -36,6 +43,8 @@ void deletePerson(String listId, String personId) async {
   }
 }
 
+//GF
+//Widget alert
 Widget alertDelete(BuildContext context, String name, String listId,
     String personId, String objectToDelete) {
   return new AlertDialog(
@@ -44,6 +53,8 @@ Widget alertDelete(BuildContext context, String name, String listId,
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
+        //GF
+        //The alert message depends on if we delete a list or a contact
         objectToDelete == 'list'
             ? Text(
                 AppLocalizations.of(context).translate('alertDeleteList') +
@@ -58,6 +69,8 @@ Widget alertDelete(BuildContext context, String name, String listId,
       ],
     ),
     actions: <Widget>[
+      //GF
+      //Two buttons : one to confirme the deletion and one to cancel
       new FlatButton(
         onPressed: () {
           if (objectToDelete == 'list') {

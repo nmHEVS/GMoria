@@ -44,5 +44,19 @@
     "labelCreateContact" : "Créer un nouveau contact",
     "labelImportFromFile": "Importer des contacte depuis une liste",
     "labelEditList": "Modifier la liste",
-    "labelEditContact": "Modifier un contact"   
+    "labelEditContact": "Modifier un contact",
+    "labelOups" : "Oups",
+    "labelNoMistakes" : "Aucune erreur dans cette liste !",
+    "labelGotIt" : "OK",
+    "labelNoSelectedNumber" : "Merci de sélectionner un nombre de question ! ",
+    "labelAlreadyExist" : "Ce contact exite déjà !",
+    "labelSelfCheckGame" : "Mode auto-évaluation",
+    "labelHelpSelfCheckGame" : "Avec ce mode de jeu, c'est à toi de valider ta réponse ! Clique sur \"Correct\" si tu as fait juste ou sur \"Faux\" si tu as fait faux",
+    "labelQuizGame" : "Mode Quiz",
+    "labelHelpQuizGame" : "Avec ce mode de jeu, tu dois écrire ou dicter le nom de la personne présente sur la photo",
+    "alertContactAlreadyExist" : "Oups, ce contact existe déjà !",
+    "alertListAlreadyExist" : "Oups, cette liste existe déjà !",
+    "alertAlreadyAdded" : "Ce contact est déjà dans la liste !",
+    "labelFalse" : "Faux ...",
+    "labelCorrect" : "Correct !"
 }

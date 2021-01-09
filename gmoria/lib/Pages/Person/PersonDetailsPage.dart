@@ -3,8 +3,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:gmoria/Pages/Add%20Edit/EditPersonPage.dart';
-
 import '../../Applocalizations.dart';
+
+//Created by NM & GF
+//Class to display details of a selected contact
 
 class PersonDetailsPage extends StatefulWidget {
   final idList;
@@ -25,6 +27,8 @@ class _PersonDetailsPageState extends State<PersonDetailsPage> {
   DocumentReference documentReference;
   Map data;
 
+  //GF
+  //fetch data
   fetchData() {
     documentReference = firestoreInstance
         .collection('users')
@@ -45,6 +49,7 @@ class _PersonDetailsPageState extends State<PersonDetailsPage> {
     fetchData();
   }
 
+  //NM
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -80,6 +85,7 @@ class _PersonDetailsPageState extends State<PersonDetailsPage> {
       body: Center(
         child: Column(
           children: [
+            //NM
             //Photo
             Padding(
               padding: EdgeInsets.all(30.0),
@@ -89,6 +95,7 @@ class _PersonDetailsPageState extends State<PersonDetailsPage> {
                 radius: 100,
               ),
             ),
+            //NM
             //Name title
             Padding(
               padding: EdgeInsets.only(left: 15),
@@ -100,6 +107,7 @@ class _PersonDetailsPageState extends State<PersonDetailsPage> {
                 ),
               ),
             ),
+            //NM
             //Name
             Padding(
               padding: EdgeInsets.only(left: 15),
@@ -111,6 +119,7 @@ class _PersonDetailsPageState extends State<PersonDetailsPage> {
                 ),
               ),
             ),
+            //NM
             //Firstname title
             Padding(
               padding: EdgeInsets.only(left: 15, top: 15),
@@ -123,6 +132,7 @@ class _PersonDetailsPageState extends State<PersonDetailsPage> {
                 ),
               ),
             ),
+            //NM
             //Firstname
             Padding(
               padding: EdgeInsets.only(left: 15),
@@ -134,6 +144,7 @@ class _PersonDetailsPageState extends State<PersonDetailsPage> {
                 ),
               ),
             ),
+            //NM
             //Notes title
             Padding(
               padding: EdgeInsets.only(left: 15, top: 15),
@@ -145,6 +156,7 @@ class _PersonDetailsPageState extends State<PersonDetailsPage> {
                 ),
               ),
             ),
+            //NM
             //Notes
             Padding(
               padding: EdgeInsets.only(left: 15),

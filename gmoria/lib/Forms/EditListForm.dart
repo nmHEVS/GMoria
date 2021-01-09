@@ -2,8 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:gmoria/Pages/Home.dart';
-
 import '../Applocalizations.dart';
+
+//Created by GF
+//Class to edit the name of the selected list
 
 class EditListForm extends StatefulWidget {
   final listId;
@@ -21,18 +23,24 @@ class _EditListFormState extends State<EditListForm> {
   var firestoreInstance = FirebaseFirestore.instance;
   var firebaseUser = FirebaseAuth.instance.currentUser;
 
+  //GF
+  //When this class is initiated, we add the listener on the controller of form
   @override
   void initState() {
     super.initState();
     addListController = TextEditingController(text: widget.listName);
   }
 
+  //GF
+  //When this class is disposed, we remove the listener on the controller of form
   @override
   void dispose() {
     addListController.dispose();
     super.dispose();
   }
 
+  //GF
+  //Method to update the list in Firestore
   void updateList(String listName) async {
     await firestoreInstance
         .collection('users')
@@ -42,6 +50,8 @@ class _EditListFormState extends State<EditListForm> {
         .update({'name': listName});
   }
 
+  //GF
+  //Display the form
   @override
   Widget build(BuildContext context) {
     return Form(

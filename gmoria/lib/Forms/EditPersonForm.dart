@@ -3,8 +3,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:image_picker/image_picker.dart';
-
 import '../Applocalizations.dart';
+
+//Created by GF & MF
+//Class to edit a contact
 
 class EditPersonForm extends StatefulWidget {
   final name;
@@ -82,6 +84,8 @@ class _EditPersonFormState extends State<EditPersonForm> {
         });
   }
 
+  //GF
+  //When this class is initiated, we add the listeners on the controllers of form
   @override
   void initState() {
     super.initState();
@@ -91,6 +95,8 @@ class _EditPersonFormState extends State<EditPersonForm> {
     addImageController = TextEditingController(text: widget.image);
   }
 
+  //GF
+  //When this class is disposed, we remove the listeners on the controllers of form
   @override
   void dispose() {
     addNameController.dispose();
@@ -100,6 +106,8 @@ class _EditPersonFormState extends State<EditPersonForm> {
     super.dispose();
   }
 
+  //GF
+  //Method to update the contact in Firestore
   void updatePerson(
       String name, String firstname, String notes, String image) async {
     await firestoreInstance
@@ -115,6 +123,8 @@ class _EditPersonFormState extends State<EditPersonForm> {
     });
   }
 
+  //GF
+  //Display the form
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(

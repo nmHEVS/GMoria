@@ -1,11 +1,12 @@
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:image_picker/image_picker.dart';
-
 import '../Applocalizations.dart';
+
+//Created by GF & MF
+//Class to add a new contact in the app
 
 class AddPersonForm extends StatefulWidget {
   final listName;
@@ -27,10 +28,25 @@ class _AddPersonFormState extends State<AddPersonForm> {
   var firestoreInstance = FirebaseFirestore.instance;
   var firebaseUser = FirebaseAuth.instance.currentUser;
 
+  var list;
+  List _allPeople = [];
+  var validate;
+  var keywords = [];
+
+  //GF
+  //When this class is initiated, we fill a list with all the contact to compare with the new contact
+  @override
+  void initState() {
+    super.initState();
+    getAllPeople();
+  }
+
+  //MF
   PickedFile _image;
   final _picker = ImagePicker();
   File file;
 
+  //MF
   void _imgFromCamera() async {
     PickedFile image =
         await _picker.getImage(source: ImageSource.camera, imageQuality: 50);
@@ -40,6 +56,7 @@ class _AddPersonFormState extends State<AddPersonForm> {
     });
   }
 
+  //MF
   void _imgFromGallery() async {
     PickedFile image =
         await _picker.getImage(source: ImageSource.gallery, imageQuality: 50);
@@ -49,6 +66,7 @@ class _AddPersonFormState extends State<AddPersonForm> {
     });
   }
 
+  //MF
   void _showPicker(context) {
     showModalBottomSheet(
         context: context,
@@ -81,47 +99,110 @@ class _AddPersonFormState extends State<AddPersonForm> {
         });
   }
 
+  //GF
+  //When this class is disposed, we remove the listener on the controller of form
   @override
   void dispose() {
     peopleNameController.dispose();
     super.dispose();
   }
 
+  //GF
+  //Method to create the keyword for search function
+  createKeywords(name, firstname) {
+    for (int i = 1; i < name.length + 1; i++) {
+      keywords.add(name.substring(0, i));
+    }
+    for (int i = 1; i < firstname.length + 1; i++) {
+      keywords.add(firstname.substring(0, i));
+    }
+  }
+
+  //GF
+  //Method to add a contact in Firestore
+  //Either we specify a list Id and the contact will be aded in this list,
+  //Either we don't specify anything and the contact will be aded in the global contact list
   void addPeople(
       String name, String firstname, String notes, String image) async {
     if (image == '') {
       image = 'assets/images/person2.PNG';
     }
 
-    if (widget.listId == '') {
-      await firestoreInstance
-          .collection('users')
-          .doc(firebaseUser.uid)
-          .collection('persons')
-          .add({
-        'name': name,
-        'firstname': firstname,
-        'notes': notes,
-        'isCorrect': false,
-        'image': image,
-        'listIds': FieldValue.arrayUnion([]),
-      });
+    checkIfAlreadyExist(name, firstname);
+
+    if (validate) {
+      createKeywords(name, firstname);
+      if (widget.listId == '') {
+        addPeopleInContact(name, firstname, notes, image);
+      } else {
+        addPeopleInList(name, firstname, notes, image);
+      }
     } else {
-      await firestoreInstance
-          .collection('users')
-          .doc(firebaseUser.uid)
-          .collection('persons')
-          .add({
-        'name': name,
-        'firstname': firstname,
-        'notes': notes,
-        'isCorrect': false,
-        'image': image,
-        'listIds': FieldValue.arrayUnion([widget.listId]),
-      });
+      validate = false;
     }
   }
 
+  addPeopleInContact(name, firstname, notes, image) async {
+    await firestoreInstance
+        .collection('users')
+        .doc(firebaseUser.uid)
+        .collection('persons')
+        .add({
+      'name': name,
+      'firstname': firstname,
+      'notes': notes,
+      'isCorrect': false,
+      'image': image,
+      'listIds': FieldValue.arrayUnion([]),
+      'searchKeyword': FieldValue.arrayUnion(keywords),
+    });
+  }
+
+  addPeopleInList(name, firstname, notes, image) async {
+    await firestoreInstance
+        .collection('users')
+        .doc(firebaseUser.uid)
+        .collection('persons')
+        .add({
+      'name': name,
+      'firstname': firstname,
+      'notes': notes,
+      'isCorrect': false,
+      'image': image,
+      'listIds': FieldValue.arrayUnion([widget.listId]),
+    });
+  }
+
+  //GF
+  //Method to check if a contact with the same name already exists
+  checkIfAlreadyExist(name, firstname) {
+    for (int i = 0; i < _allPeople.length; i++) {
+      print(_allPeople[i]['name']);
+      if (name == _allPeople[i]['name'] &&
+          firstname == _allPeople[i]['firstname']) {
+        validate = false;
+        return;
+      } else {
+        validate = true;
+      }
+    }
+  }
+
+  getAllPeople() async {
+    list = await firestoreInstance
+        .collection('users')
+        .doc(firebaseUser.uid)
+        .collection('persons')
+        .orderBy('name')
+        .get();
+
+    setState(() {
+      _allPeople = list.docs;
+    });
+  }
+
+  //GF
+  //Display the form
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -216,7 +297,17 @@ class _AddPersonFormState extends State<AddPersonForm> {
                           peopleFirstnameController.text,
                           peopleNotesController.text,
                           peopleImageController.text = _image.path);
-                      Navigator.of(context).pop();
+                      if (validate == false) {
+                        final snackBar = SnackBar(
+                          backgroundColor: Colors.indigo,
+                          duration: Duration(seconds: 2),
+                          content: Text(AppLocalizations.of(context)
+                              .translate('alertContactAlreadyExist')),
+                        );
+                        Scaffold.of(context).showSnackBar(snackBar);
+                      } else {
+                        Navigator.of(context).pop();
+                      }
                     }
                   },
                   child: Text(

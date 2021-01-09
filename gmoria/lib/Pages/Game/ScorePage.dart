@@ -1,9 +1,10 @@
 import 'dart:math';
-
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
-
 import '../../Applocalizations.dart';
+
+//Created by GF & NM
+//Page to display the score at the end of the game
 
 class ScorePage extends StatefulWidget {
   final String appTitle = 'GMORIA';
@@ -19,6 +20,8 @@ class ScorePage extends StatefulWidget {
 class _ScorePageState extends State<ScorePage> {
   ConfettiController controller;
 
+  //GF
+  //Add the listener for he animation Confetti
   @override
   void initState() {
     controller = ConfettiController(duration: Duration(seconds: 3));
@@ -37,69 +40,72 @@ class _ScorePageState extends State<ScorePage> {
         automaticallyImplyLeading: false,
       ),
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 25),
+        padding: EdgeInsets.all(25),
         child: Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: ConfettiWidget(
-                  confettiController: controller,
-                  blastDirection: -pi / 2,
-                  emissionFrequency: 0.5,
-                  numberOfParticles: 10,
+          child: Card(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: ConfettiWidget(
+                    confettiController: controller,
+                    blastDirection: -pi / 2,
+                    emissionFrequency: 0.5,
+                    numberOfParticles: 10,
+                  ),
                 ),
-              ),
-              Container(
-                child: Text(
-                  widget.listName,
-                  style: TextStyle(fontSize: 40),
+                Container(
+                  child: Text(
+                    widget.listName,
+                    style: TextStyle(fontSize: 40),
+                  ),
                 ),
-              ),
-              SizedBox(
-                height: 50,
-              ),
-              Container(
-                child: widget.score > 80
-                    ? Text(
-                        AppLocalizations.of(context)
-                            .translate('labelYourScore'),
-                        style: TextStyle(fontSize: 30),
-                        textAlign: TextAlign.center,
-                      )
-                    : Text(
-                        AppLocalizations.of(context).translate('labelBadScore'),
-                        style: TextStyle(fontSize: 30),
-                        textAlign: TextAlign.center,
-                      ),
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              Container(
-                child: Text(
-                  AppLocalizations.of(context).translate('labelYourScore'),
-                  style: TextStyle(fontSize: 30),
+                SizedBox(
+                  height: 50,
                 ),
-              ),
-              Container(
-                child: Text(
-                  widget.score.toString() + '%',
-                  style: TextStyle(fontSize: 30),
+                Container(
+                  child: widget.score > 80
+                      ? Text(
+                          AppLocalizations.of(context)
+                              .translate('labelYourScore'),
+                          style: TextStyle(fontSize: 30),
+                          textAlign: TextAlign.center,
+                        )
+                      : Text(
+                          AppLocalizations.of(context)
+                              .translate('labelBadScore'),
+                          style: TextStyle(fontSize: 30),
+                          textAlign: TextAlign.center,
+                        ),
                 ),
-              ),
-              SizedBox(
-                height: 50,
-              ),
-              IconButton(
-                icon: Icon(Icons.home_rounded),
-                iconSize: 50,
-                onPressed: () {
-                  Navigator.pushNamed(context, '/home');
-                },
-              )
-            ],
+                SizedBox(
+                  height: 30,
+                ),
+                Container(
+                  child: Text(
+                    AppLocalizations.of(context).translate('labelYourScore'),
+                    style: TextStyle(fontSize: 30),
+                  ),
+                ),
+                Container(
+                  child: Text(
+                    widget.score.toString() + '%',
+                    style: TextStyle(fontSize: 30),
+                  ),
+                ),
+                SizedBox(
+                  height: 50,
+                ),
+                IconButton(
+                  icon: Icon(Icons.home_rounded),
+                  iconSize: 50,
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/home');
+                  },
+                )
+              ],
+            ),
           ),
         ),
       ),
