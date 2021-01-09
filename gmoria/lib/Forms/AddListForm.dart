@@ -71,7 +71,6 @@ class _AddListFormState extends State<AddListForm> {
         'name': listName,
         'score': 0,
         'searchKeyword': FieldValue.arrayUnion(keywords),
-        'persons': FieldValue.arrayUnion([]),
       });
     } else {
       validate = false;
