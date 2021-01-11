@@ -1,15 +1,10 @@
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gmoria/alerts/alertDelete.dart';
 import 'package:gmoria/auth/Auth.dart';
 import 'package:gmoria/auth/AuthProvider.dart';
 import 'package:gmoria/auth/RootPage.dart';
-import 'package:csv/csv.dart';
 
 import '../../Applocalizations.dart';
 
@@ -64,25 +59,6 @@ class _ProfileState extends State<Profile> {
                 ],
               ),
             ),
-            Container(
-              margin: const EdgeInsets.only(top: 10.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  FloatingActionButton(
-                    heroTag: '1',
-                    onPressed: () {
-                      pickCsv();
-                    },
-                    child: Icon(Icons.add),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
-                  ),
-                  Text(AppLocalizations.of(context).translate('labelAddCsv')),
-                ],
-              ),
-            ),
 
             /*Button for Linkedin
             Container(
@@ -108,52 +84,6 @@ class _ProfileState extends State<Profile> {
       ),
     );
   }
-}
-
-Future<void> pickCsv() async {
-  FilePickerResult result = await FilePicker.platform.pickFiles(
-    type: FileType.custom,
-    allowedExtensions: ['csv'],
-  );
-  if (result != null) {
-    PlatformFile file = result.files.first;
-    final input = new File(file.path).openRead();
-    final fields = await input
-        .transform(utf8.decoder)
-        .transform(new CsvToListConverter())
-        .toList();
-    print(fields);
-
-    List contact = new List();
-    for (int i = 0; i < fields.length; i++) {
-      contact.add(fields[i]);
-
-      print(contact);
-      print(contact[0][0]);
-      print(contact[0][1]);
-      print(contact[0][2]);
-
-      addPeople(contact[0][0], contact[0][1], contact[0][2]);
-      contact.clear();
-    }
-  }
-}
-
-void addPeople(String name, String firstname, String notes) async {
-  String image = 'assets/images/person2.PNG';
-
-  await firestoreInstance
-      .collection('users')
-      .doc(firebaseUser.uid)
-      .collection('persons')
-      .add({
-    'name': name,
-    'firstname': firstname,
-    'notes': notes,
-    'isCorrect': false,
-    'image': null,
-    'listIds': FieldValue.arrayUnion([]),
-  });
 }
 
 void deleteList(String listId) async {
