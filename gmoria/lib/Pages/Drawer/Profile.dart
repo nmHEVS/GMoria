@@ -5,7 +5,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:gmoria/alerts/alertDelete.dart';
 import 'package:gmoria/auth/Auth.dart';
 import 'package:gmoria/auth/AuthProvider.dart';
@@ -65,7 +64,7 @@ class _ProfileState extends State<Profile> {
                 ],
               ),
             ),
-            /* Container(
+            Container(
               margin: const EdgeInsets.only(top: 10.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -83,8 +82,10 @@ class _ProfileState extends State<Profile> {
                   Text(AppLocalizations.of(context).translate('labelAddCsv')),
                 ],
               ),
-            ),*/
-            /*Container(
+            ),
+
+            /*Button for Linkedin
+            Container(
               margin: const EdgeInsets.only(top: 10.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -109,7 +110,7 @@ class _ProfileState extends State<Profile> {
   }
 }
 
-/*Future<void> pickCsv() async {
+Future<void> pickCsv() async {
   FilePickerResult result = await FilePicker.platform.pickFiles(
     type: FileType.custom,
     allowedExtensions: ['csv'],
@@ -121,6 +122,7 @@ class _ProfileState extends State<Profile> {
         .transform(utf8.decoder)
         .transform(new CsvToListConverter())
         .toList();
+    print(fields);
 
     List contact = new List();
     for (int i = 0; i < fields.length; i++) {
@@ -134,24 +136,6 @@ class _ProfileState extends State<Profile> {
       addPeople(contact[0][0], contact[0][1], contact[0][2]);
       contact.clear();
     }
-  }
-}*/
-
-Future<void> readCsv() async {
-  final data = await rootBundle.loadString('assets/csv/test.csv');
-  List<List<dynamic>> rowAsListOfValues =
-      const CsvToListConverter().convert(data);
-  List contact = new List();
-  for (int i = 0; i < rowAsListOfValues.length; i++) {
-    contact.add(rowAsListOfValues[i]);
-
-    print(contact);
-    print(contact[0][0]);
-    print(contact[0][1]);
-    print(contact[0][2]);
-
-    addPeople(contact[0][0], contact[0][1], contact[0][2]);
-    contact.clear();
   }
 }
 
@@ -167,7 +151,7 @@ void addPeople(String name, String firstname, String notes) async {
     'firstname': firstname,
     'notes': notes,
     'isCorrect': false,
-    'image': image,
+    'image': null,
     'listIds': FieldValue.arrayUnion([]),
   });
 }

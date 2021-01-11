@@ -65,7 +65,6 @@ flutter:
     - lang/fr.json
     - lang/de.json
     - assets/images/
-    - assets/csv/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
