@@ -86,26 +86,6 @@ class _ProfileState extends State<Profile> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   FloatingActionButton(
-                    heroTag: '2',
-                    onPressed: () {
-                      pickContact();
-                    },
-                    child: Icon(Icons.add),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
-                  ),
-                  Text(AppLocalizations.of(context)
-                      .translate('labelAddContactFromPhone')),
-                ],
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.only(top: 10.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  FloatingActionButton(
                     heroTag: '3',
                     onPressed: () {},
                     child: Icon(Icons.add),
@@ -125,11 +105,27 @@ class _ProfileState extends State<Profile> {
   }
 }
 
-Future<void> pickContact() async {
-  /*await FlutterContactPicker.hasPermission();
-  final PhoneContact contact = await FlutterContactPicker.pickPhoneContact();
-  print(contact.fullName);*/
-}
+/*FilePickerResult result = await FilePicker.platform.pickFiles();
+  if (result != null) {
+    File file = File(result.files.single.path);
+    String filePath = file.path;
+    print(filePath);
+    final data = await rootBundle.loadString(filePath);
+    List<List<dynamic>> rowAsListOfValues =
+        const CsvToListConverter().convert(data);
+    List contact = new List();
+    for (int i = 0; i < rowAsListOfValues.length; i++) {
+      contact.add(rowAsListOfValues[i]);
+
+      print(contact);
+      print(contact[0][0]);
+      print(contact[0][1]);
+      print(contact[0][2]);
+
+      addPeople(contact[0][0], contact[0][1], contact[0][2]);
+      contact.clear();
+    }
+  }*/
 
 Future<void> readCsv() async {
   final data = await rootBundle.loadString('assets/csv/test.csv');
