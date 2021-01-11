@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -61,7 +62,7 @@ class _ProfileState extends State<Profile> {
                 ],
               ),
             ),
-            Container(
+            /* Container(
               margin: const EdgeInsets.only(top: 10.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -69,7 +70,7 @@ class _ProfileState extends State<Profile> {
                   FloatingActionButton(
                     heroTag: '1',
                     onPressed: () {
-                      //getFiles();
+                      //pickCsv();
                     },
                     child: Icon(Icons.add),
                     shape: RoundedRectangleBorder(
@@ -79,8 +80,8 @@ class _ProfileState extends State<Profile> {
                   Text(AppLocalizations.of(context).translate('labelAddCsv')),
                 ],
               ),
-            ),
-            Container(
+            ),*/
+            /*Container(
               margin: const EdgeInsets.only(top: 10.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -97,7 +98,7 @@ class _ProfileState extends State<Profile> {
                       .translate('labelAddContactFromLinkedin')),
                 ],
               ),
-            ),
+            ),*/
           ],
         ),
       ),
@@ -105,17 +106,22 @@ class _ProfileState extends State<Profile> {
   }
 }
 
-/*FilePickerResult result = await FilePicker.platform.pickFiles();
+/*Future<void> pickCsv() async {
+  FilePickerResult result = await FilePicker.platform.pickFiles(
+    type: FileType.custom,
+    allowedExtensions: ['csv'],
+  );
   if (result != null) {
-    File file = File(result.files.single.path);
-    String filePath = file.path;
-    print(filePath);
-    final data = await rootBundle.loadString(filePath);
-    List<List<dynamic>> rowAsListOfValues =
-        const CsvToListConverter().convert(data);
+    PlatformFile file = result.files.first;
+    final input = new File(file.path).openRead();
+    final fields = await input
+        .transform(utf8.decoder)
+        .transform(new CsvToListConverter())
+        .toList();
+
     List contact = new List();
-    for (int i = 0; i < rowAsListOfValues.length; i++) {
-      contact.add(rowAsListOfValues[i]);
+    for (int i = 0; i < fields.length; i++) {
+      contact.add(fields[i]);
 
       print(contact);
       print(contact[0][0]);
@@ -125,7 +131,8 @@ class _ProfileState extends State<Profile> {
       addPeople(contact[0][0], contact[0][1], contact[0][2]);
       contact.clear();
     }
-  }*/
+  }
+}*/
 
 Future<void> readCsv() async {
   final data = await rootBundle.loadString('assets/csv/test.csv');
@@ -192,7 +199,6 @@ void deleteListData() async {
     print(element.id);
     deleteList(element.id);
   });
-  //querySnapshotList = null;
 }
 
 void deletePersonData() async {
@@ -207,7 +213,6 @@ void deletePersonData() async {
     print(element.id);
     deletePerson(element.id);
   });
-  //querySnapshotPerson = null;
 }
 
 void _signOut(BuildContext context) async {
