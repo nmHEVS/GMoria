@@ -160,7 +160,7 @@ class _PersonListPageState extends State<PersonListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.appTitle + " - " + widget.listName),
+        title: Text("List : " + widget.listName),
         automaticallyImplyLeading: true,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
