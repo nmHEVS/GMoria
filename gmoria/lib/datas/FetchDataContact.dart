@@ -1,4 +1,5 @@
-import 'dart:async';
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:gmoria/Pages/Person/PersonDetailsPage.dart';
@@ -69,7 +70,9 @@ class _FetchDataContactState extends State<FetchDataContact> {
                         child: Card(
                           child: ListTile(
                             leading: CircleAvatar(
-                              backgroundImage: AssetImage(doc[index]['image']),
+                              backgroundImage: Image.file(
+                                      File(doc[index]['image'].toString()))
+                                  .image,
                             ),
                             title: Text(doc[index]['name'].toString() +
                                 ' ' +
