@@ -34,7 +34,7 @@ class _AddPersonFormState extends State<AddPersonForm> {
 
   var list;
   List _allPeople = [];
-  var validate;
+  var validate = true;
   var keywords = [];
 
   //GF

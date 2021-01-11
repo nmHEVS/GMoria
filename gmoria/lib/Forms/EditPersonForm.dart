@@ -148,31 +148,23 @@ class _EditPersonFormState extends State<EditPersonForm> {
                     child: CircleAvatar(
                         radius: 70,
                         backgroundColor: Color(0xFF1A237E),
-                        child: _imagePicked == null
-                            ? widget.image != null
-                                ? CircleAvatar(
-                                    backgroundImage: Image.file(
-                                      file = File(widget.image),
-                                    ).image,
-                                    radius: 65,
-                                  )
-                                : Container(
-                                    decoration: BoxDecoration(
-                                        color: Colors.grey[200],
-                                        borderRadius:
-                                            BorderRadius.circular(65)),
-                                    width: 110,
-                                    height: 110,
-                                    child: Icon(
-                                      Icons.camera_alt,
-                                      color: Colors.grey[800],
-                                    ),
-                                  )
-                            : CircleAvatar(
+                        child: _imagePicked != null
+                            ? CircleAvatar(
                                 backgroundImage: Image.file(
-                                  file = File(widget.image),
+                                  file = File(_imagePicked.path),
                                 ).image,
                                 radius: 65,
+                              )
+                            : Container(
+                                decoration: BoxDecoration(
+                                    color: Colors.grey[200],
+                                    borderRadius: BorderRadius.circular(65)),
+                                width: 110,
+                                height: 110,
+                                child: Icon(
+                                  Icons.camera_alt,
+                                  color: Colors.grey[800],
+                                ),
                               )),
                   ),
                 ),
