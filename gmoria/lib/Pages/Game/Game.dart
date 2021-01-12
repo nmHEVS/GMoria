@@ -133,20 +133,21 @@ class _GameState extends State<Game> {
         score++;
         updateIsCorrect(playedList.elementAt(randomNumber).id, true);
         showDialog(
-            context: context,
-            builder: (context) {
-              Future.delayed(Duration(seconds: 2), () {
-                Navigator.of(context).pop(true);
-              });
-              return AlertDialog(
-                backgroundColor: Colors.green[300],
-                title: Text(
-                  AppLocalizations.of(context).translate('labelCorrect'),
-                  textAlign: TextAlign.center,
-                  style: TextStyle(color: Colors.white),
-                ),
-              );
+          context: context,
+          builder: (context) {
+            Future.delayed(Duration(seconds: 2), () {
+              Navigator.of(context).pop(true);
             });
+            return AlertDialog(
+              backgroundColor: Colors.green[300],
+              title: Text(
+                AppLocalizations.of(context).translate('labelCorrect'),
+                textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.white),
+              ),
+            );
+          },
+        );
       } else {
         //GF
         //it's not correct, so we update the field is correct in the DB

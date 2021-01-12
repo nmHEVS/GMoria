@@ -1,8 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-<<<<<<< HEAD
-
-=======
->>>>>>> e84f29130a6d373ef89cb28933d51423968019b2
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gmoria/alerts/alertDelete.dart';
@@ -63,7 +59,6 @@ class _ProfileState extends State<Profile> {
                 ],
               ),
             ),
-
 
             /*Button for Linkedin
             Container(

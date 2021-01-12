@@ -9,6 +9,7 @@ import 'package:csv/csv.dart';
 import 'package:file_picker/file_picker.dart';
 import 'dart:convert';
 import 'dart:io';
+import '../../Applocalizations.dart';
 
 //Created by GF
 //Class to display all the existing contact of a user
@@ -61,24 +62,9 @@ class _ContactsPageState extends State<ContactsPage> {
             child: FloatingActionButton(
               heroTag: '1',
               onPressed: () {
-                pickCsv();
-              },
-              child: Text("CSV"),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(5.0),
-              ),
-            ),
-          ),
-          Positioned(
-            top: 30.0,
-            right: 150.0,
-            child: FloatingActionButton(
-              mini: true,
-              heroTag: '2',
-              onPressed: () {
                 showDialog(
                   context: context,
-                  builder: (_) => AlertDialog(
+                  builder: (context) => AlertDialog(
                     title: Text("Import a list of contact from a .csv"),
                     content: Text("Form must be : "
                         "Name"
@@ -89,14 +75,17 @@ class _ContactsPageState extends State<ContactsPage> {
                         ""),
                     actions: [
                       FlatButton(
-                        onPressed: () => Navigator.of(context).pop(),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                          pickCsv();
+                        },
                         child: Text("Ok"),
                       ),
                     ],
                   ),
                 );
               },
-              child: Icon(Icons.info),
+              child: Text("CSV"),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(5.0),
               ),
