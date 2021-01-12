@@ -17,7 +17,8 @@ class _FetchDataListState extends State<FetchDataList> {
   var firestoreInstance = FirebaseFirestore.instance;
   var firebaseUser = FirebaseAuth.instance.currentUser;
 
-  var lists;
+  //GF
+  //variable for the search bar
   String search = '';
 
   //GF
@@ -106,7 +107,7 @@ class _FetchDataListState extends State<FetchDataList> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => PersonListPage(
-                                      idList: doc[index].id,
+                                      listId: doc[index].id,
                                       listName: doc[index]['name'].toString()),
                                 ),
                               );

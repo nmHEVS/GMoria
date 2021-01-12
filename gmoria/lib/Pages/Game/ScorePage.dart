@@ -59,6 +59,7 @@ class _ScorePageState extends State<ScorePage> {
                   child: Text(
                     widget.listName,
                     style: TextStyle(fontSize: 40),
+                    textAlign: TextAlign.center,
                   ),
                 ),
                 SizedBox(

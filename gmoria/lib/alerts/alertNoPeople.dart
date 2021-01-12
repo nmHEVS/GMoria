@@ -6,7 +6,7 @@ import '../Applocalizations.dart';
 //Alert message to notify the user that he can't play or learn an empty list
 
 Widget alertNoPeople(
-    BuildContext context, String origin, String listName, String idList) {
+    BuildContext context, String origin, String listName, String listId) {
   return new AlertDialog(
     title: Text(AppLocalizations.of(context).translate('labelStop')),
     content: new Column(
@@ -35,7 +35,7 @@ Widget alertNoPeople(
             context,
             MaterialPageRoute(
               builder: (context) =>
-                  AddExistingPerson(listName: listName, listId: idList),
+                  AddExistingPerson(listName: listName, listId: listId),
             ),
           );
         },

@@ -34,7 +34,7 @@ class _AddPersonFormState extends State<AddPersonForm> {
 
   var list;
   List _allPeople = [];
-  var validate = true;
+  var canBeAdded = true;
   var keywords = [];
 
   //GF
@@ -134,7 +134,7 @@ class _AddPersonFormState extends State<AddPersonForm> {
 
     checkIfAlreadyExist(name, firstname);
 
-    if (validate) {
+    if (canBeAdded) {
       createKeywords(name, firstname);
       if (widget.listId == '') {
         addPeopleInContact(name, firstname, notes, image);
@@ -142,7 +142,7 @@ class _AddPersonFormState extends State<AddPersonForm> {
         addPeopleInList(name, firstname, notes, image);
       }
     } else {
-      validate = false;
+      canBeAdded = false;
     }
   }
 
@@ -184,10 +184,10 @@ class _AddPersonFormState extends State<AddPersonForm> {
       print(_allPeople[i]['name']);
       if (name == _allPeople[i]['name'] &&
           firstname == _allPeople[i]['firstname']) {
-        validate = false;
+        canBeAdded = false;
         return;
       } else {
-        validate = true;
+        canBeAdded = true;
       }
     }
   }
@@ -324,7 +324,7 @@ class _AddPersonFormState extends State<AddPersonForm> {
                           peopleFirstnameController.text,
                           peopleNotesController.text,
                           peopleImageController.text = _image.path);
-                      if (validate == false) {
+                      if (canBeAdded == false) {
                         final snackBar = SnackBar(
                           backgroundColor: Colors.indigo,
                           duration: Duration(seconds: 2),

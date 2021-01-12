@@ -9,12 +9,12 @@ import '../../Applocalizations.dart';
 //Class to display details of a selected contact
 
 class PersonDetailsPage extends StatefulWidget {
-  final idList;
+  final listId;
   final idPerson;
   final listName;
   final image;
 
-  PersonDetailsPage({this.idList, this.idPerson, this.listName, this.image});
+  PersonDetailsPage({this.listId, this.idPerson, this.listName, this.image});
 
   @override
   _PersonDetailsPageState createState() => _PersonDetailsPageState();

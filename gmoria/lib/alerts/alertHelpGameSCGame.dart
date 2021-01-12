@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gmoria/Applocalizations.dart';
 
 //Created by GF
-//Alert message to help the user to undertand the game
+//Alert message to help the user to undertand the self-check game
 
 Widget alertHelpSCGame(BuildContext context) {
   return new AlertDialog(

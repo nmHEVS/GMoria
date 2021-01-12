@@ -23,27 +23,9 @@ class _FetchDataPersonToAddState extends State<FetchDataPersonToAdd> {
   var _allPeopleInList;
   var snackBar;
 
+  //GF
+  //variable for the search bar
   String search = '';
-
-//GF
-  //When this class is initiated, we fill a list with all the contact to compare with the new contact
-  @override
-  void initState() {
-    super.initState();
-    getPeopleAlreadyInTheList();
-  }
-
-  getPeopleAlreadyInTheList() async {
-    list = await firestoreInstance
-        .collection('users')
-        .doc(firebaseUser.uid)
-        .collection('lists')
-        .get();
-
-    setState(() {
-      _allPeopleInList = list.docs;
-    });
-  }
 
   //GF
   //Method to add a contact in te current list
