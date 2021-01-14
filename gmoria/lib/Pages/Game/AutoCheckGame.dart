@@ -46,7 +46,7 @@ Future updateScore(int score, String listId, String listname) async {
 }
 
 class _AutoCheckGameState extends State<AutoCheckGame> {
-  int _i = 0;
+  int currentQuestion = 0;
   int score = 0;
   int randomNumber;
   var nbQuestions;
@@ -83,7 +83,7 @@ class _AutoCheckGameState extends State<AutoCheckGame> {
   //GF
   //set up the next question
   randomQuestions() {
-    randomNumber = numbers[_i];
+    randomNumber = numbers[currentQuestion];
   }
 
   //GF
@@ -134,7 +134,7 @@ class _AutoCheckGameState extends State<AutoCheckGame> {
 
       //GF
       //check if the game id finished
-      if (_i == nbQuestions - 1) {
+      if (currentQuestion == nbQuestions - 1) {
         print(nbQuestions);
         scorePercent = ((score / nbQuestions) * 100).round();
 
@@ -153,7 +153,7 @@ class _AutoCheckGameState extends State<AutoCheckGame> {
         //GF
         //if not finished, pass to the next question
         setState(() {
-          _i++;
+          currentQuestion++;
           randomQuestions();
           response = 'Show me';
         });

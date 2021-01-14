@@ -70,7 +70,7 @@ Widget alertDelete(BuildContext context, String name, String listId,
     ),
     actions: <Widget>[
       //GF
-      //Two buttons : one to confirme the deletion and one to cancel
+      //Two buttons : one to confirm the deletion and one to cancel
       new FlatButton(
         onPressed: () {
           if (objectToDelete == 'list') {

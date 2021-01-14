@@ -18,20 +18,20 @@ class PersonLearnCard extends StatefulWidget {
 }
 
 class _PersonLearnCardState extends State<PersonLearnCard> {
-  int _i = 0;
+  int currentQuestion = 0;
 
   @override
   Widget build(BuildContext context) {
     //GF MF NM
     //Method to increment the counter to display the next contact
     void _incrementCounter() {
-      if (_i == widget.personsList.length - 1) {
+      if (currentQuestion == widget.personsList.length - 1) {
         setState(() {
-          _i = 0;
+          currentQuestion = 0;
         });
       } else {
         setState(() {
-          _i++;
+          currentQuestion++;
         });
       }
     }
@@ -39,13 +39,13 @@ class _PersonLearnCardState extends State<PersonLearnCard> {
     //GF MF NM
     //Method to increment the counter to display the previous contact
     void _decrementCounter() {
-      if (_i == 0) {
+      if (currentQuestion == 0) {
         setState(() {
-          _i = widget.personsList.length - 1;
+          currentQuestion = widget.personsList.length - 1;
         });
       } else {
         setState(() {
-          _i--;
+          currentQuestion--;
         });
       }
     }
@@ -67,7 +67,8 @@ class _PersonLearnCardState extends State<PersonLearnCard> {
               children: [
                 CircleAvatar(
                   backgroundImage: Image.file(
-                    File(widget.personsList.elementAt(_i)['image']),
+                    File(
+                        widget.personsList.elementAt(currentQuestion)['image']),
                   ).image,
                   radius: 130,
                   backgroundColor: Colors.black,
@@ -76,9 +77,9 @@ class _PersonLearnCardState extends State<PersonLearnCard> {
                   height: 30,
                 ),
                 Text(
-                  widget.personsList.elementAt(_i)['firstname'] +
+                  widget.personsList.elementAt(currentQuestion)['firstname'] +
                       ' ' +
-                      widget.personsList.elementAt(_i)['name'],
+                      widget.personsList.elementAt(currentQuestion)['name'],
                   style: TextStyle(fontSize: 30),
                 ),
                 SizedBox(
@@ -90,7 +91,9 @@ class _PersonLearnCardState extends State<PersonLearnCard> {
                     showDialog(
                       context: context,
                       builder: (BuildContext context) => _buildAboutDialog(
-                          context, widget.personsList.elementAt(_i)['notes']),
+                          context,
+                          widget.personsList
+                              .elementAt(currentQuestion)['notes']),
                     );
                   },
                 ),

@@ -16,12 +16,12 @@ import 'package:gmoria/alerts/alertNoPeople.dart';
 //Class to display the contact of a selected list
 
 class PersonListPage extends StatefulWidget {
-  final idList;
+  final listId;
   final listName;
   final String appTitle = 'GMORIA';
   static String routeName = '/listContent';
 
-  PersonListPage({this.idList, this.listName});
+  PersonListPage({this.listId, this.listName});
 
   @override
   _PersonListPageState createState() => _PersonListPageState();
@@ -31,10 +31,8 @@ class _PersonListPageState extends State<PersonListPage> {
   var firestoreInstance = FirebaseFirestore.instance;
   var firebaseUser = FirebaseAuth.instance.currentUser;
 
-  var lists;
   List personsList = [];
   List personsMistakes = [];
-  var listId;
   var image;
   String search = '';
 
@@ -67,7 +65,7 @@ class _PersonListPageState extends State<PersonListPage> {
                       .collection('users')
                       .doc(firebaseUser.uid)
                       .collection('persons')
-                      .where('listIds', arrayContains: widget.idList)
+                      .where('listIds', arrayContains: widget.listId)
                       .where('searchKeyword', arrayContains: search)
                       .snapshots()
                   : firestoreInstance
@@ -75,7 +73,7 @@ class _PersonListPageState extends State<PersonListPage> {
                       .doc(firebaseUser.uid)
                       .collection('persons')
                       .orderBy('name')
-                      .where('listIds', arrayContains: widget.idList)
+                      .where('listIds', arrayContains: widget.listId)
                       .snapshots(),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
@@ -84,7 +82,6 @@ class _PersonListPageState extends State<PersonListPage> {
                     itemCount: doc.length,
                     itemBuilder: (context, index) {
                       personsList.add(doc[index]);
-                      listId = doc[index].id;
                       image = doc[index]['image'].toString();
                       if (doc[index]['isCorrect'] == false) {
                         personsMistakes.add(doc[index]);
@@ -118,7 +115,7 @@ class _PersonListPageState extends State<PersonListPage> {
                                           alertDelete(
                                               context,
                                               name,
-                                              widget.idList,
+                                              widget.listId,
                                               doc[index].id,
                                               'person'),
                                     );
@@ -131,7 +128,7 @@ class _PersonListPageState extends State<PersonListPage> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => PersonDetailsPage(
-                                    idList: widget.idList,
+                                    listId: widget.listId,
                                     idPerson: doc[index].id,
                                     listName: widget.listName,
                                     image: image,
@@ -181,7 +178,7 @@ class _PersonListPageState extends State<PersonListPage> {
                 context,
                 MaterialPageRoute(
                   builder: (context) => EditListPage(
-                      listId: widget.idList, listName: widget.listName),
+                      listId: widget.listId, listName: widget.listName),
                 ),
               );
             },
@@ -204,7 +201,7 @@ class _PersonListPageState extends State<PersonListPage> {
                   showDialog(
                     context: context,
                     builder: (BuildContext context) => alertNoPeople(
-                        context, 'learn', widget.listName, widget.idList),
+                        context, 'learn', widget.listName, widget.listId),
                   );
                 } else {
                   Navigator.push(
@@ -232,7 +229,7 @@ class _PersonListPageState extends State<PersonListPage> {
                   showDialog(
                     context: context,
                     builder: (BuildContext context) => alertNoPeople(
-                        context, 'play', widget.listName, widget.idList),
+                        context, 'play', widget.listName, widget.listId),
                   );
                 } else {
                   Navigator.push(
@@ -242,7 +239,7 @@ class _PersonListPageState extends State<PersonListPage> {
                           personsList: personsList,
                           listName: widget.listName,
                           listMistakes: personsMistakes,
-                          listId: widget.idList),
+                          listId: widget.listId),
                     ),
                   );
                 }
@@ -263,7 +260,7 @@ class _PersonListPageState extends State<PersonListPage> {
                   context,
                   MaterialPageRoute(
                     builder: (context) => AddExistingPerson(
-                      listId: widget.idList,
+                      listId: widget.listId,
                       listName: widget.listName,
                     ),
                   ),

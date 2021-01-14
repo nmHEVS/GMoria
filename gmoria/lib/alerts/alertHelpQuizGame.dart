@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gmoria/Applocalizations.dart';
 
 //Created by GF
-//Alert message to help the user to undertand the game
+//Alert message to help the user to undertand the quiz game
 
 Widget alertHelpQuizGame(BuildContext context) {
   return new AlertDialog(

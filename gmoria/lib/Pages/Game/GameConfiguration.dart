@@ -93,10 +93,7 @@ class _GameConfiguration extends State<GameConfiguration>
               icon: Icon(Icons.arrow_back),
               onPressed: () => Navigator.pop(context, false),
             ),
-            title: Text(
-                AppLocalizations.of(context).translate('labelGameConfig') +
-                    " - " +
-                    widget.listName),
+            title: Text(widget.listName),
           ),
           resizeToAvoidBottomInset: false,
           body: ListView(
@@ -116,6 +113,13 @@ class _GameConfiguration extends State<GameConfiguration>
                 padding: const EdgeInsets.symmetric(horizontal: 25.0),
                 child: Column(
                   children: [
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      AppLocalizations.of(context).translate('labelGameConfig'),
+                      style: TextStyle(fontSize: 18),
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [

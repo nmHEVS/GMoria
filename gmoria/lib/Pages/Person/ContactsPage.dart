@@ -9,7 +9,6 @@ import 'package:csv/csv.dart';
 import 'package:file_picker/file_picker.dart';
 import 'dart:convert';
 import 'dart:io';
-import '../../Applocalizations.dart';
 
 //Created by GF
 //Class to display all the existing contact of a user
@@ -17,7 +16,6 @@ import '../../Applocalizations.dart';
 class ContactsPage extends StatefulWidget {
   final String appTitle = 'GMORIA';
   final firestoreInstance = FirebaseFirestore.instance;
-  //final firebaseUser = FirebaseAuth.instance.currentUser;
   final userRef = FirebaseFirestore.instance.collection('users');
 
   @override

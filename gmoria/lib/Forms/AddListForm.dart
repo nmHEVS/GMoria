@@ -18,7 +18,7 @@ class _AddListFormState extends State<AddListForm> {
   var firestoreInstance = FirebaseFirestore.instance;
   var firebaseUser = FirebaseAuth.instance.currentUser;
 
-  var validate;
+  var canBeAdded;
   var keywords = [];
   var _allLists;
   var list;
@@ -35,15 +35,15 @@ class _AddListFormState extends State<AddListForm> {
   //Method to check if a list with the same name already exists
   checkIfAlreadyExist(listName) {
     if (_allLists.length == 0) {
-      validate = true;
+      canBeAdded = true;
     }
     for (int i = 0; i < _allLists.length; i++) {
       print(_allLists[i]['name']);
       if (listName == _allLists[i]['name']) {
-        validate = false;
+        canBeAdded = false;
         return;
       } else {
-        validate = true;
+        canBeAdded = true;
       }
     }
   }
@@ -61,7 +61,7 @@ class _AddListFormState extends State<AddListForm> {
   void addList(String listName) async {
     checkIfAlreadyExist(listName);
 
-    if (validate) {
+    if (canBeAdded) {
       createKeywords(listName);
       await firestoreInstance
           .collection('users')
@@ -73,7 +73,7 @@ class _AddListFormState extends State<AddListForm> {
         'searchKeyword': FieldValue.arrayUnion(keywords),
       });
     } else {
-      validate = false;
+      canBeAdded = false;
     }
   }
 
@@ -120,7 +120,7 @@ class _AddListFormState extends State<AddListForm> {
               onPressed: () {
                 if (_formKey.currentState.validate()) {
                   addList(addListController.text);
-                  if (validate == false) {
+                  if (canBeAdded == false) {
                     final snackBar = SnackBar(
                       backgroundColor: Colors.red,
                       duration: Duration(seconds: 2),

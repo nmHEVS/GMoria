@@ -19,7 +19,8 @@ class _FetchDataContactState extends State<FetchDataContact> {
   var firestoreInstance = FirebaseFirestore.instance;
   var firebaseUser = FirebaseAuth.instance.currentUser;
 
-  var lists;
+  //GF
+  //variable for the search bar
   String search = '';
 
 //GF
@@ -105,7 +106,7 @@ class _FetchDataContactState extends State<FetchDataContact> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => PersonDetailsPage(
-                                    idList: '',
+                                    listId: '',
                                     idPerson: doc[index].id,
                                     listName: '',
                                     image: doc[index]['image'],

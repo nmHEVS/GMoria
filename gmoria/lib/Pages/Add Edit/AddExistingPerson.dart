@@ -45,7 +45,7 @@ class _AddExistingPersonState extends State<AddExistingPerson> {
                   MaterialPageRoute(
                     builder: (context) => PersonListPage(
                       listName: widget.listName,
-                      idList: widget.listId,
+                      listId: widget.listId,
                     ),
                   ),
                 );

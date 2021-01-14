@@ -47,7 +47,7 @@ Future updateScore(int score, String listId, String listname) async {
 }
 
 class _GameState extends State<Game> {
-  int _i = 0;
+  int currentQuestion = 0;
   int score = 0;
   int randomNumber;
   var nbQuestions;
@@ -82,7 +82,7 @@ class _GameState extends State<Game> {
   }
 
   randomQuestions() {
-    randomNumber = numbers[_i];
+    randomNumber = numbers[currentQuestion];
   }
 
   //GF
@@ -171,7 +171,7 @@ class _GameState extends State<Game> {
 
       //GF
       //check if the game id finished
-      if (_i == nbQuestions - 1) {
+      if (currentQuestion == nbQuestions - 1) {
         scorePercent = ((score / nbQuestions) * 100).round();
         Timer(Duration(seconds: 3), () {
           Navigator.push(
@@ -191,7 +191,7 @@ class _GameState extends State<Game> {
         //if not finished, pass to the next question
         Timer(Duration(seconds: 2), () {
           setState(() {
-            _i++;
+            currentQuestion++;
             _controller.clear();
             randomQuestions();
           });
