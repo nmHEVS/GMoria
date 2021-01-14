@@ -36,6 +36,8 @@ class _EditPersonFormState extends State<EditPersonForm> {
   File file;
   File fileSaved;
 
+//MF
+//Pick an Image from the Camera (Take a picture)
   void _imgFromCamera() async {
     PickedFile image =
         await _picker.getImage(source: ImageSource.camera, imageQuality: 50);
@@ -45,6 +47,8 @@ class _EditPersonFormState extends State<EditPersonForm> {
     });
   }
 
+//MF
+//Pick an image from the Gallery
   void _imgFromGallery() async {
     PickedFile image =
         await _picker.getImage(source: ImageSource.gallery, imageQuality: 50);

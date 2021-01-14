@@ -37,6 +37,7 @@ class SettingsState extends State<Settings> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
+              //Display the language currently in use
               Text(
                 AppLocalizations.of(context).translate('languageInUse'),
                 style: TextStyle(
@@ -47,6 +48,7 @@ class SettingsState extends State<Settings> {
               SizedBox(
                 height: 30,
               ),
+              //Display the list of all language available for the app
               Text(
                 AppLocalizations.of(context).translate('labelLanguageList'),
                 style: TextStyle(fontSize: 20),

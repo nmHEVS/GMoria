@@ -171,6 +171,7 @@ class _GameState extends State<Game> {
 
       //GF
       //check if the game id finished
+      //If it is finished, calculate the score and update it for the list
       if (currentQuestion == nbQuestions - 1) {
         scorePercent = ((score / nbQuestions) * 100).round();
         Timer(Duration(seconds: 3), () {

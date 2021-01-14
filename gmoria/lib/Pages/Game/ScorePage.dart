@@ -21,7 +21,7 @@ class _ScorePageState extends State<ScorePage> {
   ConfettiController controller;
 
   //GF
-  //Add the listener for he animation Confetti
+  //Add the listener for the animation Confetti
   @override
   void initState() {
     controller = ConfettiController(duration: Duration(seconds: 3));
@@ -32,6 +32,8 @@ class _ScorePageState extends State<ScorePage> {
     super.initState();
   }
 
+  //MF
+  //Form that displays the scorePage
   @override
   Widget build(BuildContext context) {
     return WillPopScope(

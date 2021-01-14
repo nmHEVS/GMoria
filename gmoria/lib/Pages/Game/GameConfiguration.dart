@@ -83,6 +83,8 @@ class _GameConfiguration extends State<GameConfiguration>
     }
   }
 
+  //MF
+  //Form that displays the options for the game
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
