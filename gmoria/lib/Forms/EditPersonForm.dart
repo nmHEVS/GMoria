@@ -29,6 +29,8 @@ class _EditPersonFormState extends State<EditPersonForm> {
   var addNotesController = TextEditingController();
   var firestoreInstance = FirebaseFirestore.instance;
   var firebaseUser = FirebaseAuth.instance.currentUser;
+  var keywords = [];
+
   PickedFile _imagePicked;
   final _picker = ImagePicker();
   File file;
@@ -107,9 +109,21 @@ class _EditPersonFormState extends State<EditPersonForm> {
   }
 
   //GF
+  //Method to create the keyword for search function
+  createKeywords(name, firstname) {
+    for (int i = 1; i < name.length + 1; i++) {
+      keywords.add(name.substring(0, i));
+    }
+    for (int i = 1; i < firstname.length + 1; i++) {
+      keywords.add(firstname.substring(0, i));
+    }
+  }
+
+  //GF
   //Method to update the contact in Firestore
   void updatePerson(
       String name, String firstname, String notes, String image) async {
+    createKeywords(name, firstname);
     await firestoreInstance
         .collection('users')
         .doc(firebaseUser.uid)
@@ -119,7 +133,8 @@ class _EditPersonFormState extends State<EditPersonForm> {
       'name': name,
       'firstname': firstname,
       'notes': notes,
-      'image': image
+      'image': image,
+      'searchKeyword': FieldValue.arrayUnion(keywords),
     });
   }
 

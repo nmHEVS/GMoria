@@ -35,14 +35,14 @@ var firebaseUser = FirebaseAuth.instance.currentUser;
 
 //GF
 //Method to update the score at the end of the game
-Future updateScore(int score, String listId, String listname) async {
+Future updateScore(int score, String listId) async {
   debugPrint(score.toString());
   return await firestoreInstance
       .collection('users')
       .doc(firebaseUser.uid)
       .collection('lists')
       .doc(listId)
-      .set({'name': listname, 'score': score});
+      .update({'score': score});
 }
 
 class _AutoCheckGameState extends State<AutoCheckGame> {
@@ -148,7 +148,7 @@ class _AutoCheckGameState extends State<AutoCheckGame> {
           ),
         );
 
-        updateScore(scorePercent, widget.listId, widget.listName);
+        updateScore(scorePercent, widget.listId);
       } else {
         //GF
         //if not finished, pass to the next question

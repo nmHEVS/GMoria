@@ -22,6 +22,7 @@ class _EditListFormState extends State<EditListForm> {
   var addListController = TextEditingController();
   var firestoreInstance = FirebaseFirestore.instance;
   var firebaseUser = FirebaseAuth.instance.currentUser;
+  var keywords = [];
 
   //GF
   //When this class is initiated, we add the listener on the controller of form
@@ -40,14 +41,26 @@ class _EditListFormState extends State<EditListForm> {
   }
 
   //GF
+  //Method to create the keyword for search function
+  createKeywords(name) {
+    for (int i = 1; i < name.length + 1; i++) {
+      keywords.add(name.substring(0, i));
+    }
+  }
+
+  //GF
   //Method to update the list in Firestore
   void updateList(String listName) async {
+    createKeywords(listName);
     await firestoreInstance
         .collection('users')
         .doc(firebaseUser.uid)
         .collection('lists')
         .doc(widget.listId)
-        .update({'name': listName});
+        .update({
+      'name': listName,
+      'searchKeyword': FieldValue.arrayUnion(keywords),
+    });
   }
 
   //GF
