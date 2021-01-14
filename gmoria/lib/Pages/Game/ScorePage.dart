@@ -32,6 +32,8 @@ class _ScorePageState extends State<ScorePage> {
     super.initState();
   }
 
+  //MF
+  //Form that displays the scorePage
   @override
   Widget build(BuildContext context) {
     return WillPopScope(

@@ -66,6 +66,8 @@ class _ProfileState extends State<Profile> {
   }
 }
 
+//MF
+//Delete one list in the DB
 void deleteList(String listId) async {
   await firestoreInstance
       .collection('users')
@@ -75,6 +77,8 @@ void deleteList(String listId) async {
       .delete();
 }
 
+//MF
+//Delete one person in the DB
 void deletePerson(String personId) async {
   await firestoreInstance
       .collection('users')
@@ -84,6 +88,8 @@ void deletePerson(String personId) async {
       .delete();
 }
 
+//MF
+//Delete everything in a list in the DB
 void deleteListData() async {
   //Delete lists
   QuerySnapshot querySnapshotList = await firestoreInstance
@@ -98,6 +104,8 @@ void deleteListData() async {
   });
 }
 
+//MF
+//Delete everything in a person in the DB
 void deletePersonData() async {
   //Delete persons
   QuerySnapshot querySnapshotPerson = await firestoreInstance
@@ -112,6 +120,8 @@ void deletePersonData() async {
   });
 }
 
+//MF
+//Method to sign out when we delete the account
 void _signOut(BuildContext context) async {
   try {
     final BaseAuth auth = AuthProvider.of(context).auth;
@@ -129,6 +139,8 @@ void _signOut(BuildContext context) async {
   }
 }
 
+//MF
+//Form to confirm if we want to delete the account or not
 Widget _buildDeleteDialog(BuildContext context) {
   Widget cancelButton = FlatButton(
     child: Text(AppLocalizations.of(context).translate('labelCancel')),

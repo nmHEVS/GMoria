@@ -9,6 +9,8 @@ class DrawerApp extends StatelessWidget {
   final String appTitle;
   DrawerApp({this.appTitle});
 
+//MF
+//Method to sign out of the app and return to the LoginPage
   Future<void> _signOut(BuildContext context) async {
     try {
       final BaseAuth auth = AuthProvider.of(context).auth;
@@ -60,6 +62,8 @@ class DrawerApp extends StatelessWidget {
               Navigator.pushNamed(context, '/about');
             },
           ),
+          //MF
+          //Button to sign out of the app and return to the LoginPage
           ListTile(
             leading: Icon(Icons.logout),
             title: Text(AppLocalizations.of(context).translate('labelLogout')),

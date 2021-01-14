@@ -46,11 +46,13 @@ class _AddPersonFormState extends State<AddPersonForm> {
   }
 
   //MF
+  //Objects used to pick a file (.csv)
   PickedFile _image;
   final _picker = ImagePicker();
   File file;
 
   //MF
+  //Pick an Image from the Camera (Take a picture)
   void _imgFromCamera() async {
     PickedFile image =
         await _picker.getImage(source: ImageSource.camera, imageQuality: 50);
@@ -61,6 +63,7 @@ class _AddPersonFormState extends State<AddPersonForm> {
   }
 
   //MF
+  //Pick an image from the Gallery
   void _imgFromGallery() async {
     PickedFile image =
         await _picker.getImage(source: ImageSource.gallery, imageQuality: 50);
@@ -71,6 +74,7 @@ class _AddPersonFormState extends State<AddPersonForm> {
   }
 
   //MF
+  //Form to add the image from the camera or the gallery
   void _showPicker(context) {
     showModalBottomSheet(
         context: context,

@@ -4,12 +4,15 @@ import 'package:gmoria/auth/AuthProvider.dart';
 
 import '../Applocalizations.dart';
 
+//MF
+//Check if the email is empty or not
 class EmailFieldValidator {
   static String validate(String value) {
     return value.isEmpty ? 'Email can\'t be empty' : null;
   }
 }
 
+//Check if the password is empty or not
 class PasswordFieldValidator {
   static String validate(String value) {
     return value.isEmpty ? 'Password can\'t be empty' : null;
@@ -36,6 +39,8 @@ class _LoginPageState extends State<LoginPage> {
   String _password;
   FormType _formType = FormType.login;
 
+  //MF
+  //Check if the form is ok
   bool validateAndSave() {
     final FormState form = formKey.currentState;
     if (form.validate()) {
@@ -45,6 +50,9 @@ class _LoginPageState extends State<LoginPage> {
     return false;
   }
 
+  //MF
+  //We create the user if it doesn't exist or we log in
+  //Go to the Home Page
   Future<void> validateAndSubmit() async {
     if (validateAndSave()) {
       try {
@@ -65,6 +73,8 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
+  //MF
+  //Switch to Register function
   void moveToRegister() {
     formKey.currentState.reset();
     setState(() {
@@ -72,6 +82,8 @@ class _LoginPageState extends State<LoginPage> {
     });
   }
 
+  //MF
+  //Switch to Login function
   void moveToLogin() {
     formKey.currentState.reset();
     setState(() {
@@ -79,6 +91,8 @@ class _LoginPageState extends State<LoginPage> {
     });
   }
 
+  //MF
+  //Display of the page
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -102,6 +116,8 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
+  //MF
+  //Form for the user inputs for email and password
   List<Widget> buildInputs() {
     return <Widget>[
       TextFormField(
@@ -122,6 +138,8 @@ class _LoginPageState extends State<LoginPage> {
     ];
   }
 
+  //MF
+  //Form for the submits button
   List<Widget> buildSubmitButtons() {
     if (_formType == FormType.login) {
       return <Widget>[
