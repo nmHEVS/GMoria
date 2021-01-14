@@ -35,14 +35,19 @@ class MyApp extends StatelessWidget {
           ),
           debugShowCheckedModeBanner: false,
           home: RootPage(),
+          //list of supported languages
           supportedLocales: [
             Locale('en', 'US'),
             Locale('fr', 'CH'),
             Locale('de', 'CH'),
           ],
+          //Delegates make sure the proper localization data is loaded for the proper language
           localizationsDelegates: [
+            //loads translations from JSON files
             AppLocalizations.delegate,
+            //Built-in localization of basic test for material widgets
             GlobalMaterialLocalizations.delegate,
+            //Built-in localization for text direction (right to left / left to right)
             GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,
           ],
@@ -55,8 +60,10 @@ class MyApp extends StatelessWidget {
                 return supportedLocale;
               }
             }
+            //If the locale language of phone is not supported by the app, use the first (En)
             return supportedLocales?.first;
           },
+          //Routes for every page displayed in the app
           routes: {
             PersonListPage.routeName: (context) {
               return PersonListPage();

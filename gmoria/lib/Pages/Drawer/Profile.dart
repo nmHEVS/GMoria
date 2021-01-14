@@ -59,26 +59,6 @@ class _ProfileState extends State<Profile> {
                 ],
               ),
             ),
-
-            /*Button for Linkedin
-            Container(
-              margin: const EdgeInsets.only(top: 10.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  FloatingActionButton(
-                    heroTag: '3',
-                    onPressed: () {},
-                    child: Icon(Icons.add),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
-                  ),
-                  Text(AppLocalizations.of(context)
-                      .translate('labelAddContactFromLinkedin')),
-                ],
-              ),
-            ),*/
           ],
         ),
       ),

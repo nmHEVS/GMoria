@@ -293,6 +293,7 @@ class _AddPersonFormState extends State<AddPersonForm> {
                 SizedBox(
                   height: 40,
                 ),
+                //Get a contact from phone and fill fields firstname+lastname in form
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     primary: Colors.grey,
@@ -306,12 +307,12 @@ class _AddPersonFormState extends State<AddPersonForm> {
 
                     //Separate firstname lastname
                     List<String> contactSplit = _contact.fullName.split(' ');
-                    String lname = contactSplit.first;
-                    String fname = contactSplit.last;
+                    String fname = contactSplit.first;
+                    String lname = contactSplit.last;
 
                     //fill the fields with info from contact selectionned
-                    peopleFirstnameController.text = lname;
-                    peopleNameController.text = fname;
+                    peopleFirstnameController.text = fname;
+                    peopleNameController.text = lname;
                   },
                   child: Text(AppLocalizations.of(context)
                       .translate('labelImportContact')),

@@ -21,7 +21,7 @@ class _ScorePageState extends State<ScorePage> {
   ConfettiController controller;
 
   //GF
-  //Add the listener for he animation Confetti
+  //Add the listener for the animation Confetti
   @override
   void initState() {
     controller = ConfettiController(duration: Duration(seconds: 3));
