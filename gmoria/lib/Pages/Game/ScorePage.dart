@@ -73,7 +73,7 @@ class _ScorePageState extends State<ScorePage> {
                     child: widget.score > 80
                         ? Text(
                             AppLocalizations.of(context)
-                                .translate('labelYourScore'),
+                                .translate('labelGoodScore'),
                             style: TextStyle(fontSize: 30),
                             textAlign: TextAlign.center,
                           )
