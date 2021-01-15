@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gmoria/auth/Auth.dart';
 
 //MF
-//Class that allows to notify the changes coming to the Account
+//Class that allows to notify on all the classes
 class AuthProvider extends InheritedWidget {
   const AuthProvider({Key key, Widget child, this.auth})
       : super(key: key, child: child);
